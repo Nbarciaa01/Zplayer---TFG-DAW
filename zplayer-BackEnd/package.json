@@ -1,0 +1,26 @@
+{
+  "name": "zplayer-backend",
+  "version": "1.0.0",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "ZPlayer - Social Network",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "moongose": "^1.0.0",
+    "morgan": "^1.10.0",
+    "zod": "^3.23.4"
+  },
+  "devDependencies": {
+    "nodeman": "^1.1.2"
+  }
+}

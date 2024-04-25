@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Jersey+25&display=swap');
+
+.sombra-login{
+  -webkit-box-shadow: -1px -2px 61px 13px rgba(2,142,58,1);
+  -moz-box-shadow: -1px -2px 61px 13px rgba(2,142,58,1);
+  box-shadow: -1px -2px 61px 13px rgba(2,142,58,1);
+}
+
+.font-gaming-bold{
+  font-family: "Jersey 25", sans-serif;
+  font-weight: bold;
+  font-style: normal;
+}
+.font-gaming{
+  font-family: "Jersey 25", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}

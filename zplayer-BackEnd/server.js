@@ -1,17 +1,17 @@
-import { PORT } from "./config.js";
-import { connectDB } from "./db.js";
-import app from "./app.js";
+const express=require('express');
 
-async function main() {
-  try {
+var pipeline=require('./middlewares/middlewares');
 
-    await connectDB();
+var app=express();
 
-    app.listen(PORT);
-    console.log(`Listening on port http://localhost:${PORT}`);
-  } catch (error) {
-    console.error(error);
+const bd  = require("./db")
+
+pipeline(app);
+
+app.listen(3002,(err)=>{
+  if(!err){
+    console.log('Servidor Web escuchando el puerto 3000');
+  }else{
+    console.log('Error al lanzar el servidor');
   }
-}
-
-main();
+});

@@ -1,7 +1,8 @@
-import mongoose from "mongoose";
-import { MONGODB_URI } from "./config.js";
+const mongoose = require("mongoose");
+const MONGODB_URI = "mongodb://localhost:27017/Z-player";
 
-export const connectDB = async () => {
+
+const connectDB = async () => {
   try {
     await mongoose.connect(MONGODB_URI);
     console.log("MongoDB is connected");
@@ -9,3 +10,5 @@ export const connectDB = async () => {
     console.error(error);
   }
 };
+
+connectDB()

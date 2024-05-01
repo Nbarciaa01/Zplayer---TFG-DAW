@@ -1,0 +1,36 @@
+
+<div class="max-w-[900px] max-h-[500px] bg-white relative z-50 mx-auto my-[10%] flex justify-around content-around rounded sombra-login font-gaming">
+  <div class="w-[20%] flex items-center">
+      <img src="../../assets/logos-zplayer/Zplay-Icon-negro.svg" alt="Z-Player-Icon" width="200px">
+  </div>
+
+  <div class="flex flex-col text-center w-[70%] mb-6">
+    <h1 class="text-5xl my-7">Bienvenido a Zplayer</h1>
+
+    <div class="border-black border-[1px] p-4 mb-4 rounded">
+      <h1 class="text-4xl mb-4">Iniciar Sesión</h1>
+      <form class="flex flex-col items-center justify-center" [formGroup]="this.formLogin">
+
+
+        <mat-form-field class="example-full-width rounded w-[70%] bg-white font-gaming-bold">
+          <mat-label>Nombre de usuario</mat-label>
+          <input matInput placeholder="Nombre de usuario" formControlName="username">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width rounded w-[70%] bg-white font-gaming-bold">
+          <mat-label>Contraseña</mat-label>
+          <input type="password" matInput placeholder="Contraseña"  formControlName="password">
+        </mat-form-field>
+        <p class="mb-4 -ml-[240px] font-gaming-bold">¿Has olvidado la contraseña?</p>
+
+        <input type="submit" (click)="loginUsuario()" class="bg-[#028E39] hover:bg-[#22613b] text-white font-bold py-2 px-4 border-b-4 border-[#028E39] hover:bg-[#028e3a86] rounded my-4 w-[40%]" value="Entrar"/>
+        <p [routerLink]="['/register']" routerLinkActive="router-link-active" class="font-gaming-bold cursor-pointer">¿No tienes cuenta aún? Registrate</p>
+
+
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<fondo-login-register></fondo-login-register>

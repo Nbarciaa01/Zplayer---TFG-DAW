@@ -1,0 +1,45 @@
+
+<div class="max-w-[900px] min-h-[900px] bg-white relative z-50 mx-auto my-[5%] flex justify-around content-around rounded sombra-login font-gaming">
+  <div class="flex flex-col text-center w-[70%] mb-6">
+    <h1 class="text-5xl my-7">Bienvenido a Zplayer</h1>
+
+    <div class="border-black border-[1px] p-4 mb-4 rounded">
+      <h1 class="text-4xl mb-4">Regístrate</h1>
+      <form class="flex flex-col items-center justify-center">
+
+
+        <input type="text"  class="border-black border-[1px] p-2 rounded w-[70%] my-4 font-gaming-bold" placeholder="Nombre">
+
+
+        <input type="email"  class="border-black border-[1px] p-2 rounded w-[70%]  my-4 font-gaming-bold" placeholder="Correo electronico">
+
+        <input type="password"  class="border-black border-[1px] p-2 rounded w-[70%]  my-4 font-gaming-bold" placeholder="Contraseña">
+
+        <input type="password"  class="border-black border-[1px] p-2 rounded w-[70%]  my-4 font-gaming-bold" placeholder="Confirmar Contraseña">
+
+        <input type="text"  class="border-black border-[1px] p-2 rounded w-[70%]  my-4 font-gaming-bold" placeholder="Nombre de usuario (@)">
+
+        <p class="self-start font-gaming-bold my-6 text-lg">Selecciona tus estilos de juegos favoritos</p>
+
+        <mat-form-field class="font-gaming-bold -ml-[200px]">
+          <mat-label>Estilos Favoritos</mat-label>
+          <mat-select [formControl]="juegos" multiple>
+            @for (juego of juegosList; track juego) {
+              <mat-option [value]="juego">
+                {{juego}}
+              </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <input type="submit" class="bg-[#028E39] hover:bg-[#22613b] text-white font-bold py-2 px-4 border-b-4 border-[#028E39] hover:bg-[#028e3a86] rounded my-4 w-[40%]" value="Entrar"/>
+        <p class="font-gaming-bold cursor-pointer" [routerLink]="['/login']">¿Ya tienes cuenta? Login</p>
+
+
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<fondo-login-register></fondo-login-register>

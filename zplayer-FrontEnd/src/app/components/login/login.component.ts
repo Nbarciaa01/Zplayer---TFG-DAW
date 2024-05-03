@@ -31,10 +31,8 @@ export class LoginComponent {
 
   loginUsuario(){
     this.restSvc.loginUsuario(this.formLogin.controls['username'].value, this.formLogin.controls['password'].value)
-    .subscribe( (respuesta:Restmessage)=>{
-      if(respuesta.codigo==0){
-        this.route.navigate(['/main']);
-      }
+    .subscribe( () =>{
+        this.route.navigate(['/home']);
     })
   }
 }

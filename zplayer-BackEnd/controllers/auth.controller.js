@@ -53,20 +53,19 @@ module.exports = {
 
 
   login : async (req, res) => {
-    console.log("aaaaaaa")
     try {
-      const { email, password } = req.body;
-      console.log(email, password)
-      const userFound = await User.findOne({ email });
+      const { username, password } = req.body;
+      console.log(username, password)
+      const userFound = await User.findOne({ username });
   
       if (!userFound)
-        return res.status(400).json({
-          message: ["The email does not exist"],
+        return res.status(401).json({
+          message: ["The user does not exist"],
         });
   
       const isMatch = await bcrypt.compare(password, userFound.password);
       if (!isMatch) {
-        return res.status(400).json({
+        return res.status(401).json({
           message: ["The password is incorrect"],
         });
       }

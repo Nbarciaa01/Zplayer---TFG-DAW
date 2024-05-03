@@ -20,11 +20,13 @@ export class RestService {
       { headers: new HttpHeaders({ 'Content-Type': 'application/json' }), withCredentials: true }
     ).pipe(catchError( (error: HttpErrorResponse) => {
         if(error.status === 401){
+          console.log(error);
           return new Observable<Restmessage>((subscriber)=>{
             subscriber.next({codigo:401,mensaje:'credenciales erroneas',error:'Unauthorized'});
           });
         }else{
           window.alert("Ha ocurrido algún problema al iniciar sesion, intentelo más tarde");
+          console.log(error);
           return new Observable<Restmessage>((subscriber)=>{
             subscriber.next({codigo:500,mensaje:'Error al iniciar sesion',error:'Unauthorized'});
           });

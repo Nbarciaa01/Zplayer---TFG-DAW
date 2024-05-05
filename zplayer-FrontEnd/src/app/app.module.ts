@@ -5,6 +5,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FondoComponent } from './components/login/partials/fondo-login.component';
+import {HomeComponent} from './components/home/home.component';
+import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
@@ -14,6 +16,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -22,6 +25,8 @@ import {MatInputModule} from '@angular/material/input';
     LoginComponent,
     FondoComponent,
     RegisterComponent,
+    HomeComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +41,8 @@ import {MatInputModule} from '@angular/material/input';
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    FontAwesomeModule
   ],
   bootstrap: [AppComponent],
   providers: [

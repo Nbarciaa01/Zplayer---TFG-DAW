@@ -1,3 +1,13 @@
-:host {
-  display: block;
+@import url('https://fonts.googleapis.com/css2?family=Jersey+25&display=swap');
+
+.font-gaming-bold{
+  font-family: "Jersey 25", sans-serif;
+  font-weight: bold;
+  font-style: normal;
 }
+.font-gaming{
+  font-family: "Jersey 25", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+

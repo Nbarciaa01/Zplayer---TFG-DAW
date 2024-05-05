@@ -31,7 +31,8 @@ export class LoginComponent {
 
   loginUsuario(){
     this.restSvc.loginUsuario(this.formLogin.controls['username'].value, this.formLogin.controls['password'].value)
-    .subscribe( () =>{
+    .subscribe( (resp : Restmessage) =>{
+      if(resp.codigo !== 401 )
         this.route.navigate(['/home']);
     })
   }

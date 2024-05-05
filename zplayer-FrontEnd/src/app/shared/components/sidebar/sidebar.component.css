@@ -1,0 +1,9 @@
+.button-menu{
+  border-radius: 20px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.button-menu:hover{
+  background-color: #202020;
+}

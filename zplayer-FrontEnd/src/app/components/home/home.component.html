@@ -1,1 +1,33 @@
-<Zplayer-sidebar></Zplayer-sidebar>
+<main class="flex w-[100%] h-[100vh]">
+
+  <Zplayer-sidebar class="w-[25%] h-[100%]"></Zplayer-sidebar>
+
+  <div class="w-[75%] h-[100%] bg-black flex text-white">
+    <div class="w-[50%] h-[100%] border-r-[1px] border-x-green-800">
+
+      <div class="flex justify-center mt-10 flex-col items-center border-b-[1px] border-green-800">
+        <div class="flex">
+          <img src="../../../assets/iconos-usuarios/avatardefault_92824.png" alt="icon" srcset="" width="50px" class="self-start mx-3">
+
+          <textarea name="" id="mensaje"
+          class="w-[500px] bg-black resize-none text-white overflow-hidden placeholder:text-center placeholder:relative placeholder:top-[20%]  border-b-[1px] border-green-800"
+          placeholder="¡¿Jugamos?!"
+          [(ngModel)]="contenido"
+          (input)="ajustarAltura()">
+          </textarea>
+
+        </div>
+        <button
+        class="bg-[#028E39] hover:bg-[#22613b] text-white font-bold py-2 px-4 border-b-4 border-[#028E39] hover:bg-[#028e3a86] rounded my-4 w-[30%] self-end mr-5">
+        Enviar
+        </button>
+      </div>
+
+
+    </div>
+    <div class="w-[50%] h-[100%]">
+
+    </div>
+  </div>
+
+</main>

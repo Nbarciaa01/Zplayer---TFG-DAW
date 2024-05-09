@@ -2,6 +2,10 @@ const mongoose =  require("mongoose");
 
 const userSchema = new mongoose.Schema(
   {
+    realname: {
+      type:String,
+      required: true,
+    },
     username: {
       type: String,
       required: true,
@@ -20,6 +24,10 @@ const userSchema = new mongoose.Schema(
     comunities: {
       type: Array,
       required: true,
+    },
+    logo: {
+      type:String,
+      default: '../../zplayer-FrontEnd/src/assets/iconos-usuarios/avatardefault.png'
     }
   },
   {

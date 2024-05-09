@@ -48,15 +48,15 @@
 
     <div class="flex">
       <div>
-          <img src="../../../../assets/iconos-usuarios/avatardefault_92824.png" alt="" width="50px">
+          <img [src]="logo" alt="" width="50px">
       </div>
 
       <div class="hidden lg:block">
         <div>
-          Nombre Apellido
+          {{realname}}
         </div>
         <div>
-          &#64;Username
+          &#64;{{username}}
         </div>
       </div>
 

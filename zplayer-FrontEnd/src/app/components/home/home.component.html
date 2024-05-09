@@ -7,7 +7,7 @@
 
       <div class="flex justify-center mt-10 flex-col items-center border-b-[1px] border-green-800">
         <div class="flex">
-          <img src="../../../assets/iconos-usuarios/avatardefault_92824.png" alt="icon" srcset="" width="50px" class="self-start mx-3">
+          <img [src]="logo" alt="icon" srcset="" width="50px" class="self-start mx-3">
 
           <textarea name="" id="mensaje"
           class="w-[500px] bg-black resize-none text-white overflow-hidden placeholder:text-center placeholder:relative placeholder:top-[20%]  border-b-[1px] border-green-800"
@@ -25,8 +25,15 @@
 
 
     </div>
-    <div class="w-[50%] h-[100%]">
-
+    <div class="w-[50%] h-[100%] flex flex-col items-center">
+      <div class="w-[75%] h-[80px] border-[1px] border-green-800 mt-12 rounded-xl flex items-center justify-center">
+        <div class="w-[100%]">
+          <input type="text" placeholder="buscar" class="bg-black w-[100%] h-[69px]"/>
+        </div>
+        <div class="w-[15%] absolute right-0">
+          <fa-icon [icon]="faMagnifyingGlass" class="text-2xl m-5"></fa-icon>
+        </div>
+      </div>
     </div>
   </div>
 

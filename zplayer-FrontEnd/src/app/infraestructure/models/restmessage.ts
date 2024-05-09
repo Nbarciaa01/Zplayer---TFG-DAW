@@ -6,6 +6,5 @@ export interface Restmessage {
   error?: string;
   usuario?: User;
   token?: string;
-  datoscliente?:string;
 
 }

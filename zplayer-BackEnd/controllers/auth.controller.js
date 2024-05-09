@@ -80,12 +80,19 @@ module.exports = {
         secure: true,
         sameSite: "none",
       });
-  
-      res.json({
+
+      const user = {
         id: userFound._id,
+        realname: userFound.realname,
         username: userFound.username,
         email: userFound.email,
-      });
+        comunities: userFound.comunities,
+        logo: userFound.logo,
+      }
+  
+      res.status(200).send({codigo:0, mensaje: 'login sucess', usuario:user, errores:null})
+
+
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }

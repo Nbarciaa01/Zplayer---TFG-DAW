@@ -34,7 +34,18 @@ export class RestService {
     }))
   }
 
+  newPost(user_id:number, message:string, comunity?:string): Promise<Restmessage>{
+    return lastValueFrom(this.peticion.post<Restmessage>(
+    `${this.urlApi}/post/newpost`,
+    {user_id:user_id, message:message, comunity:comunity}
+  ))
+  }
 
+  getAllPosts(){
+    return lastValueFrom(this.peticion.get<Object[]>(
+      `${this.urlApi}/post/getPosts`,
+    ))
+  }
 
 
 }

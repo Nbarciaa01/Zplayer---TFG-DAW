@@ -1,4 +1,5 @@
 const routingAuth = require("./auth.routes");
+const routingPost = require("./post.routes");
 
 var cabecera= (req,res,next) => {
     res.setHeader('Access-Control-Allow-Origin','http://localhost:4200');
@@ -11,5 +12,5 @@ module.exports = function(app){
 
 
       app.use('/api/auth',cabecera, routingAuth)
-
+      app.use('/api/post',cabecera, routingPost)
 }

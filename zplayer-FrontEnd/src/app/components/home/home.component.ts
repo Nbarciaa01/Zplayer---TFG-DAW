@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalService } from '../../services/local.service';
 import { User } from '../../infraestructure/models/user';
+import { Post, Posts } from '../../infraestructure/models/message'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { RestService } from '../../services/rest.service';
 
@@ -13,7 +14,7 @@ import { RestService } from '../../services/rest.service';
 })
 export class HomeComponent implements OnInit  {
   contenido: string = '';
-  posts: any = []
+  posts: Post[] = []
   posts_ordenados: any = []
 
   constructor(private route:Router, private localSvc: LocalService, private restSvc: RestService) {
@@ -23,7 +24,14 @@ export class HomeComponent implements OnInit  {
 
   async ngOnInit(){
 
+    await this.cargarPosts()
+
+  }
+
+  async cargarPosts(){
     this.posts = await this.restSvc.getAllPosts();
+    this.posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
     console.log(this.posts)
   }
 
@@ -54,16 +62,32 @@ export class HomeComponent implements OnInit  {
    async nuevoMensaje(){
 
     if(this.contenido !== ""){
-      let nuevo_mensaje = await this.restSvc.newPost(this.id,this.contenido,"")
+      let mensajeRespuesta = await this.restSvc.newPost(this.id,this.contenido,"")
+
+      if(mensajeRespuesta.codigo === 0){
+        await this.cargarPosts()
+      }
+
 
     }
 
    }
 
-   ordenarMensajesPorTiempo(){
-
+   formatearFecha(fechaPost: Date){
+    return fechaPost.toString().split("T")[0]
    }
 
+   async darLike(messageID: number){
+    let mensajeRespuesta = await this.restSvc.darLike(this.id,messageID)
+
+    if(mensajeRespuesta.codigo === 200 || mensajeRespuesta.codigo === 201){
+      await this.cargarPosts()
+    }
+   }
+
+   mensajeGustado(message: Post): boolean{
+    return message.likes.includes(this.id);
+   }
 
 
 }

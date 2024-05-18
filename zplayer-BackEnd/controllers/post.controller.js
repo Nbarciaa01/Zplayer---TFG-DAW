@@ -34,7 +34,7 @@ module.exports = {
 
     addLike: async (req, res) => {
       try {
-        const { user_id, message_id } = req.body;
+        const { user_id, post_id } = req.body;
 
         //VERIFICACION PARA COMPROBAR QUE EL USUARIO EXISTE
         const user = await User.findById(user_id);
@@ -43,7 +43,7 @@ module.exports = {
         }
 
         //VERIFICACION PARA COMPROBAR QUE EL MENSAJE EXISTE
-        const message = await Message.findById(message_id);
+        const message = await Post.findById(post_id);
         if (!message) {
           return res.status(404).send({ codigo: 1, mensaje: 'Mensaje no encontrado' });
         }
@@ -76,7 +76,7 @@ module.exports = {
 
         const messages = await Post.find().populate('user_id', 'username logo username');
 
-        res.status(200).send({ mensajes: messages });
+        res.status(200).send( messages );
 
       }
       catch(error){

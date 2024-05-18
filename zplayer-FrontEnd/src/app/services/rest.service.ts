@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { Observable, catchError, lastValueFrom } from 'rxjs';
 import { Restmessage } from '../infraestructure/models/restmessage';
+import { Post } from '../infraestructure/models/message';
 
 @Injectable({
   providedIn: 'root'
@@ -42,8 +43,15 @@ export class RestService {
   }
 
   getAllPosts(){
-    return lastValueFrom(this.peticion.get<Object[]>(
+    return lastValueFrom(this.peticion.get<Post[]>(
       `${this.urlApi}/post/getPosts`,
+    ))
+  }
+
+  darLike(user_id:number, post_id:number){
+    return lastValueFrom(this.peticion.post<Restmessage>(
+      `${this.urlApi}/post/like`,
+      {user_id:user_id, post_id:post_id}
     ))
   }
 

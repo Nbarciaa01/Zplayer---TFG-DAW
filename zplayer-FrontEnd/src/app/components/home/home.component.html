@@ -8,13 +8,13 @@
           CONTENEDOR CENTRAL
       -->
 
-    <div class="w-[65%] h-[100%] border-r-[1px] border-x-green-800">
+    <div class="w-[65%] h-[100vh] border-r-[1px] border-x-green-800">
 
 
       <!--
-      FIN MENU ADD POST
+      MENU ADD POST
       -->
-      <div class="flex justify-center mt-10 flex-col items-center border-b-[1px] border-green-800">
+      <div class="flex justify-center flex-col items-center border-b-[1px] border-green-800 h-[15vh]">
 
           <!--
           ADD POST
@@ -52,16 +52,16 @@
       <!--
           CONTENEDOR DE POSTS
       -->
-      <div class="w-[100%] overflow-y-auto max-h-[75vh] scrollable-messages flex flex-col mt-5">
+      <div class="w-[100%] overflow-y-auto max-h-[85vh] scrollable-messages flex flex-col">
 
         <!--
           POST FORMATO
         -->
-        <article class="w-[75%] m-auto my-3 border-[1px] border-green-800 py-4 " *ngFor="let post of posts.mensajes">
+        <article class="w-[75%] m-auto my-3 border-[1px] border-green-800 py-4 " *ngFor="let post of posts">
           <div class="flex px-2">
 
             <div class="w-10 h-10">
-              <img [src]="post.user_id.logo" class="w-10 h-10 rounded-full" alt="icono-usuario"  srcset="">
+              <img [src]="post.user_id.logo" class="w-10 h-10 rounded-full select-none" alt="icono-usuario"  srcset="">
             </div>
 
             <div class="self-center ml-4">
@@ -75,11 +75,14 @@
           </div>
 
           <div class="flex justify-between mx-2">
-            <p>{{post.createdAt.split("T")[0]}}</p>
+            <p>{{formatearFecha(post.createdAt)}}</p>
 
-            <svg class="w-6 h-6 text-gray-800 dark:text-green-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"/>
-            </svg>
+            <div class="flex">
+              <svg [ngStyle]="{'fill': mensajeGustado(post) ? 'currentColor' : 'none'}" (click)="darLike(post._id)" class="w-6 h-6 text-gray-800 dark:text-green-800 cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"/>
+              </svg>
+              <span class="mx-1 select-none">{{post.likes.length}}</span>
+            </div>
 
           </div>
         </article>
@@ -112,7 +115,7 @@
             <div class="relative">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
 
-                    <svg class="w-4 h-4 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <svg class="w-4 h-4 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                     </svg>
 

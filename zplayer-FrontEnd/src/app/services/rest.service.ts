@@ -35,6 +35,10 @@ export class RestService {
     }))
   }
 
+  registerUsuario(nombre:string, correo:string, contraseña:string, username:string, comunidades:string[]){
+
+  }
+
   newPost(user_id:number, message:string, comunity?:string): Promise<Restmessage>{
     return lastValueFrom(this.peticion.post<Restmessage>(
     `${this.urlApi}/post/newpost`,
@@ -55,5 +59,10 @@ export class RestService {
     ))
   }
 
+  getUserPosts(user_id: number){
+    return lastValueFrom(this.peticion.get<Post[]>(
+      `${this.urlApi}/post/getUserPosts/${user_id}`,
+    ))
+  }
 
 }

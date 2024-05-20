@@ -6,7 +6,7 @@
 
   <div class="flex-col text-white font-gaming text-2xl tracking-wide flex w-[fit-content] self-center mt-20">
 
-    <div class="flex my-2 button-menu items-center px-3">
+    <div class="flex my-2 button-menu items-center px-3" routerLink="/home">
       <div class="w-[50px] h-[50px] flex justify-center items-center">
         <fa-icon [icon]="faHouse"></fa-icon>
       </div>
@@ -35,7 +35,7 @@
       <span class="hidden lg:block">Comunidades</span>
     </div>
 
-    <div class="flex my-2 button-menu items-center px-3">
+    <div class="flex my-2 button-menu items-center px-3" routerLink="/perfil">
       <div class="w-[50px] h-[50px] flex justify-center items-center">
         <fa-icon [icon]="faUser"></fa-icon>
      </div>
@@ -48,7 +48,7 @@
 
     <div class="flex">
       <div>
-          <img [src]="logo" alt="" width="50px">
+          <img class="rounded-full mx-3" [src]="logo" alt="" width="50px">
       </div>
 
       <div class="hidden lg:block">

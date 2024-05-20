@@ -13,6 +13,7 @@ const postcontroller = require("../controllers/post.controller.js");
 router.post("/newPost", postcontroller.newPost);
 router.get("/getPosts", postcontroller.obtenerPosts);
 router.post("/like", postcontroller.addLike);
+router.get("/getUserPosts/:user_id", postcontroller.obtenerUserPosts);
 
 
 module.exports=router;

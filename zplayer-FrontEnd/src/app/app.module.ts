@@ -17,6 +17,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { PerfilComponent } from './components/perfil/perfil.component'
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FondoComponent,
     RegisterComponent,
     HomeComponent,
-    SidebarComponent
+    SidebarComponent,
+    PerfilComponent
   ],
   imports: [
     BrowserModule,

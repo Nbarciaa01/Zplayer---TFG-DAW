@@ -22,6 +22,14 @@ export class RegisterComponent {
     'Deportes'
   ];
 
+  //DATOS DEL USUARIO AL REGISTRARSE
+  public name: string = "";
+  public username: string = "";
+  public correo: string = "";
+  public contraseña: string = "";
+  public contraseñaConfirm = "";
+  public comunidades = [];
+
 
 
  }

@@ -28,7 +28,7 @@ module.exports = {
         res.status(200).send({codigo:0, mensaje: 'Post publicado', usuario:user, errores:null})
         }
       catch (error) {
-        res.status(400).send({codigo:1, mensaje: 'No se ha podido publicar tu post', error: error.message})
+        res.status(500).send({codigo:1, mensaje: 'No se ha podido publicar tu post', error: error.message})
       }
     },
 
@@ -66,7 +66,7 @@ module.exports = {
         }
 
       }catch(error){
-        res.status(400).send({codigo: 1, mensaje: 'Error al agregar like', error: error.message})
+        res.status(500).send({codigo: 1, mensaje: 'Error al agregar like', error: error.message})
       }
     },
 
@@ -80,7 +80,20 @@ module.exports = {
 
       }
       catch(error){
-        res.status(400).send({ codigo: 1, mensaje: 'Error al recuperar los mensajes', error: error.message });
+        res.status(500).send({ codigo: 1, mensaje: 'Error al recuperar los mensajes', error: error.message });
+      }
+    },
+
+    obtenerUserPosts: async (req, res) => {
+      try{
+        const user_id = req.params.user_id
+        const posts = await Post.find({user_id: user_id}).populate('user_id', 'username logo username');
+
+        res.status(200).send( posts );
+      }
+      catch(error){
+        console.error('Error al obtener los posts del usuario:', error);
+        res.status(500).send({ message: 'Error al obtener los posts del usuario' });
       }
     }
   

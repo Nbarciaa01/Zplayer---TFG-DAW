@@ -3,18 +3,26 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const config = require("../config.js")
 const libsjwt = require("../libs/jwt.js");
+const { use } = require("bcrypt/promises.js");
 
 
 module.exports = {
   register : async (req, res) => {
     try {
-      const { username, email, password } = req.body;
+      const { realname, email, password, username, comunities } = req.body;
   
-      const userFound = await User.findOne({ email });
+      const emailFound = await User.findOne({ email });
   
-      if (userFound)
-        return res.status(400).json({
+      if (emailFound)
+        return res.status(400).send({
           message: ["The email is already in use"],
+        });
+
+      const usenameFound = await User.findOne({ username });
+
+      if (usenameFound)
+        return res.status(400).send({
+          message: ["The username is already in use"],
         });
   
       // hashing the password
@@ -22,9 +30,11 @@ module.exports = {
   
       // creating the user
       const newUser = new User({
-        username,
-        email,
+        realname: realname,
+        username: username,
+        email: email,
         password: passwordHash,
+        comunities: comunities,
       });
   
       // saving the user in the database
@@ -85,9 +95,11 @@ module.exports = {
         id: userFound._id,
         realname: userFound.realname,
         username: userFound.username,
-        email: userFound.email,
         comunities: userFound.comunities,
         logo: userFound.logo,
+        banner: userFound.banner,
+        seguidores: userFound.seguidores,
+        seguidos: userFound.siguiendo,
       }
   
       res.status(200).send({codigo:0, mensaje: 'login sucess', usuario:user, errores:null})

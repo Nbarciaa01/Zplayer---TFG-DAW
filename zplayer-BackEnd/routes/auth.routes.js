@@ -11,6 +11,7 @@ const authcontroller = require("../controllers/auth.controller.js");
 
 // router.post("/register", validator.validateSchema(schemas.registerSchema), authcontroller.register);
 router.post("/login", authcontroller.login);
+router.post("/register", authcontroller.register)
 // router.get("/verify", authcontroller.verifyToken);
 // router.post("/logout", authcontroller.verifyToken, authcontroller.logout);
 

@@ -1,6 +1,9 @@
 
 import { Component } from '@angular/core';
-import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormControl, FormsModule, ReactiveFormsModule, FormGroup, Validators} from '@angular/forms';
+import { Router } from '@angular/router';
+import { RestService } from '../../services/rest.service';
+import { LocalService } from '../../services/local.service';
 
 
 @Component({
@@ -10,7 +13,11 @@ import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 })
 export class RegisterComponent {
-  juegos = new FormControl('');
+
+  public formRegister:FormGroup;
+  public correcto:boolean;
+  public bloqueado:boolean;
+
   juegosList: string[] = [
     'RPG',
     'Shooter',
@@ -30,6 +37,33 @@ export class RegisterComponent {
   public contraseñaConfirm = "";
   public comunidades = [];
 
+  constructor(private route:Router, private restSvc: RestService, private localSvc: LocalService) {
+    this.formRegister=new FormGroup(
+      {
+        realname:new FormControl('',[ Validators.required]),
+        username: new FormControl('',[Validators.required]),
+        correo: new FormControl('',[ Validators.required, Validators.email]),
+        contraseña: new FormControl('',[ Validators.required]),
+        contraseñaConfirm: new FormControl('',[ Validators.required]),
+        comunidades: new FormControl([])
+      },
+
+    )
+    this.correcto=true;
+    this.bloqueado=false;
+  }
+
+  comprobarValores(){
+    if(this.formRegister.controls['contraseñaConfirm'].value === this.formRegister.controls['contraseña'].value ){
+
+      let respuesta = this.restSvc.registerUsuario(this.formRegister.controls['realname'].value,
+                                  this.formRegister.controls['correo'].value,
+                                  this.formRegister.controls['contraseña'].value,
+                                  this.formRegister.controls['username'].value,
+                                  this.formRegister.controls['comunidades'].value)
+    console.log(respuesta)
+    }
+  }
 
 
  }

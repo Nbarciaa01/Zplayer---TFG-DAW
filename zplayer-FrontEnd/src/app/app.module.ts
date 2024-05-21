@@ -17,7 +17,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { PerfilComponent } from './components/perfil/perfil.component'
+import { PerfilComponent } from './components/perfil/perfil.component';
+import { ComunidadesComponent } from './components/comunidades/comunidades.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { PerfilComponent } from './components/perfil/perfil.component'
     RegisterComponent,
     HomeComponent,
     SidebarComponent,
-    PerfilComponent
+    PerfilComponent,
+    ComunidadesComponent
   ],
   imports: [
     BrowserModule,

@@ -35,9 +35,12 @@ export class RestService {
     }))
   }
 
-  registerUsuario(nombre:string, correo:string, contraseña:string, username:string, comunidades:string[]){
-
-  }
+  registerUsuario(nombre:string, email:string, password:string, username:string, comunidades:string[]): Promise<Restmessage>{
+    return lastValueFrom(this.peticion.post<Restmessage>(
+      `${this.urlApi}/auth/register`,
+      {realname: nombre, email: email, password: password, username: username, comunities:comunidades}
+    ))
+    }
 
   newPost(user_id:number, message:string, comunity?:string): Promise<Restmessage>{
     return lastValueFrom(this.peticion.post<Restmessage>(

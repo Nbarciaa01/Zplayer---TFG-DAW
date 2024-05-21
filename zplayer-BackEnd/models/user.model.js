@@ -27,8 +27,20 @@ const userSchema = new mongoose.Schema(
     },
     logo: {
       type:String,
-      default: '../../zplayer-FrontEnd/src/assets/iconos-usuarios/avatardefault.png'
-    }
+      default: 'assets/iconos-usuarios/avatardefault.png'
+    },
+    banner:{
+      type:String,
+      default: 'assets/iconos-usuarios/banner-default.jpg'
+    },
+    seguidores: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }],
+    siguiendo: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }]
   },
   {
     timestamps: true,

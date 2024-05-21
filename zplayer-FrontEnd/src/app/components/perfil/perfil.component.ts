@@ -41,6 +41,11 @@ export class PerfilComponent {
   public username: string = '';
   public realname: string = '';
   public logo: string = '';
+  public banner: string = '';
+  public seguidores: number[] = [];
+  public seguidos: number[] = [];
+
+
   faMagnifyingGlass = faMagnifyingGlass;
 
   ajustarAltura() {
@@ -52,11 +57,15 @@ export class PerfilComponent {
   recuperarDatosUsuarios(){
     let usuario: User = this.localSvc.recuperarDatosUsuario();
 
+    console.log(usuario)
 
     this.username = usuario.username;
     this.realname = usuario.realname;
     this.logo = usuario.logo;
     this.id = usuario.id!;
+    this.banner = usuario.banner;
+    this.seguidores = usuario.seguidores;
+    this.seguidos = usuario.seguidos
 
   }
 

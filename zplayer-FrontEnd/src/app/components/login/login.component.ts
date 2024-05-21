@@ -33,10 +33,16 @@ export class LoginComponent {
   loginUsuario(){
     this.restSvc.loginUsuario(this.formLogin.controls['username'].value, this.formLogin.controls['password'].value)
     .subscribe( (resp : Restmessage) =>{
-      if(resp.codigo == 0)
+
+      if(resp.codigo === 0){
         this.localSvc.almacenarDatosUsuario(resp.usuario!);
 
         this.route.navigate(['/home']);
-    })
+      }
+      else{
+        this.route.navigate(['/']);
+      }
+
+      })
   }
 }

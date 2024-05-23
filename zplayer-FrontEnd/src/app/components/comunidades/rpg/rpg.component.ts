@@ -28,7 +28,7 @@ export class RpgComponent {
   }
 
   async cargarPosts(){
-    this.posts = await this.restSvc.getAllPosts();
+    this.posts = await this.restSvc.getComunityPost("rpg");
     this.posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
     console.log(this.posts)
@@ -61,7 +61,7 @@ export class RpgComponent {
    async nuevoMensaje(){
 
     if(this.contenido !== ""){
-      let mensajeRespuesta = await this.restSvc.newPost(this.id,this.contenido,"")
+      let mensajeRespuesta = await this.restSvc.newPost(this.id,this.contenido,"rpg")
 
       if(mensajeRespuesta.codigo === 0){
         await this.cargarPosts()

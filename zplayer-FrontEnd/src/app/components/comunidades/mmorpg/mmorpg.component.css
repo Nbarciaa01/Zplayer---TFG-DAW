@@ -30,3 +30,28 @@
   background-color: green; /* Color de la barra de desplazamiento */
   border-radius: 10px; /* Bordes redonde */
 }
+.posts{
+  flex-direction: row;
+}
+.margen-username{
+  margin-left: 1.2rem;
+}
+
+.margen-categorie{
+  margin-left: auto;
+}
+
+@media screen and (width < 400px) {
+  .posts{
+    flex-direction: column;
+    align-items: center;
+    margin-left: 0;
+  }
+  .margen-username{
+    margin-left: 0;
+  }
+
+  .margen-categorie{
+    margin-left: 0;
+  }
+}

@@ -55,6 +55,12 @@ export class RestService {
     ))
   }
 
+  getComunityPost(comunity: string){
+    return lastValueFrom(this.peticion.get<Post[]>(
+      `${this.urlApi}/post/getComunityPosts/${comunity}`,
+    ))
+  }
+
   darLike(user_id:number, post_id:number){
     return lastValueFrom(this.peticion.post<Restmessage>(
       `${this.urlApi}/post/like`,

@@ -6,7 +6,8 @@ export interface Post {
   likes: number[],
   message: string,
   updatedAt: Date,
-  user_id: User
+  user_id: User,
+  comunities: string,
 }
 
 

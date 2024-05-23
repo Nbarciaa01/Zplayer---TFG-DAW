@@ -18,8 +18,8 @@ module.exports = {
         
 
         const newPost = new Post({
-          message,
-          comunity,
+          message: message,
+          comunities: comunity,
           user_id: user._id
         });
 
@@ -94,6 +94,19 @@ module.exports = {
       catch(error){
         console.error('Error al obtener los posts del usuario:', error);
         res.status(500).send({ message: 'Error al obtener los posts del usuario' });
+      }
+    },
+
+    obtenerComunityPosts:async (req,res) => {
+      try{
+        const comunity = req.params.comunity
+        const posts = await Post.find({comunities: comunity}).populate('user_id', 'username logo username');
+
+        res.status(200).send( posts );
+      }
+      catch(error){
+        console.error('Error al obtener los posts de la comunidad:', error);
+        res.status(500).send({ message: 'Error al obtener los posts de la comunidad' });
       }
     }
   

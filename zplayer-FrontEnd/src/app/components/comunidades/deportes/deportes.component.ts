@@ -29,7 +29,7 @@ export class DeportesComponent {
   }
 
   async cargarPosts(){
-    this.posts = await this.restSvc.getAllPosts();
+    this.posts = await this.restSvc.getComunityPost("deportes");
     this.posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
     console.log(this.posts)
@@ -62,7 +62,7 @@ export class DeportesComponent {
    async nuevoMensaje(){
 
     if(this.contenido !== ""){
-      let mensajeRespuesta = await this.restSvc.newPost(this.id,this.contenido,"")
+      let mensajeRespuesta = await this.restSvc.newPost(this.id,this.contenido,"deportes")
 
       if(mensajeRespuesta.codigo === 0){
         await this.cargarPosts()

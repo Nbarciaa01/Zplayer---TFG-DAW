@@ -31,3 +31,57 @@
   background-color: green; /* Color de la barra de desplazamiento */
   border-radius: 10px; /* Bordes redonde */
 }
+
+.posts{
+  flex-direction: row;
+}
+.margen-username{
+  margin-left: 1.2rem;
+}
+
+.margen-categorie{
+  margin-left: auto;
+}
+
+@media screen and (width < 400px) {
+  .posts{
+    flex-direction: column;
+    align-items: center;
+    margin-left: 0;
+  }
+  .margen-username{
+    margin-left: 0;
+  }
+
+  .margen-categorie{
+    margin-left: 0;
+  }
+}
+
+/* Archivo styles.css */
+/* Personalizar mat-form-field */
+::ng-deep .custom-mat-form-field .mat-form-field-flex {
+  background-color: black!important;
+  color: white !important; /* Cambia el color del texto a blanco */
+}
+
+/* Personalizar mat-select */
+::ng-deep .custom-mat-select .mat-select-trigger {
+  background-color: black!important;
+  color: white!important; /* Cambia el color del texto a blanco */
+}
+
+/* Personalizar las opciones del mat-select */
+::ng-deep .mat-select-panel {
+  background-color: black!important;
+}
+
+::ng-deep .mat-option {
+  background-color: black!important;
+  color: white!important; /* Cambia el color del texto a blanco */
+}
+
+/* Personalizar la etiqueta de mat-form-field */
+::ng-deep .mat-form-field-label {
+  color: white!important; /* Cambia el color de la etiqueta a blanco */
+}

@@ -8,23 +8,33 @@
           CONTENEDOR CENTRAL
       -->
 
-    <div class="w-[65%] h-[100vh] border-r-[1px] border-x-green-800">
+    <div class="xl:w-[65%] w-[100%] h-[100vh] border-r-[1px] border-x-green-800">
 
 
       <!--
       MENU ADD POST
       -->
-      <div class="flex justify-center flex-col items-center border-b-[1px] border-green-800 h-[15vh]">
+      <div class="flex justify-center flex-col items-center border-b-[1px] border-green-800 h-[30vh]">
 
           <!--
           ADD POST
           -->
             <form class="w-[75%]">
-              <div class="w-full mb-4 border rounded-lg bg-gray-50 dark:bg-black dark:border-black">
-                  <div class=" bg-white rounded-t-lg dark:bg-black">
+              <div class="w-full mb-4 border rounded-lg bg-gray-50 dark:bg-black dark:border-black flex flex-col">
+                  <div class=" bg-white rounded-t-lg dark:bg-black border-b dark:border-[#028E39] mb-2">
                       <textarea (input)="ajustarAltura()" [(ngModel)]="contenido" id="mensaje" name="contenido" rows="1" class="resize-none w-full text-sm text-white border-0 dark:bg-black focus:ring-0 focus:outline-none dark:text-white dark:placeholder-white" placeholder="¡¿Jugamos?!" required ></textarea>
                   </div>
-                  <div class="flex items-center justify-between py-2 border-t dark:border-[#028E39]">
+
+                  <mat-form-field class="font-gaming-bold mt-3 custom-mat-form-field w-[10rem] self-end">
+                    <mat-label>Categoría Post</mat-label>
+                    <mat-select class="custom-mat-select" name="juego"  [(ngModel)]="categoria">
+                      @for (juego of juegosList; track juego) {
+                        <mat-option [value]="juego.toLowerCase()">{{juego}}</mat-option>
+                      }
+                    </mat-select>
+                  </mat-form-field>
+
+                  <div class="flex items-center justify-between">
                       <button (click)="nuevoMensaje()" type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-[#028E39] rounded-lg focus:ring-[#028E39] dark:focus:ring-[#028e3a86] hover:bg-[#028e3a86]">
                           Comentar
                       </button>
@@ -52,20 +62,24 @@
       <!--
           CONTENEDOR DE POSTS
       -->
-      <div class="w-[100%] overflow-y-auto max-h-[85vh] scrollable-messages flex flex-col">
+      <div class="w-[100%] overflow-y-auto max-h-[70vh] scrollable-messages flex flex-col">
 
         <!--
           POST FORMATO
         -->
         <article class="w-[100%] m-auto my-3 border-[1px] border-green-800 py-4 " *ngFor="let post of posts">
-          <div class="flex px-2">
+          <div class="flex px-2 w-[100%] posts">
 
             <div class="w-10 h-10">
               <img [src]="post.user_id.logo" class="w-10 h-10 rounded-full select-none" alt="icono-usuario"  srcset="">
             </div>
 
-            <div class="self-center ml-4">
+            <div class="self-center margen-username">
               &#64;{{post.user_id.username}}
+            </div>
+
+            <div class="self-center margen-categorie mr-1 border-[1px] border-green-800 py-0.5 px-5 bg-[#14532d] rounded-xl">
+              {{post.comunities.toLocaleUpperCase()}}
             </div>
 
           </div>
@@ -103,7 +117,7 @@
     <!--
     BARRA LATERAL DERECHA
     -->
-    <div class="w-[35%] h-[100%] flex flex-col items-center">
+    <div class="w-[35%] h-[100%] xl:flex hidden flex-col items-center">
 
       <!--
       BOTON DE BUSQUEDA

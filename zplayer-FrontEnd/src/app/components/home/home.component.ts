@@ -16,6 +16,18 @@ export class HomeComponent implements OnInit  {
   contenido: string = '';
   posts: Post[] = []
   posts_ordenados: any = []
+  categoria: string | null = '';
+  juegosList: string[] = [
+    'General',
+    'RPG',
+    'Shooter',
+    'MMORPG',
+    'Battle Royale',
+    'Estrategia',
+    'MOBA',
+    'Survivals',
+    'Deportes'
+  ];
 
   constructor(private route:Router, private localSvc: LocalService, private restSvc: RestService) {
     this.recuperarDatosUsuarios()
@@ -62,7 +74,10 @@ export class HomeComponent implements OnInit  {
    async nuevoMensaje(){
 
     if(this.contenido !== ""){
-      let mensajeRespuesta = await this.restSvc.newPost(this.id,this.contenido,"")
+      if(!this.categoria){
+        this.categoria = 'general'
+      }
+      let mensajeRespuesta = await this.restSvc.newPost(this.id,this.contenido,this.categoria!)
 
       if(mensajeRespuesta.codigo === 0){
         await this.cargarPosts()

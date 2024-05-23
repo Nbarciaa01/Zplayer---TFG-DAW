@@ -30,7 +30,7 @@ export class MmorpgComponent {
   }
 
   async cargarPosts(){
-    this.posts = await this.restSvc.getAllPosts();
+    this.posts = await this.restSvc.getComunityPost("mmorpg");
     this.posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
     console.log(this.posts)
@@ -63,7 +63,7 @@ export class MmorpgComponent {
    async nuevoMensaje(){
 
     if(this.contenido !== ""){
-      let mensajeRespuesta = await this.restSvc.newPost(this.id,this.contenido,"")
+      let mensajeRespuesta = await this.restSvc.newPost(this.id,this.contenido,"mmorpg")
 
       if(mensajeRespuesta.codigo === 0){
         await this.cargarPosts()

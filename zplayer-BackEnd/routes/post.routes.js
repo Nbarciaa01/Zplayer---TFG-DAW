@@ -14,6 +14,7 @@ router.post("/newPost", postcontroller.newPost);
 router.get("/getPosts", postcontroller.obtenerPosts);
 router.post("/like", postcontroller.addLike);
 router.get("/getUserPosts/:user_id", postcontroller.obtenerUserPosts);
+router.get("/getComunityPosts/:comunity", postcontroller.obtenerComunityPosts)
 
 
 module.exports=router;

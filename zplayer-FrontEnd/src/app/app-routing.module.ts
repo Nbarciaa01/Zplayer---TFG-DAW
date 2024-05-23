@@ -4,6 +4,13 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
+import { ComunidadesComponent } from './components/comunidades/comunidades.component';
+import { SurvivalComponent } from './components/comunidades/survival/survival.component';
+import { MmorpgComponent } from './components/comunidades/mmorpg/mmorpg.component';
+import { MobaComponent } from './components/comunidades/moba/moba.component';
+import { RpgComponent } from './components/comunidades/rpg/rpg.component';
+import { ShooterComponent } from './components/comunidades/shooter/shooter.component';
+import { DeportesComponent } from './components/comunidades/deportes/deportes.component';
 
 const routes: Routes = [
   {
@@ -13,10 +20,40 @@ const routes: Routes = [
     path: 'register', component: RegisterComponent
   },
   {
-    path: 'home', component: HomeComponent
+    path: 'home', component: HomeComponent,
+    title: 'Zplayer - Inicio'
   },
   {
-    path: 'perfil', component: PerfilComponent
+    path: 'perfil', component: PerfilComponent,
+    title: 'Zplayer - Perfil'
+  },
+  {
+    path: 'comunidades', component: ComunidadesComponent,
+    title: 'Zplayer - Comunidades',
+  },
+  {
+    path: 'comunidades/survival', component: SurvivalComponent,
+    title: 'Zplayer - Comunidad Survival'
+  },
+  {
+    path: 'comunidades/mmorpg', component: MmorpgComponent,
+    title: 'Zplayer - Comunidad MMORPG'
+  },
+  {
+    path: 'comunidades/moba', component: MobaComponent,
+    title: 'Zplayer - Comunidad MOBA'
+  },
+  {
+    path: 'comunidades/rpg', component: RpgComponent,
+    title: 'Zplayer - Comunidad RPG'
+  },
+  {
+    path: 'comunidades/shooter', component: ShooterComponent,
+    title: 'Zplayer - Comunidad Shooter'
+  },
+  {
+    path: 'comunidades/deportes', component: DeportesComponent,
+    title: 'Zplayer - Comunidad Deportes'
   },
   {
     path: '',

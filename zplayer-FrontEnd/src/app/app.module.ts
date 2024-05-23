@@ -19,6 +19,12 @@ import {MatInputModule} from '@angular/material/input';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { ComunidadesComponent } from './components/comunidades/comunidades.component';
+import { SurvivalComponent } from './components/comunidades/survival/survival.component';
+import { MmorpgComponent } from './components/comunidades/mmorpg/mmorpg.component';
+import { MobaComponent } from './components/comunidades/moba/moba.component';
+import { RpgComponent } from './components/comunidades/rpg/rpg.component';
+import { ShooterComponent } from './components/comunidades/shooter/shooter.component';
+import { DeportesComponent } from './components/comunidades/deportes/deportes.component';
 
 
 @NgModule({
@@ -30,7 +36,13 @@ import { ComunidadesComponent } from './components/comunidades/comunidades.compo
     HomeComponent,
     SidebarComponent,
     PerfilComponent,
-    ComunidadesComponent
+    ComunidadesComponent,
+    SurvivalComponent,
+    MmorpgComponent,
+    MobaComponent,
+    RpgComponent,
+    ShooterComponent,
+    DeportesComponent
   ],
   imports: [
     BrowserModule,

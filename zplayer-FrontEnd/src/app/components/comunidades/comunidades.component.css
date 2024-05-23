@@ -1,3 +1,98 @@
-:host {
-  display: block;
+@import url('https://fonts.googleapis.com/css2?family=Jersey+25&display=swap');
+
+.sombra-login{
+  -webkit-box-shadow: -1px -2px 61px 13px rgba(2,142,58,1);
+  -moz-box-shadow: -1px -2px 61px 13px rgba(2,142,58,1);
+  box-shadow: -1px -2px 61px 13px rgba(2,142,58,1);
 }
+
+.font-gaming-bold{
+  font-family: "Jersey 25", sans-serif;
+  font-weight: bold;
+  font-style: normal;
+}
+.font-gaming{
+  font-family: "Jersey 25", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.survival{
+  background-image: url("../../../assets/fotos-juegos/Survival-games.png");
+  background-size: 90%;
+  background-repeat: no-repeat;
+  background-position: center;
+
+}
+
+.estrategia{
+  background-image: url("../../../assets/fotos-juegos/Estrategia-games.png");
+  background-size: 90%;
+  background-repeat: no-repeat;
+  background-position: center;
+
+}
+.mmorpg{
+  background-image: url("../../../assets/fotos-juegos/Mmorpg-games.png");
+  background-size: 90%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.moba{
+  background-image: url("../../../assets/fotos-juegos/Moba-games.png");
+  background-size: 90%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.rpg{
+  background-image: url("../../../assets/fotos-juegos/Rpg-games.png");
+  background-size: 90%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.shooter{
+  background-image: url("../../../assets/fotos-juegos/Shooter-games.png");
+  background-size: 90%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.deportes{
+  background-image: url("../../../assets/fotos-juegos/Deportes-games.png");
+  background-size: 90%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.battleroyale{
+  background-image: url("../../../assets/fotos-juegos/Battleroyale-games.png");
+  background-size: 90%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+/* Archivo styles.css */
+.scrollable-messages {
+  scrollbar-width: thin; /* Ancho de la scrollbar para Firefox */
+  scrollbar-color: green black; /* Color de la barra y el fondo para Firefox */
+}
+
+/* Scrollbar personalizada para navegadores WebKit */
+.scrollable-messages::-webkit-scrollbar {
+  width: 12px; /* Ancho de la scrollbar */
+}
+
+.scrollable-messages::-webkit-scrollbar-track {
+  background: black; /* Color del fondo de la scrollbar */
+  border-radius: 10px; /* Bordes redondeados del track */
+}
+
+.scrollable-messages::-webkit-scrollbar-thumb {
+  background-color: green; /* Color de la barra de desplazamiento */
+  border-radius: 10px; /* Bordes redonde */
+}
+
+.scrollable-messages::-webkit-scrollbar-button {
+  display: none!important;
+}
+
+

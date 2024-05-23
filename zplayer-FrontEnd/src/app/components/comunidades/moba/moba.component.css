@@ -1,5 +1,14 @@
-:host {
-  display: block;
+@import url('https://fonts.googleapis.com/css2?family=Jersey+25&display=swap');
+
+.font-gaming-bold{
+  font-family: "Jersey 25", sans-serif;
+  font-weight: bold;
+  font-style: normal;
+}
+.font-gaming{
+  font-family: "Jersey 25", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 /* Archivo styles.css */
 .scrollable-messages {
@@ -20,8 +29,4 @@
 .scrollable-messages::-webkit-scrollbar-thumb {
   background-color: green; /* Color de la barra de desplazamiento */
   border-radius: 10px; /* Bordes redonde */
-}
-
-.scrollable-messages::-webkit-scrollbar-button {
-  display: none!important;
 }

@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema(
     },
     banner:{
       type:String,
-      default: 'assets/iconos-usuarios/banner-default.jpg'
+      default: 'assets/iconos-usuarios/bannerdefault.jpg'
     },
     seguidores: [{
       type: mongoose.Schema.Types.ObjectId,

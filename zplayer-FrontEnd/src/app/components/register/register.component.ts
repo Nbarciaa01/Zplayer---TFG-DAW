@@ -53,15 +53,18 @@ export class RegisterComponent {
     this.bloqueado=false;
   }
 
-  comprobarValores(){
+  async comprobarValores(){
     if(this.formRegister.controls['contraseñaConfirm'].value === this.formRegister.controls['contraseña'].value ){
 
-      let respuesta = this.restSvc.registerUsuario(this.formRegister.controls['realname'].value,
+      let respuesta = await this.restSvc.registerUsuario(this.formRegister.controls['realname'].value,
                                   this.formRegister.controls['correo'].value,
                                   this.formRegister.controls['contraseña'].value,
                                   this.formRegister.controls['username'].value,
                                   this.formRegister.controls['comunidades'].value)
-    console.log(respuesta)
+
+      if(respuesta){
+        this.route.navigate(["/login"])
+      }
     }
   }
 

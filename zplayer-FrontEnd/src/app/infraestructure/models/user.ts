@@ -6,5 +6,5 @@ export interface User{
   logo:string;
   banner:string;
   seguidores:number[];
-  seguidos:number[];
+  siguiendo:number[];
 }

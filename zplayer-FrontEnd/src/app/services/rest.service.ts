@@ -75,15 +75,23 @@ export class RestService {
     ))
   }
 
-  getUsersForFollow(){
+  getUsersForFollow(user_id:string|number){
     return lastValueFrom(this.peticion.get<any[]>(
-      `${this.urlApi}/user/descubirUsers/`,
+      `${this.urlApi}/user/descubirUsers/${user_id}`,
+
     ))
   }
 
-  getDatosUser(user_id:string){
+  getDatosUser(user_id:string | number){
     return lastValueFrom(this.peticion.get<any>(
       `${this.urlApi}/user/obtenerDatosUser/${user_id}`
+    ))
+  }
+
+  followUser(user_id:string|number, followed_user:string){
+    return lastValueFrom(this.peticion.post<Restmessage>(
+      `${this.urlApi}/user/follow`,
+      {user_id:user_id, followUser_id:followed_user}
     ))
   }
 

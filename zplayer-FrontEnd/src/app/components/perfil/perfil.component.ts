@@ -43,7 +43,7 @@ export class PerfilComponent {
   public logo: string = '';
   public banner: string = '';
   public seguidores: number[] = [];
-  public seguidos: number[] = [];
+  public siguiendo: number[] = [];
 
 
   faMagnifyingGlass = faMagnifyingGlass;
@@ -54,18 +54,17 @@ export class PerfilComponent {
     textarea!.style.height = textarea!.scrollHeight + 'px'; // Ajustar la altura según el contenido
   }
 
-  recuperarDatosUsuarios(){
-    let usuario: User = this.localSvc.recuperarDatosUsuario();
+  async recuperarDatosUsuarios(){
+    let usuarioLocal: User = this.localSvc.recuperarDatosUsuario();
+    this.id = usuarioLocal.id!;
 
-    console.log(usuario)
-
+    let usuario: User = await this.restSvc.getDatosUser(this.id)
     this.username = usuario.username;
     this.realname = usuario.realname;
     this.logo = usuario.logo;
-    this.id = usuario.id!;
     this.banner = usuario.banner;
     this.seguidores = usuario.seguidores;
-    this.seguidos = usuario.seguidos
+    this.siguiendo = usuario.siguiendo
 
   }
 

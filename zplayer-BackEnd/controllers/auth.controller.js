@@ -93,13 +93,6 @@ module.exports = {
 
       const user = {
         id: userFound._id,
-        realname: userFound.realname,
-        username: userFound.username,
-        comunities: userFound.comunities,
-        logo: userFound.logo,
-        banner: userFound.banner,
-        seguidores: userFound.seguidores,
-        seguidos: userFound.siguiendo,
       }
   
       res.status(200).send({codigo:0, mensaje: 'login sucess', usuario:user, errores:null})

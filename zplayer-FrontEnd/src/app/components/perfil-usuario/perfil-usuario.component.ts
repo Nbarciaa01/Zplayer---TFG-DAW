@@ -32,7 +32,7 @@ import { Post, Posts } from '../../infraestructure/models/message'
 
   async cargarPosts(){
 
-    this.posts = await this.restSvc.getUserPosts(this.id);
+    this.posts = await this.restSvc.getUserPosts(this.userId);
     this.posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     console.log(this.posts)
 

@@ -1,0 +1,150 @@
+<main class="flex w-[100%] h-[100vh]">
+
+  <Zplayer-sidebar class="w-[25%] h-[100%]"></Zplayer-sidebar>
+
+  <div class="w-[75%] h-[100%] bg-black flex text-white">
+
+      <!--
+          CONTENEDOR CENTRAL
+      -->
+
+    <div class="xl:w-[65%] w-[100%] h-[100vh] border-r-[1px] border-x-green-800 scrollable-messages overflow-y-auto">
+
+
+      <!--
+      MENU ADD POST
+      -->
+      <div class="flex justify-center flex-col items-center border-b-[1px] border-green-800 max-h-[50vh] m-0">
+
+        <img src="../../../../assets/fotos-juegos/banners/banner-battleroyale.jpg" alt="" srcset="">
+
+          <!--
+          ADD POST
+          -->
+            <form class="w-[75%] sticky top-0 my-5">
+              <div class="w-full mb-4 border rounded-lg bg-gray-50 dark:bg-black dark:border-black">
+                  <div class=" bg-white rounded-t-lg dark:bg-black">
+                    <textarea (input)="ajustarAltura()" [(ngModel)]="contenido" id="mensaje" name="contenido" rows="1" class="resize-none w-full text-sm text-white border-0 dark:bg-black focus:ring-0 focus:outline-none dark:text-white dark:placeholder-white" placeholder="¡¿Jugamos Battle Royal Players?!" required ></textarea>
+                  </div>
+                  <div class="flex items-center justify-between py-2 border-t dark:border-[#028E39]">
+                      <button (click)="nuevoMensaje()" type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-[#028E39] rounded-lg focus:ring-[#028E39] dark:focus:ring-[#028e3a86] hover:bg-[#028e3a86]">
+                          Comentar
+                      </button>
+                      <div class="flex ps-0 space-x-1 rtl:space-x-reverse sm:ps-2">
+                          <button type="button" class="inline-flex justify-center items-center p-2 text-gray-500 rounded cursor-pointer hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-[#028e3a86]" >
+                              <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                                  <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"/>
+                              </svg>
+                              <span class="sr-only">Upload image</span>
+                          </button>
+                      </div>
+                  </div>
+              </div>
+            </form>
+          <!--
+          FIN ADD POST
+          -->
+
+      </div>
+      <!--
+      FIN MENU ADD POST
+      -->
+
+
+      <!--
+          CONTENEDOR DE POSTS
+      -->
+      <div class="w-[100%] max-h-[50vh] flex flex-col p-[10px]">
+
+        <!--
+          POST FORMATO
+        -->
+        <article class="w-[100%] m-auto my-3 border-[1px] border-green-800 py-4 " *ngFor="let post of posts">
+          <div class="flex px-2 w-[100%] posts">
+
+            <div class="w-10 h-10">
+              <img [src]="post.user_id.logo" class="w-10 h-10 rounded-full select-none" alt="icono-usuario"  srcset="">
+            </div>
+
+            <div class="self-center margen-username">
+              &#64;{{post.user_id.username}}
+            </div>
+
+            <div class="self-center margen-categorie mr-1 border-[1px] border-green-800 py-0.5 px-5 bg-[#14532d] rounded-xl">
+              {{post.comunities.toLocaleUpperCase()}}
+            </div>
+
+          </div>
+
+          <div class=" px-8 my-6">
+            {{post.message}}
+          </div>
+
+          <div class="flex justify-between mx-2">
+            <p>{{formatearFecha(post.createdAt)}}</p>
+
+            <div class="flex">
+              <svg [ngStyle]="{'fill': mensajeGustado(post) ? 'currentColor' : 'none'}" (click)="darLike(post._id)" class="w-6 h-6 text-gray-800 dark:text-green-800 cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"/>
+              </svg>
+              <span class="mx-1 select-none">{{post.likes.length}}</span>
+            </div>
+
+          </div>
+        </article>
+        <!--
+          FIN POST FORMATO
+        -->
+
+      </div>
+      <!--
+        FIN CONTENEDOR DE POSTS
+      -->
+
+    </div>
+    <!--
+          FIN CONTENEDOR CENTRAL
+      -->
+
+    <!--
+    BARRA LATERAL DERECHA
+    -->
+    <div class="w-[35%] h-[100%] xl:flex flex-col items-center hidden">
+
+      <!--
+      BOTON DE BUSQUEDA
+      -->
+      <div class="w-[75%] h-[fit-content] border-[1px] border-green-800 mt-12 rounded-xl flex items-center justify-center">
+        <div class="w-[100%]">
+          <form class="max-w-md mx-auto">
+            <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+            <div class="relative">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+
+                    <svg class="w-4 h-4 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                    </svg>
+
+                  </div>
+                <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-[#22613b] rounded-lg bg-gray-50 focus:ring-[#22613b] focus:border-[#22613b] dark:bg-black dark:border-[#22613b] dark:placeholder-white dark:text-white dark:focus:ring-[#22613b] dark:focus:border-[#22613b]" placeholder="Busca" required />
+
+                <!-- BOTON DE BUSQUEDA QUE SE PUEDE IMPLEMENTAR EN UN FUTURO, PERO EN PRINCIPIO SERA PULSANDO ENTER  -->
+                <!-- <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-[#028E39] hover:bg-[#22613b] focus:ring-4 focus:outline-none focus:ring-[#028E39] font-medium rounded-lg text-sm px-4 py-2 dark:bg-[#028E39] dark:hover:bg-[#22613b] dark:focus:ring-[#22613b]">Search</button> -->
+            </div>
+          </form>
+        </div>
+      </div>
+      <!--
+      FIN BOTON DE BUSQUEDA
+      -->
+
+
+    </div>
+    <!--
+    FIN BARRA LATERAL DERECHA
+    -->
+
+
+  </div>
+
+</main>

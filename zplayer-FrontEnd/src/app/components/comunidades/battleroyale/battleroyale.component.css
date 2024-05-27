@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Jersey+25&display=swap');
+
+.font-gaming-bold{
+  font-family: "Jersey 25", sans-serif;
+  font-weight: bold;
+  font-style: normal;
+}
+.font-gaming{
+  font-family: "Jersey 25", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+/* Archivo styles.css */
+.scrollable-messages {
+  scrollbar-width: thin; /* Ancho de la scrollbar para Firefox */
+  scrollbar-color: green black; /* Color de la barra y el fondo para Firefox */
+}
+
+/* Scrollbar personalizada para navegadores WebKit */
+.scrollable-messages::-webkit-scrollbar {
+  width: 12px; /* Ancho de la scrollbar */
+}
+
+.scrollable-messages::-webkit-scrollbar-track {
+  background: black; /* Color del fondo de la scrollbar */
+  border-radius: 10px; /* Bordes redondeados del track */
+}
+
+.scrollable-messages::-webkit-scrollbar-thumb {
+  background-color: green; /* Color de la barra de desplazamiento */
+  border-radius: 10px; /* Bordes redonde */
+}
+.posts{
+  flex-direction: row;
+}
+.margen-username{
+  margin-left: 1.2rem;
+}
+
+.margen-categorie{
+  margin-left: auto;
+}
+
+@media screen and (width < 400px) {
+  .posts{
+    flex-direction: column;
+    align-items: center;
+    margin-left: 0;
+  }
+  .margen-username{
+    margin-left: 0;
+  }
+
+  .margen-categorie{
+    margin-left: 0;
+  }
+}

@@ -11,6 +11,10 @@ import { MobaComponent } from './components/comunidades/moba/moba.component';
 import { RpgComponent } from './components/comunidades/rpg/rpg.component';
 import { ShooterComponent } from './components/comunidades/shooter/shooter.component';
 import { DeportesComponent } from './components/comunidades/deportes/deportes.component';
+import { EstrategiaComponent } from './components/comunidades/estrategia/estrategia.component';
+import { BattleroyaleComponent } from './components/comunidades/battleroyale/battleroyale.component';
+import { DescubrirComponent } from './components/descubrir/descubrir.component';
+import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
 
 const routes: Routes = [
   {
@@ -54,6 +58,22 @@ const routes: Routes = [
   {
     path: 'comunidades/deportes', component: DeportesComponent,
     title: 'Zplayer - Comunidad Deportes'
+  },
+  {
+    path: 'comunidades/estrategia', component: EstrategiaComponent,
+    title: 'Zplayer - Comunidad Deportes'
+  },
+  {
+    path: 'comunidades/battleroyale', component: BattleroyaleComponent,
+    title: 'Zplayer - Comunidad Deportes'
+  },
+  {
+    path: 'descubrir', component: DescubrirComponent,
+    title: 'Zplayer - Descubrir'
+  },
+  {
+    path: 'perfil/user/:userId', component: PerfilUsuarioComponent,
+    title: 'Zplayer - Perfil User'
   },
   {
     path: '',

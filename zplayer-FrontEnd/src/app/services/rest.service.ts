@@ -4,6 +4,7 @@ import { environment } from '../environments/environment';
 import { Observable, catchError, lastValueFrom } from 'rxjs';
 import { Restmessage } from '../infraestructure/models/restmessage';
 import { Post } from '../infraestructure/models/message';
+import { User } from '../infraestructure/models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -61,17 +62,30 @@ export class RestService {
     ))
   }
 
-  darLike(user_id:number, post_id:number){
+  darLike(user_id:number|string, post_id:number){
     return lastValueFrom(this.peticion.post<Restmessage>(
       `${this.urlApi}/post/like`,
       {user_id:user_id, post_id:post_id}
     ))
   }
 
-  getUserPosts(user_id: number){
+  getUserPosts(user_id: number | string){
     return lastValueFrom(this.peticion.get<Post[]>(
       `${this.urlApi}/post/getUserPosts/${user_id}`,
     ))
   }
+
+  getUsersForFollow(){
+    return lastValueFrom(this.peticion.get<any[]>(
+      `${this.urlApi}/user/descubirUsers/`,
+    ))
+  }
+
+  getDatosUser(user_id:string){
+    return lastValueFrom(this.peticion.get<any>(
+      `${this.urlApi}/user/obtenerDatosUser/${user_id}`
+    ))
+  }
+
 
 }

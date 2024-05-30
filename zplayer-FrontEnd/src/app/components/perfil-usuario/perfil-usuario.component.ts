@@ -1,8 +1,7 @@
-import { User } from './../../infraestructure/models/user';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 import { RestService } from '../../services/rest.service';
-import { Post, Posts } from '../../infraestructure/models/message'
+import { Post } from '../../infraestructure/models/message'
 
 @Component({
     selector: 'perfil-usuario',

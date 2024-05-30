@@ -29,6 +29,7 @@ import { EstrategiaComponent } from './components/comunidades/estrategia/estrate
 import { BattleroyaleComponent } from './components/comunidades/battleroyale/battleroyale.component';
 import { DescubrirComponent } from './components/descubrir/descubrir.component';
 import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuar
     EstrategiaComponent,
     BattleroyaleComponent,
     DescubrirComponent,
-    PerfilUsuarioComponent
+    PerfilUsuarioComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,6 @@
 
 import { Component } from '@angular/core';
-import {FormControl, FormsModule, ReactiveFormsModule, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { RestService } from '../../services/rest.service';
 import { LocalService } from '../../services/local.service';

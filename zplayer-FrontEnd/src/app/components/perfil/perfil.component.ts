@@ -1,9 +1,9 @@
 import { faGamepad } from '@fortawesome/free-solid-svg-icons';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalService } from '../../services/local.service';
 import { User } from '../../infraestructure/models/user';
-import { Post, Posts } from '../../infraestructure/models/message'
+import { Post } from '../../infraestructure/models/message'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { RestService } from '../../services/rest.service';
 

@@ -37,6 +37,8 @@ export class DescubrirComponent {
 
   async followUser(followed_user:string){
     await this.restSvc.followUser(this.id, followed_user)
+
+    this.cargarUsuarios()
   }
 
 }

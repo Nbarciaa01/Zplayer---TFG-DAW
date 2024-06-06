@@ -16,6 +16,7 @@ import { BattleroyaleComponent } from './components/comunidades/battleroyale/bat
 import { DescubrirComponent } from './components/descubrir/descubrir.component';
 import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { PrivateMensajesComponent } from './components/private-mensajes/private-mensajes.component';
 
 const routes: Routes = [
   {
@@ -79,6 +80,10 @@ const routes: Routes = [
   {
     path: 'mensajes', component: ChatComponent,
     title: 'Zplayer - Mensajes'
+  },
+  {
+    path: 'chat', component: PrivateMensajesComponent,
+    title: 'Zplayer - Chat Privado'
   },
   {
     path: '',

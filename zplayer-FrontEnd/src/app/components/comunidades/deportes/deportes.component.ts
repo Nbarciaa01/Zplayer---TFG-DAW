@@ -90,5 +90,10 @@ export class DeportesComponent {
    }
 
 
+   devolverLogo(logo: string){
+    return this.restSvc.getProfilePictureUrl(logo);
+  }
+
+
 
  }

@@ -90,5 +90,9 @@ export class MmorpgComponent {
     return message.likes.includes(this.id);
    }
 
+   devolverLogo(logo: string){
+    return this.restSvc.getProfilePictureUrl(logo);
+  }
+
 
 }

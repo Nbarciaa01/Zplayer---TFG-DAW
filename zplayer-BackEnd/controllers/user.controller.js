@@ -4,6 +4,8 @@ const bcrypt = require("bcrypt");
 const config = require("../config.js")
 const libsjwt = require("../libs/jwt.js");
 const { use } = require("bcrypt/promises.js");
+const path = require('path');
+const fs = require('fs-extra');
 
 
 module.exports = {
@@ -80,5 +82,57 @@ module.exports = {
         } catch (error) {
           res.status(500).send({ codigo: 1, mensaje: 'Error al obtener los datos del usuario', error: error.message });
         }
+    },
+
+    actualizarUsuario: async (req, res) => {
+      try {
+        const { id, realname, password } = req.body;
+        const icono = req.files && req.files['icono'] ? req.files['icono'][0].path : null;
+
+        const banner = req.files && req.files['banner'] ? req.files['banner'][0].path : null;
+    
+        // const userId = req.user.id; // Asegúrate de obtener el ID del usuario correctamente
+        const user = await User.findById(id);
+    
+        if (!user) {
+          return res.status(404).json({ codigo: 1, mensaje: 'Usuario no encontrado' });
+        }
+    
+        if (password) {
+          const passwordHash = await bcrypt.hash(password, 10);
+          user.password = passwordHash;
+        }
+
+        if (realname) {
+          user.realname = realname;
+        }
+
+        if (icono) {
+          const iconoPath = path.join(__dirname, '..', icono);
+          const iconoDestination = path.join(__dirname, '..', 'uploads', 'profile_pictures', path.basename(icono));
+          if (iconoPath !== iconoDestination) {
+            await fs.copy(iconoPath, iconoDestination);
+            user.logo = `/uploads/profile_pictures/${path.basename(icono)}`;
+          } else {
+            user.logo = `/uploads/profile_pictures/${path.basename(icono)}`;
+          }
+        }
+
+      if (banner) {
+        const bannerPath = path.join(__dirname, '..', banner);
+        const bannerDestination = path.join(__dirname, '..', 'uploads', 'banners', path.basename(banner));
+        if (bannerPath !== bannerDestination) {
+          await fs.copy(bannerPath, bannerDestination);
+          user.banner = `/uploads/banners/${path.basename(banner)}`;
+        } else {
+          user.banner = `/uploads/banners/${path.basename(banner)}`;
+        }
+      }
+      
+        await user.save();
+        res.status(200).json({ codigo: 0, mensaje: 'Perfil actualizado', logo: user.logo, banner: user.banner});
+      } catch (error) {
+        res.status(500).json({ codigo: 1, mensaje: 'Error al actualizar el perfil', error: error.message });
+      }
     }
 }

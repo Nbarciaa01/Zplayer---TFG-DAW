@@ -51,7 +51,7 @@ import { Post } from '../../infraestructure/models/message'
 
     this.username = datosUsuario.username;
     this.realname = datosUsuario.realname;
-    this.logo = datosUsuario.logo;
+    this.logo = this.restSvc.getProfilePictureUrl(datosUsuario.logo);
     this.id = datosUsuario.id!;
     this.banner = datosUsuario.banner;
     this.seguidores = datosUsuario.seguidores;

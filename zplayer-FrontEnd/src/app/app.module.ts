@@ -30,6 +30,7 @@ import { BattleroyaleComponent } from './components/comunidades/battleroyale/bat
 import { DescubrirComponent } from './components/descubrir/descubrir.component';
 import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { PrivateMensajesComponent } from './components/private-mensajes/private-mensajes.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { ChatComponent } from './components/chat/chat.component';
     BattleroyaleComponent,
     DescubrirComponent,
     PerfilUsuarioComponent,
-    ChatComponent
+    ChatComponent,
+    PrivateMensajesComponent
   ],
   imports: [
     BrowserModule,

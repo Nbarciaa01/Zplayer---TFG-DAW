@@ -92,4 +92,9 @@ export class MobaComponent {
    }
 
 
+   devolverLogo(logo: string){
+    return this.restSvc.getProfilePictureUrl(logo);
+  }
+
+
 }

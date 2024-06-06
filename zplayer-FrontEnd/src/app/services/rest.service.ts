@@ -95,5 +95,38 @@ export class RestService {
     ))
   }
 
+  getMds(senderId:number|string,receiverId:number|string ){
+    return lastValueFrom(this.peticion.get<Restmessage>(
+      `${this.urlApi}/message/getMds/${senderId}/${receiverId}`
+    ))
+  }
+
+  postMd(senderId:number|string,receiverId:number|string, content: string){
+    return lastValueFrom(this.peticion.post<Restmessage>(
+      `${this.urlApi}/message/md`,
+      {senderId:senderId, receiverId:receiverId, content: content}
+    ))
+  }
+
+  getMdsUsers(userId:number|string){
+    return lastValueFrom(this.peticion.get<User[]>(
+      `${this.urlApi}/message/getMdsUsers/${userId}`
+    ))
+  }
+
+  actualizarDatosUsuario(formData: FormData){
+    return lastValueFrom(this.peticion.post<any>(
+      `${this.urlApi}/user/actualizarUsuario`,
+      formData
+    ))
+  }
+
+  getProfilePictureUrl(iconoPath: string): string {
+    return `${this.urlApi}${iconoPath}`;
+  }
+
+  getBannerUrl(bannerPath: string): string {
+    return `${this.urlApi}${bannerPath}`;
+  }
 
 }

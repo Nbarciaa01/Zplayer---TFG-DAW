@@ -27,11 +27,11 @@ const userSchema = new mongoose.Schema(
     },
     logo: {
       type:String,
-      default: 'assets/iconos-usuarios/avatardefault.png'
+      default: '/uploads/profile_pictures/avatardefault.png'
     },
     banner:{
       type:String,
-      default: 'assets/iconos-usuarios/bannerdefault.jpg'
+      default: '/uploads/banners/bannerdefault.jpg'
     },
     seguidores: [{
       type: mongoose.Schema.Types.ObjectId,

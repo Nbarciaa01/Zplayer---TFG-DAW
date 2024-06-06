@@ -39,7 +39,7 @@ export class SidebarComponent {
     let usuario: User = await this.restSvc.getDatosUser(usuarioLocal.id!)
     this.username = usuario.username;
     this.realname = usuario.realname;
-    this.logo = usuario.logo;
+    this.logo = this.restSvc.getProfilePictureUrl(usuario.logo);;
 
   }
 

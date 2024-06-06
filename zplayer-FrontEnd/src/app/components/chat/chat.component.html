@@ -11,12 +11,23 @@
 
         <h1 class="font-gaming-bold text-4xl text-[#028E39] pl-2 py-2 border-b-[1px] border-green-800">Mensajes</h1>
 
+        <div class="border-[1px] border-green-800 w-[80%] self-center my-2 h-[100px] flex cursor-pointer rounded-lg" *ngFor="let usuario of usuariosChatting">
+          <div class="w-[25%] justify-center flex items-center" (click)="privateChat(id, usuario._id!)">
+            <img src="../../../assets/iconos-usuarios/avatardefault.png" alt="" srcset="" width="50px">
+          </div>
+          <div class="flex flex-col w-[70%] sm:w-[40%] justify-center"(click)="privateChat(id, usuario._id!)">
+            <span>{{usuario.realname}}</span>
+            <span>&#64;{{usuario.username}}</span>
+          </div>
+          <div class="w-[30%] justify-center items-center text-3xl text-[#028E39] sm:flex hidden" (click)="privateChat(id, usuario._id!)">
+            <fa-icon class="mx-2" [icon]="faEnvelope"></fa-icon>
+            <fa-icon class="mx-2" [icon]="faArrowRight"></fa-icon>
+          </div>
+        </div>
+
         <div (click)="mostrarAmigosButton(true)" class="m-3 w-[30px] h-[30px] border-[1px] border-green-800 self-center justify-center items-center flex rounded-full bg-green-800 text-black cursor-pointer">
           <fa-icon [icon]="faPlus" ></fa-icon>
         </div>
-
-
-
 
 
           <!-- Main modal -->
@@ -42,7 +53,8 @@
                         <ul class="space-y-4 mb-4">
 
 
-                            <li *ngFor="let usuario of conjuntoSiguiendo">
+                            <li *ngFor="let usuario of usuariosNuevosChatting">
+                              <div (click)="privateChat(id, usuario._id!)">
                                 <input type="radio" id="job-1" name="job" value="job-1" class="hidden peer" required />
                                 <label for="job-1" class="inline-flex items-center justify-between w-full p-5 text-white bg-black border border-green-300 rounded-lg cursor-pointer ">
                                     <div class="block">
@@ -53,12 +65,15 @@
                                     </div>
                                     <svg class="w-4 h-4 ms-3 rtl:rotate-180 text-green-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/></svg>
                                 </label>
+                              </div>
                             </li>
 
 
 
                         </ul>
                     </div>
+
+
 
 
 

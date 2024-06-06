@@ -15,9 +15,11 @@
     "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",
     "express": "^4.19.2",
+    "fs-extra": "^11.2.0",
     "jsonwebtoken": "^9.0.2",
     "moongose": "^1.0.0",
     "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
     "require": "^2.4.20",
     "zod": "^3.23.4"
   },

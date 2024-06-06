@@ -41,4 +41,8 @@ export class DescubrirComponent {
     this.cargarUsuarios()
   }
 
+  devolverLogo(logo: string){
+    return this.restSvc.getProfilePictureUrl(logo);
+  }
+
 }

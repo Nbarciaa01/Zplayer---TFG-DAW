@@ -100,14 +100,8 @@ export class PrivateMensajesComponent implements AfterViewInit, OnInit {
 
   }
 
-  scrollReverse(){
-
-  }
-
-  devolverLogo(logo: string){
+   devolverLogo(logo: string){
     return this.restSvc.getProfilePictureUrl(logo);
   }
-
-
 
  }

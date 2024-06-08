@@ -12,9 +12,14 @@ import { LocalService } from '../../services/local.service';
 })
 export class DescubrirComponent {
   public usersFind: any[] = []
-  public id: number = 0;
+  public id: number|string = 0;
 
   constructor(private route:Router, private restSvc: RestService, private localSvc: LocalService) {
+
+    if(!this.localSvc.recuperarDatosUsuario()){
+      this.route.navigate(['../login']);
+    }
+
     this.recuperarDatosUsuarios();
     this.cargarUsuarios()
   }
@@ -31,8 +36,15 @@ export class DescubrirComponent {
   }
 
 
-  viewUserProfile(userId: string): void {
-    this.route.navigate(['../perfil/user', userId]);
+  viewUserProfile(userId: string|number): void {
+
+    if(userId == this.id){
+      this.route.navigate(['../perfil']);
+    }
+    else{
+      this.route.navigate(['../perfil/user', userId]);
+    }
+
   }
 
   async followUser(followed_user:string){

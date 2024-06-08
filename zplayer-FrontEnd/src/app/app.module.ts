@@ -54,7 +54,8 @@ import { PrivateMensajesComponent } from './components/private-mensajes/private-
     DescubrirComponent,
     PerfilUsuarioComponent,
     ChatComponent,
-    PrivateMensajesComponent
+    PrivateMensajesComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -70,7 +71,7 @@ import { PrivateMensajesComponent } from './components/private-mensajes/private-
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
   bootstrap: [AppComponent],
   providers: [

@@ -7,7 +7,7 @@
           CONTENEDOR CENTRAL
       -->
 
-      <div class="w-[65%] h-[100vh] border-r-[1px] border-x-green-800">
+      <div class="xl:w-[65%] w-[100%] h-[100vh] border-r-[1px] border-x-green-800">
 
         <div class="w-[100%] h-[7vh] pl-2 border-b-[1px] border-y-green-800">
           <p class="text-2xl">{{realname}}</p>
@@ -32,18 +32,18 @@
             <div class="mx-5 mt-5 flex justify-between">
 
               <div>
-                <p class="text-2xl">{{realname}}</p>
-                <p class="text-sm">&#64;{{username}}</p>
+                <p class="text-2xl md:text-xl">{{realname}}</p>
+                <p class="text-sm md:text-xs">&#64;{{username}}</p>
               </div>
 
-              <div class="flex">
-                <p class="text-sm mx-2">
-                  <span class="text-2xl">{{seguidores.length}}</span>
+              <div class="flex md:flex-row flex-col">
+                <p class="text-sm mx-2 md:text-xs">
+                  <span class="text-2xl md:text-xl">{{seguidores.length}}</span>
                   seguidores
                 </p>
 
-                <p class="text-sm mx-2">
-                  <span class="text-2xl">{{seguidos.length}}</span>
+                <p class="text-sm mx-2 md:text-xs">
+                  <span class="text-2xl md:text-xl">{{seguidos.length}}</span>
                   siguiendo
                 </p>
               </div>
@@ -64,7 +64,7 @@
             <div class="flex px-2">
 
               <div class="w-10 h-10">
-                <img [src]="post.user_id.logo" class="w-10 h-10 rounded-full select-none" alt="icono-usuario"  srcset="">
+                <img [src]="devolverLogo(post.user_id.logo)" class="w-10 h-10 rounded-full select-none" alt="icono-usuario"  srcset="">
               </div>
 
               <div class="self-center ml-4">
@@ -106,7 +106,7 @@
       <!--
       BARRA LATERAL DERECHA
       -->
-      <div class="w-[35%] h-[100%] flex flex-col items-center">
+      <div class="w-[35%] h-[100%] xl:flex hidden flex-col items-center">
 
         <!--
         BOTON DE BUSQUEDA

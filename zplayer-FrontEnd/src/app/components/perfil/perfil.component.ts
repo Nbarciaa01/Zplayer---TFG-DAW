@@ -1,10 +1,10 @@
 import { faGamepad } from '@fortawesome/free-solid-svg-icons';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalService } from '../../services/local.service';
 import { User } from '../../infraestructure/models/user';
 import { Post } from '../../infraestructure/models/message'
-import { faMagnifyingGlass, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faUser, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { RestService } from '../../services/rest.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -22,7 +22,21 @@ export class PerfilComponent {
   editarPerfil:boolean = false;
   selectedFiles: { [key: string]: File } = {};
 
+  mostrarBoton = false;
+  page: number = 1;
+  limit: number = 20;
+  loading: boolean = false;
+
+
+  @ViewChild('scrollContainer') scrollContainer!: ElementRef;
+
   constructor(private route:Router, private localSvc: LocalService, private restSvc: RestService, private fb: FormBuilder) {
+
+    if(!this.localSvc.recuperarDatosUsuario()){
+      this.route.navigate(['../login']);
+    }
+
+
     this.recuperarDatosUsuarios()
 
     this.profileForm = this.fb.group({
@@ -42,9 +56,19 @@ export class PerfilComponent {
   }
 
   async cargarPosts(){
-    this.posts = await this.restSvc.getUserPosts(this.id);
+    this.loading = true;
+
+    const userPosts = await this.restSvc.getUserPosts(this.id,this.page, this.limit);
+    this.posts.push(...userPosts.posts);
     this.posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
+    this.loading = false;
+  }
+
+  async cargarMasPosts() {
+    if (this.loading) return;
+    this.page++;
+    await this.cargarPosts();
   }
 
   //DATOS DE USUARIO
@@ -60,6 +84,7 @@ export class PerfilComponent {
 
   faMagnifyingGlass = faMagnifyingGlass;
   faUser=faUser;
+  faTrash=faTrash;
 
   ajustarAltura() {
     const textarea = document.getElementById('mensaje');
@@ -152,4 +177,26 @@ export class PerfilComponent {
       }
     }
   }
+
+  onDivScroll(): void {
+    const container = this.scrollContainer.nativeElement;
+    const yOffSet = this.scrollContainer.nativeElement.scrollTop;
+    this.mostrarBoton = yOffSet > 500;
+
+    if (container.scrollTop + container.clientHeight >= container.scrollHeight && !this.loading) {
+      this.cargarMasPosts();
+    }
+  }
+
+  async borrarPost(postId: string|number){
+    let borrarPost = await this.restSvc.borrarPost(postId)
+
+    if(borrarPost.codigo === 200 ){
+      this.page = 1;
+      this.posts = [];
+      await this.cargarPosts()
+
+    }
+  }
+
 }

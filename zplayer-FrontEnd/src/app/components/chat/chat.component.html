@@ -53,6 +53,8 @@
                         <ul class="space-y-4 mb-4">
 
 
+                          @if(usuariosNuevosChatting.length > 0){
+
                             <li *ngFor="let usuario of usuariosNuevosChatting">
                               <div (click)="privateChat(id, usuario._id!)">
                                 <input type="radio" id="job-1" name="job" value="job-1" class="hidden peer" required />
@@ -67,6 +69,10 @@
                                 </label>
                               </div>
                             </li>
+
+                          }@else {
+                            <p class="text-xs w-[100%] text-center mt-10">Sigue a usuarios para chatear...</p>
+                          }
 
 
 

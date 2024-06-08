@@ -50,9 +50,9 @@ export class RestService {
   ))
   }
 
-  getAllPosts(){
-    return lastValueFrom(this.peticion.get<Post[]>(
-      `${this.urlApi}/post/getPosts`,
+  getAllPosts(page: number, limit: number){
+    return lastValueFrom(this.peticion.get<any>(
+      `${this.urlApi}/post/getPosts/?page=${page}&limit=${limit}`,
     ))
   }
 
@@ -69,9 +69,9 @@ export class RestService {
     ))
   }
 
-  getUserPosts(user_id: number | string){
-    return lastValueFrom(this.peticion.get<Post[]>(
-      `${this.urlApi}/post/getUserPosts/${user_id}`,
+  getUserPosts(user_id: number | string,page: number, limit: number){
+    return lastValueFrom(this.peticion.get<any>(
+      `${this.urlApi}/post/getUserPosts/${user_id}/?page=${page}&limit=${limit}`,
     ))
   }
 
@@ -129,4 +129,15 @@ export class RestService {
     return `${this.urlApi}${bannerPath}`;
   }
 
+  obtenerPostsSeguidores(userId:number|string,page: number, limit: number){
+    return lastValueFrom(this.peticion.get<any>(
+      `${this.urlApi}/post/getFollowesPosts/${userId}/?page=${page}&limit=${limit}`
+    ))
+  }
+
+  borrarPost(postId: number|string){
+    return lastValueFrom(this.peticion.delete<Restmessage>(
+      `${this.urlApi}/post/deletePost/${postId}`
+    ))
+  }
 }

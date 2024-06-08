@@ -15,6 +15,7 @@ router.get("/getPosts", postcontroller.obtenerPosts);
 router.post("/like", postcontroller.addLike);
 router.get("/getUserPosts/:user_id", postcontroller.obtenerUserPosts);
 router.get("/getComunityPosts/:comunity", postcontroller.obtenerComunityPosts)
-
+router.get("/getFollowesPosts/:user_id", postcontroller.obtenerPostsSeguidores)
+router.delete("/deletePost/:postId", postcontroller.deletePost)
 
 module.exports=router;

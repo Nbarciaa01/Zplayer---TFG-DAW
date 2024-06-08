@@ -1,10 +1,10 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalService } from '../../services/local.service';
 import { User } from '../../infraestructure/models/user';
 import { Post, Posts } from '../../infraestructure/models/message'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faGlobe,faHandPointUp, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { RestService } from '../../services/rest.service';
 
 @Component({
@@ -13,9 +13,12 @@ import { RestService } from '../../services/rest.service';
     styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit  {
+  mostrarBoton = false;
   contenido: string = '';
   posts: Post[] = []
+  posts_seguidores: Post[] = []
   posts_ordenados: any = []
+  posts_seguidores_ordenados: any = []
   categoria: string | null = '';
   juegosList: string[] = [
     'General',
@@ -28,8 +31,23 @@ export class HomeComponent implements OnInit  {
     'Survivals',
     'Deportes'
   ];
+  faGlobe=faGlobe
+  faHandPointUp=faHandPointUp
+  faArrowUp=faArrowUp;
+  tipoChat: string = "global";
 
-  constructor(private route:Router, private localSvc: LocalService, private restSvc: RestService) {
+  page: number = 1;
+  limit: number = 20;
+  loading: boolean = false;
+
+  @ViewChild('scrollContainer') scrollContainer!: ElementRef;
+
+  constructor(private route:Router, private localSvc: LocalService, private restSvc: RestService, ) {
+
+    if(!this.localSvc.recuperarDatosUsuario()){
+      this.route.navigate(['../login']);
+    }
+
     this.recuperarDatosUsuarios()
 
   }
@@ -41,10 +59,22 @@ export class HomeComponent implements OnInit  {
   }
 
   async cargarPosts(){
-    this.posts = await this.restSvc.getAllPosts();
+    this.loading = true;
+    const nuevosPosts = await this.restSvc.getAllPosts(this.page, this.limit);
+    this.posts.push(...nuevosPosts.posts)
     this.posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
-    console.log(this.posts)
+    const nuevosPostsSeguidores = await this.restSvc.obtenerPostsSeguidores(this.id,this.page, this.limit)
+    this.posts_seguidores.push(...nuevosPostsSeguidores)
+    this.posts_seguidores.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+    this.loading = false;
+  }
+
+  async cargarMasPosts() {
+    if (this.loading) return;
+    this.page++;
+    await this.cargarPosts();
   }
 
   //DATOS DE USUARIO
@@ -80,6 +110,8 @@ export class HomeComponent implements OnInit  {
       let mensajeRespuesta = await this.restSvc.newPost(this.id,this.contenido,this.categoria!)
 
       if(mensajeRespuesta.codigo === 0){
+        this.page = 1;
+        this.posts = [];
         await this.cargarPosts()
       }
 
@@ -96,6 +128,8 @@ export class HomeComponent implements OnInit  {
     let mensajeRespuesta = await this.restSvc.darLike(this.id,messageID)
 
     if(mensajeRespuesta.codigo === 200 || mensajeRespuesta.codigo === 201){
+      this.page = 1;
+      this.posts = [];
       await this.cargarPosts()
     }
    }
@@ -108,5 +142,28 @@ export class HomeComponent implements OnInit  {
     return this.restSvc.getProfilePictureUrl(logo);
   }
 
+  viewUserProfile(userId: string|number): void {
+    if(userId == this.id){
+      this.route.navigate(['../perfil']);
+    }
+    else{
+      this.route.navigate(['../perfil/user', userId]);
+    }
+
+  }
+
+  onDivScroll(): void {
+    const container = this.scrollContainer.nativeElement;
+    const yOffSet = this.scrollContainer.nativeElement.scrollTop;
+    this.mostrarBoton = yOffSet > 500;
+
+    if (container.scrollTop + container.clientHeight >= container.scrollHeight && !this.loading) {
+      this.cargarMasPosts();
+    }
+  }
+
+  irArriba(): void{
+    this.scrollContainer.nativeElement.scrollTop = 0;
+  }
 
 }

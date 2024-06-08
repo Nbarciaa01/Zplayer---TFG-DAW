@@ -14,7 +14,7 @@
           <p>posts: {{posts.length}}</p>
         </div>
 
-        <div class="w-[100%] h-[93vh] overflow-y-auto scrollable-messages  flex flex-col">
+        <div class="w-[100%] h-[93vh] overflow-y-auto scrollable-messages  flex flex-col" #scrollContainer (scroll)="onDivScroll()">
           <div class="w-[100%] border-b-[1px] border-y-green-800 pb-5 ">
 
             <div>
@@ -135,14 +135,20 @@
             POST FORMATO
           -->
           <article class="w-[100%] my-3 border-[1px] border-green-800 py-4 " *ngFor="let post of posts">
-            <div class="flex px-2">
+            <div class="flex px-2 justify-between">
 
-              <div class="w-10 h-10">
-                <img [src]="logo" class="w-10 h-10 rounded-full select-none" alt="icono-usuario"  srcset="">
+              <div class="flex">
+                <div class="w-10 h-10">
+                  <img [src]="logo" class="w-10 h-10 rounded-full select-none" alt="icono-usuario"  srcset="">
+                </div>
+
+                <div class="self-center ml-4">
+                  &#64;{{post.user_id.username}}
+                </div>
               </div>
 
-              <div class="self-center ml-4">
-                &#64;{{post.user_id.username}}
+              <div class="cursor-pointer text-green-800" (click)="borrarPost(post._id)">
+                <fa-icon [icon]="faTrash" class="self-end"></fa-icon>
               </div>
 
             </div>

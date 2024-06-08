@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const config = require("../config.js")
 const libsjwt = require("../libs/jwt.js");
+const { post } = require("../routes/post.routes.js");
 
 
 module.exports = {
@@ -71,25 +72,57 @@ module.exports = {
     },
 
     obtenerPosts: async (req, res) => {
-      try{
-        // const { comunity } = req.body;
+      try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 20;
+        const skip = (page - 1) * limit;
+    
+        const posts = await Post.find()
+          .sort({ createdAt: -1 })
+          .skip(skip)
+          .limit(limit)
+          .populate('user_id', 'username logo username');
+    
+        const totalPosts = await Post.countDocuments();
+        const totalPages = Math.ceil(totalPosts / limit);
+    
+        res.status(200).json({
+          page,
+          limit,
+          totalPosts,
+          totalPages,
+          posts,
+        });
 
-        const messages = await Post.find().populate('user_id', 'username logo username');
-
-        res.status(200).send( messages );
-
-      }
-      catch(error){
-        res.status(500).send({ codigo: 1, mensaje: 'Error al recuperar los mensajes', error: error.message });
+      } catch (error) {
+        res.status(500).json({ codigo: 1, mensaje: 'Error al obtener los posts', error: error.message });
       }
     },
 
     obtenerUserPosts: async (req, res) => {
       try{
         const user_id = req.params.user_id
-        const posts = await Post.find({user_id: user_id}).populate('user_id', 'username logo username');
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 20;
+        const skip = (page - 1) * limit;
 
-        res.status(200).send( posts );
+
+        const posts = await Post.find({user_id: user_id})
+          .sort({ createdAt: -1 })
+          .skip(skip)
+          .limit(limit).populate('user_id', 'username logo username');
+
+        const totalPosts = await Post.countDocuments();
+        const totalPages = Math.ceil(totalPosts / limit);
+
+        res.status(200).json({
+          page,
+          limit,
+          totalPosts,
+          totalPages,
+          posts,
+        });
+  
       }
       catch(error){
         console.error('Error al obtener los posts del usuario:', error);
@@ -107,6 +140,46 @@ module.exports = {
       catch(error){
         console.error('Error al obtener los posts de la comunidad:', error);
         res.status(500).send({ message: 'Error al obtener los posts de la comunidad' });
+      }
+    },
+
+    obtenerPostsSeguidores: async (req,res) => {
+      try {
+        // Asumimos que el ID del usuario que está haciendo la solicitud se encuentra en `req.user.id`
+        const user_id = req.params.user_id
+    
+        // Encuentra al usuario y obtén la lista de IDs de los usuarios a los que sigue
+        const user = await User.findById(user_id).populate('siguiendo', 'id');
+        
+        if (!user) {
+          return res.status(404).json({ codigo: 1, mensaje: 'Usuario no encontrado' });
+        }
+    
+        // Obtén la lista de IDs de los usuarios a los que sigue
+        const followingIds = user.siguiendo.map(followingUser => followingUser._id);
+    
+        // Encuentra los posts de los usuarios seguidos
+        const posts = await Post.find({ user_id: { $in: followingIds } });
+    
+        res.status(200).json( posts );
+      } catch (error) {
+        res.status(500).json({ codigo: 1, mensaje: 'Error al recuperar los posts', error: error.message });
+      }
+    },
+
+    deletePost: async (req,res) => {
+      try {
+        const postId = req.params.postId;
+        console.log(postId)
+        const deletedPost = await Post.findByIdAndDelete(postId);
+    
+        if (!deletedPost) {
+          return res.status(404).json({ codigo: 404, mensaje: 'Post no encontrado' });
+        }
+    
+        res.status(200).json({ codigo: 200, mensaje: 'Post eliminado exitosamente' });
+      } catch (error) {
+        res.status(500).json({ codigo: 500, mensaje: 'Error al eliminar el post', error: error.message });
       }
     }
   

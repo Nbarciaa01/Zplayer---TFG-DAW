@@ -10,19 +10,23 @@
 
       <div class="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
 
-        <div class="md:w-[400px] md:h-[350px] max-w-sm border-[1px] border-green-800 rounded-lg shadow bg-black m-5" *ngFor="let user of usersFind">
+        @if (usersFind.length <= 0) {
+          <p class="h-[fit-content] p-1 self-center col-start-1 col-end-3">No hay usuarios para descubir :/</p>
+        }@else{
+          <div class="md:w-[400px] md:h-[350px] max-w-sm border-[1px] border-green-800 rounded-lg shadow bg-black m-5" *ngFor="let user of usersFind">
 
-          <div class="flex flex-col items-center p-16">
-              <img class="max-w-24 h-24 mb-3 cursor-pointer  rounded-full shadow-lg" [src]="devolverLogo(user.logo)" alt="Bonnie image" (click)="viewUserProfile(user._id)"/>
-              <h5 class="mb-1 text-xl cursor-pointer  font-medium text-gray-900 dark:text-white text-center" (click)="viewUserProfile(user._id)">{{user.realname}}</h5>
-              <span class="text-sm cursor-pointer  text-gray-500 dark:text-gray-400" (click)="viewUserProfile(user._id)">&#64;{{user.username}}</span>
-              <div class="flex mt-4 md:mt-6 flex-wrap items-center justify-center">
-                  <a (click)="followUser(user._id)" class="cursor-pointer inline-flex mt-2 sm:mt-0  items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Seguir</a>
-                  <a href="#" class="py-2 px-4 mt-2 sm:mt-0 sm:ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Mensaje</a>
-              </div>
+            <div class="flex flex-col items-center p-16">
+                <img class="max-w-24 h-24 mb-3 cursor-pointer  rounded-full shadow-lg" [src]="devolverLogo(user.logo)" alt="Bonnie image" (click)="viewUserProfile(user._id)"/>
+                <h5 class="mb-1 text-xl cursor-pointer  font-medium text-gray-900 dark:text-white text-center" (click)="viewUserProfile(user._id)">{{user.realname}}</h5>
+                <span class="text-sm cursor-pointer  text-gray-500 dark:text-gray-400" (click)="viewUserProfile(user._id)">&#64;{{user.username}}</span>
+                <div class="flex mt-4 md:mt-6 flex-wrap items-center justify-center">
+                    <a (click)="followUser(user._id)" class="cursor-pointer inline-flex mt-2 sm:mt-0  items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Seguir</a>
+                    <a href="#" class="py-2 px-4 mt-2 sm:mt-0 sm:ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Mensaje</a>
+                </div>
+            </div>
+
           </div>
-
-        </div>
+        }
 
       </div>
 

@@ -16,6 +16,7 @@ import { Post } from '../../infraestructure/models/message'
   posts_ordenados: any = []
 
   constructor(private route: ActivatedRoute, private restSvc: RestService) {
+
     this.userId = this.route.snapshot.paramMap.get('userId')!;
 
 
@@ -30,11 +31,18 @@ import { Post } from '../../infraestructure/models/message'
   }
 
   async cargarPosts(){
-
-    this.posts = await this.restSvc.getUserPosts(this.userId);
+    this.loading = true;
+    const userPosts = await this.restSvc.getUserPosts(this.userId,this.page, this.limit)
+    this.posts.push(userPosts.posts)
     this.posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-    console.log(this.posts)
+    this.loading = false
 
+  }
+
+  async cargarMasPosts() {
+    if (this.loading) return;
+    this.page++;
+    await this.cargarPosts();
   }
 
   //DATOS DE USUARIO
@@ -46,6 +54,10 @@ import { Post } from '../../infraestructure/models/message'
   public seguidores: number[] = [];
   public seguidos: number[] = [];
 
+  page: number = 1;
+  limit: number = 20;
+  loading: boolean = false;
+
   async loadUserData(){
     let datosUsuario = await this.restSvc.getDatosUser(this.userId)
 
@@ -53,7 +65,7 @@ import { Post } from '../../infraestructure/models/message'
     this.realname = datosUsuario.realname;
     this.logo = this.restSvc.getProfilePictureUrl(datosUsuario.logo);
     this.id = datosUsuario.id!;
-    this.banner = datosUsuario.banner;
+    this.banner = this.restSvc.getBannerUrl(datosUsuario.banner);
     this.seguidores = datosUsuario.seguidores;
     this.seguidos = datosUsuario.siguiendo;
   }
@@ -70,7 +82,11 @@ import { Post } from '../../infraestructure/models/message'
     }
    }
 
+
    mensajeGustado(message: Post): boolean{
     return message.likes.includes(parseInt(this.userId));
    }
+   devolverLogo(logo: string){
+    return this.restSvc.getProfilePictureUrl(logo);
+  }
 }

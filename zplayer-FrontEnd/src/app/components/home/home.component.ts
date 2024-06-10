@@ -40,6 +40,9 @@ export class HomeComponent implements OnInit  {
   limit: number = 20;
   loading: boolean = false;
 
+  usersFind: any[] = []
+  usuariosRandom:any[] = []
+
   @ViewChild('scrollContainer') scrollContainer!: ElementRef;
 
   constructor(private route:Router, private localSvc: LocalService, private restSvc: RestService, ) {
@@ -49,6 +52,7 @@ export class HomeComponent implements OnInit  {
     }
 
     this.recuperarDatosUsuarios()
+    this.cargarUsuarios()
 
   }
 
@@ -78,7 +82,7 @@ export class HomeComponent implements OnInit  {
   }
 
   //DATOS DE USUARIO
-  private id:  number = 0;
+  public id:  number = 0;
   public username: string = '';
   public realname: string = '';
   public logo: string = '';
@@ -112,6 +116,7 @@ export class HomeComponent implements OnInit  {
       if(mensajeRespuesta.codigo === 0){
         this.page = 1;
         this.posts = [];
+        this.contenido = "";
         await this.cargarPosts()
       }
 
@@ -165,5 +170,40 @@ export class HomeComponent implements OnInit  {
   irArriba(): void{
     this.scrollContainer.nativeElement.scrollTop = 0;
   }
+
+  async cargarUsuarios(){
+    this.usersFind = await this.restSvc.getUsersForFollow(this.id)
+    this.usuariosRandom = this.getUsuariosRandom(this.usersFind)
+    console.log(this.usuariosRandom)
+  }
+
+  // USUARIOS RANDOM
+  getUsuariosRandom(arr: any[]): any[] {
+    if (arr.length <= 2) {
+      return arr;
+    }
+
+    let randomIndices:any = [];
+    while (randomIndices.length < 2) {
+      let randomIndex = Math.floor(Math.random() * arr.length);
+      if (!randomIndices.includes(randomIndex)) {
+        randomIndices.push(randomIndex);
+      }
+    }
+
+    return arr.filter((_, index) => randomIndices.includes(index));
+}
+
+async followUser(followed_user:string){
+  await this.restSvc.followUser(this.id, followed_user)
+
+  this.cargarUsuarios()
+}
+
+privateChat(sender_id:number|string, receiver_id: number|string){
+
+  this.route.navigate(['../chat'], { state: { sender_id: sender_id, receiver_id: receiver_id} });
+
+}
 
 }

@@ -149,7 +149,7 @@ module.exports = {
         const user_id = req.params.user_id
     
         // Encuentra al usuario y obtén la lista de IDs de los usuarios a los que sigue
-        const user = await User.findById(user_id).populate('siguiendo', 'id');
+        const user = await User.findById(user_id).populate('siguiendo', 'id username logo');
         
         if (!user) {
           return res.status(404).json({ codigo: 1, mensaje: 'Usuario no encontrado' });

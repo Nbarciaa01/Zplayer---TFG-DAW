@@ -27,6 +27,10 @@
                 <img class="rounded-full w-[100%]" [src]="logo" alt="imagen-user" srcset="">
               </div>
 
+              <!-- @if(comprobarFollow()){ -->
+                <a (click)="followUser(userId)" class="h-[fit-content] mr-5 cursor-pointer inline-flex mt-2 sm:mt-0  items-center px-4 py-2 text-sm font-medium text-center text-white bg-green-800 rounded-lg hover:bg-green-900 focus:ring-4 focus:outline-none">Seguir</a>
+              <!-- } -->
+
             </div>
 
             <div class="mx-5 mt-5 flex justify-between">
@@ -60,6 +64,7 @@
           <!--
             POST FORMATO
           -->
+
           <article class="w-[100%] my-3 border-[1px] border-green-800 py-4 " *ngFor="let post of posts">
             <div class="flex px-2">
 

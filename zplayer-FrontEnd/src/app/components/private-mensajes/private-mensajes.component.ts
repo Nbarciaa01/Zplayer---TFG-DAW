@@ -23,7 +23,7 @@ export class PrivateMensajesComponent implements AfterViewInit, OnInit {
   logoSender:string = ""
   usernameReceiver:string = ""
 
-  constructor(private router: Router, private restSvc: RestService,private location:Location) {}
+  constructor(private route: Router, private restSvc: RestService,private location:Location) {}
 
   ngAfterViewInit() {
     this.scrollToBottom(); // Desplaza al fondo al principio
@@ -102,6 +102,11 @@ export class PrivateMensajesComponent implements AfterViewInit, OnInit {
 
    devolverLogo(logo: string){
     return this.restSvc.getProfilePictureUrl(logo);
+  }
+
+  viewUserProfile(userId: string|number): void {
+
+      this.route.navigate(['../perfil/user', userId]);
   }
 
  }

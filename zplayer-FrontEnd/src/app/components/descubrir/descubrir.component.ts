@@ -57,4 +57,10 @@ export class DescubrirComponent {
     return this.restSvc.getProfilePictureUrl(logo);
   }
 
+  privateChat(sender_id:number|string, receiver_id: number|string){
+
+    this.route.navigate(['../chat'], { state: { sender_id: sender_id, receiver_id: receiver_id} });
+
+  }
+
 }

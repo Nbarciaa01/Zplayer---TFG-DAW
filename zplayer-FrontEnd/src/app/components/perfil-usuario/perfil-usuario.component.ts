@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
 import { RestService } from '../../services/rest.service';
 import { Post } from '../../infraestructure/models/message'
+import { User } from '../../infraestructure/models/user';
+import { LocalService } from '../../services/local.service';
 
 @Component({
     selector: 'perfil-usuario',
@@ -11,29 +13,32 @@ import { Post } from '../../infraestructure/models/message'
  export class PerfilUsuarioComponent implements OnInit {
 
   userId: string = "";
-
+  miUserId: string|number = "";
   posts: Post[] = []
   posts_ordenados: any = []
 
-  constructor(private route: ActivatedRoute, private restSvc: RestService) {
+  constructor(private route: ActivatedRoute, private restSvc: RestService,private localSvc: LocalService) {
 
     this.userId = this.route.snapshot.paramMap.get('userId')!;
 
 
     this.loadUserData();
+    this.recuperarMiUsuario()
 
   }
 
   ngOnInit(): void {
 
-
     this.cargarPosts()
+    this.comprobarFollow()
   }
 
   async cargarPosts(){
     this.loading = true;
     const userPosts = await this.restSvc.getUserPosts(this.userId,this.page, this.limit)
-    this.posts.push(userPosts.posts)
+    if(userPosts.posts.length > 0){
+      this.posts.push(userPosts.posts)
+    }
     this.posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     this.loading = false
 
@@ -67,7 +72,15 @@ import { Post } from '../../infraestructure/models/message'
     this.id = datosUsuario.id!;
     this.banner = this.restSvc.getBannerUrl(datosUsuario.banner);
     this.seguidores = datosUsuario.seguidores;
+    console.log(this.seguidores)
     this.seguidos = datosUsuario.siguiendo;
+  }
+
+  recuperarMiUsuario(){
+    let usuario: User = this.localSvc.recuperarDatosUsuario();
+
+    this.miUserId = usuario.id!;
+
   }
 
   formatearFecha(fechaPost: Date){
@@ -89,4 +102,15 @@ import { Post } from '../../infraestructure/models/message'
    devolverLogo(logo: string){
     return this.restSvc.getProfilePictureUrl(logo);
   }
+
+  async followUser(followed_user:string){
+    await this.restSvc.followUser(this.miUserId, followed_user)
+  }
+
+  async comprobarFollow(){
+    console.log(this.seguidores)
+    console.log(this.miUserId)
+    console.log(this.seguidores.some(userID => userID === this.miUserId))
+  }
+
 }

@@ -5,37 +5,45 @@
 
     <div class="border-black border-[1px] p-4 mb-4 rounded">
       <h1 class="text-4xl mb-4">Regístrate</h1>
-      <form class="flex flex-col items-center justify-center" [formGroup]="this.formRegister">
+<form class="flex flex-col items-center justify-center" [formGroup]="formRegister" (ngSubmit)="comprobarValores()">
 
-        <input type="text" formControlName="realname"   class="border-black border-[1px] p-2 rounded w-[70%] my-4 font-gaming-bold" placeholder="Nombre">
-
-
-        <input type="email" formControlName="correo"  class="border-black border-[1px] p-2 rounded w-[70%]  my-4 font-gaming-bold" placeholder="Correo electronico">
-
-        <input type="password" formControlName="contraseña"  class="border-black border-[1px] p-2 rounded w-[70%]  my-4 font-gaming-bold" placeholder="Contraseña">
-
-        <input type="password" formControlName="contraseñaConfirm"  class="border-black border-[1px] p-2 rounded w-[70%]  my-4 font-gaming-bold" placeholder="Confirmar Contraseña">
-
-        <input type="text" formControlName="username"  class="border-black border-[1px] p-2 rounded w-[70%]  my-4 font-gaming-bold" placeholder="Nombre de usuario (@)">
-
-        <p class="self-start font-gaming-bold my-6 text-lg">Selecciona tus estilos de juegos favoritos</p>
-
-        <mat-form-field class="font-gaming-bold -ml-[200px]">
-          <mat-label>Estilos Favoritos</mat-label>
-          <mat-select formControlName="comunidades" multiple>
-            @for (juego of juegosList; track juego) {
-              <mat-option [value]="juego" >
-                {{juego}}
-              </mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-
-        <input type="submit" (click)="comprobarValores()" class="bg-[#028E39] hover:bg-[#22613b] text-white font-bold py-2 px-4 border-b-4 border-[#028E39] hover:bg-[#028e3a86] rounded my-4 w-[40%]" value="Entrar"/>
-        <p class="font-gaming-bold cursor-pointer" [routerLink]="['/login']">¿Ya tienes cuenta? Login</p>
+  <div *ngIf="formRegister.get('realname')?.invalid && formRegister.get('realname')?.touched" class="w-[70%]  mb-[-20px] text-start text-red-800 font-gaming-bold">Nombre es requerido</div>
+  <input type="text" formControlName="realname" class="border-black border-[1px] p-2 rounded w-[70%] my-4 font-gaming-bold" placeholder="Nombre *">
 
 
-      </form>
+  <div *ngIf="formRegister.get('correo')?.invalid && formRegister.get('correo')?.errors?.['required'] && formRegister.get('correo')?.touched" class="w-[70%]  mb-[-20px] text-start text-red-800 font-gaming-bold">Correo es requerido</div>
+  <div *ngIf="formRegister.get('correo')?.invalid &&  formRegister.get('correo')?.errors?.['email'] && formRegister.get('correo')?.touched" class="w-[70%]  mb-[-20px] text-start text-red-800 font-gaming-bold">Correo no es válido</div>
+  <input type="email" formControlName="correo" class="border-black border-[1px] p-2 rounded w-[70%] my-4 font-gaming-bold" placeholder="Correo electrónico *">
+
+
+  <div *ngIf="formRegister.get('contraseña')?.invalid && formRegister.get('contraseña')?.errors?.['required'] && formRegister.get('contraseña')?.touched" class="w-[70%]  mb-[-20px] text-start text-red-800 font-gaming-bold">Contraseña es requerido</div>
+  <div *ngIf="formRegister.get('contraseña')?.invalid && formRegister.get('contraseña')?.touched && errorPasswords" class="w-[70%]  mb-[-20px] text-start text-red-800 font-gaming-bold">Las contraseñas no coinciden</div>
+  <div *ngIf="formRegister.get('contraseña')?.invalid && formRegister.get('contraseña')?.errors?.['minlength'] && formRegister.get('contraseña')?.touched" class="w-[70%]  mb-[-20px] text-start text-red-800 font-gaming-bold">Contraseña debe tener al menos 7 caracteres</div>
+  <input type="password" formControlName="contraseña" class="border-black border-[1px] p-2 rounded w-[70%] my-4 font-gaming-bold" placeholder="Contraseña *">
+
+  <div *ngIf="formRegister.get('contraseñaConfirm')?.invalid && formRegister.get('contraseñaConfirm')?.errors?.['required'] && formRegister.get('contraseñaConfirm')?.touched" class="w-[70%]  mb-[-20px] text-start text-red-800 font-gaming-bold">Contraseña es requerido</div>
+  <div *ngIf="formRegister.get('contraseña')?.invalid && formRegister.get('contraseña')?.touched && errorPasswords" class="w-[70%]  mb-[-20px] text-start text-red-800 font-gaming-bold">Las contraseñas no coinciden</div>
+  <div *ngIf="formRegister.get('contraseñaConfirm')?.errors?.['minlength']" class="w-[70%]  mb-[-20px] text-start text-red-800 font-gaming-bold">Contraseña debe tener al menos 7 caracteres</div>
+  <input type="password" formControlName="contraseñaConfirm" class="border-black border-[1px] p-2 rounded w-[70%] my-4 font-gaming-bold" placeholder="Confirmar Contraseña *">
+
+  <div *ngIf="formRegister.get('username')?.invalid && formRegister.get('username')?.touched" class="w-[70%]  mb-[-20px] text-start text-red-800 font-gaming-bold">Nombre de usuario es requerido</div>
+  <input type="text" formControlName="username" class="border-black border-[1px] p-2 rounded w-[70%] my-4 font-gaming-bold" placeholder="Nombre de usuario *">
+
+  <p class="self-start font-gaming-bold my-6 text-lg">Selecciona tus estilos de juegos favoritos</p>
+
+  <mat-form-field class="font-gaming-bold -ml-[200px]">
+    <mat-label>Estilos Favoritos</mat-label>
+    <mat-select formControlName="comunidades" multiple>
+      <mat-option *ngFor="let juego of juegosList" [value]="juego">
+        {{juego}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <input type="submit" class="bg-[#028E39] hover:bg-[#22613b] text-white font-bold py-2 px-4 border-b-4 border-[#028E39] hover:bg-[#028e3a86] rounded my-4 w-[40%]" value="Entrar"/>
+  <p class="font-gaming-bold cursor-pointer" [routerLink]="['/login']">¿Ya tienes cuenta? Login</p>
+</form>
+
     </div>
 
   </div>

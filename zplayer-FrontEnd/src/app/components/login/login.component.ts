@@ -19,6 +19,12 @@ export class LoginComponent {
   public bloqueado:boolean;
 
   constructor(private route:Router, private restSvc: RestService, private localSvc: LocalService) {
+    let usuario = this.localSvc.recuperarDatosUsuario()
+
+    if(usuario){
+      this.route.navigate(['/home']);
+    }
+
     this.formLogin=new FormGroup(
       {
         username: new FormControl('',[Validators.required]),
@@ -31,18 +37,24 @@ export class LoginComponent {
   }
 
   loginUsuario(){
-    this.restSvc.loginUsuario(this.formLogin.controls['username'].value, this.formLogin.controls['password'].value)
-    .subscribe( (resp : Restmessage) =>{
+    if(this.formLogin.valid){
+      this.restSvc.loginUsuario(this.formLogin.controls['username'].value, this.formLogin.controls['password'].value)
+      .subscribe( (resp : Restmessage) =>{
 
-      if(resp.codigo === 0){
-        this.localSvc.almacenarDatosUsuario(resp.usuario!);
+        if(resp.codigo === 0){
+          this.localSvc.almacenarDatosUsuario(resp.usuario!);
 
-        this.route.navigate(['/home']);
-      }
-      else{
-        this.route.navigate(['/']);
-      }
+          this.route.navigate(['/home']);
+        }
+        else{
+          window.alert("creedenciales incorretas")
+          this.route.navigate(['/']);
+        }
 
-      })
+        })
+    }
+    else{
+      window.alert("Rellena correctamente todos los campos")
+    }
   }
 }

@@ -13,6 +13,7 @@ import { LocalService } from '../../services/local.service';
 export class DescubrirComponent {
   public usersFind: any[] = []
   public id: number|string = 0;
+  searchQuery: string = '';
 
   constructor(private route:Router, private restSvc: RestService, private localSvc: LocalService) {
 
@@ -63,4 +64,9 @@ export class DescubrirComponent {
 
   }
 
+  async buscarUsuarios(event: Event) {
+    event.preventDefault();
+    this.usersFind = await this.restSvc.buscarUsuarios(this.searchQuery, this.id);
+
+  }
 }

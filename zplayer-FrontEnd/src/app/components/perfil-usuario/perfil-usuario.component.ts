@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { RestService } from '../../services/rest.service';
 import { Post } from '../../infraestructure/models/message'
 import { User } from '../../infraestructure/models/user';
@@ -16,15 +16,17 @@ import { LocalService } from '../../services/local.service';
   miUserId: string|number = "";
   posts: Post[] = []
   posts_ordenados: any = []
+  usersFind: any[] = []
+  usuariosRandom:any[] = []
 
-  constructor(private route: ActivatedRoute, private restSvc: RestService,private localSvc: LocalService) {
+  constructor(private route: ActivatedRoute, private restSvc: RestService,private localSvc: LocalService, private router: Router) {
 
     this.userId = this.route.snapshot.paramMap.get('userId')!;
 
 
     this.loadUserData();
     this.recuperarMiUsuario()
-
+    this.cargarUsuarios()
   }
 
   ngOnInit(): void {
@@ -72,7 +74,6 @@ import { LocalService } from '../../services/local.service';
     this.id = datosUsuario.id!;
     this.banner = this.restSvc.getBannerUrl(datosUsuario.banner);
     this.seguidores = datosUsuario.seguidores;
-    console.log(this.seguidores)
     this.seguidos = datosUsuario.siguiendo;
   }
 
@@ -113,4 +114,41 @@ import { LocalService } from '../../services/local.service';
     console.log(this.seguidores.some(userID => userID === this.miUserId))
   }
 
+
+  privateChat(sender_id:number|string, receiver_id: number|string){
+
+    this.router.navigate(['../chat'], { state: { sender_id: sender_id, receiver_id: receiver_id} });
+
+  }
+
+  async cargarUsuarios(){
+    this.usersFind = await this.restSvc.getUsersForFollow(this.miUserId)
+    this.usuariosRandom = this.getUsuariosRandom(this.usersFind)
+    console.log(this.usuariosRandom)
+  }
+
+  // USUARIOS RANDOM
+  getUsuariosRandom(arr: any[]): any[] {
+    if (arr.length <= 2) {
+      return arr;
+    }
+
+    let randomIndices:any = [];
+    while (randomIndices.length < 2) {
+      let randomIndex = Math.floor(Math.random() * arr.length);
+      if (!randomIndices.includes(randomIndex)) {
+        randomIndices.push(randomIndex);
+      }
+    }
+
+    return arr.filter((_, index) => randomIndices.includes(index));
+}
+
+
+  viewUserProfile(userId: string|number): void {
+
+      this.router.navigate(['../perfil/user', userId]);
+      window.location.reload()
+
+  }
 }

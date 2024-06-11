@@ -2,18 +2,36 @@
 
     <Zplayer-sidebar class="w-[25%] h-[100%]"></Zplayer-sidebar>
 
-    <div class="w-[75%] h-[100%] bg-black flex text-white flex-wrap justify-center overflow-y-auto scrollable-messages">
+
+
+    <div class="w-[75%] bg-black flex text-white flex-wrap justify-center overflow-y-auto scrollable-messages">
+
+      <div class="w-[100%] mx-4 h-[fit-content] mt-12 rounded-xl flex items-center justify-center">
+        <div class="w-[100%]">
+            <form class="max-w-md mx-auto" (submit)="buscarUsuarios($event)">
+                <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                    </div>
+                    <input type="search" id="default-search" [(ngModel)]="searchQuery" name="searchQuery" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-[#22613b] rounded-lg bg-gray-50 focus:ring-[#22613b] focus:border-[#22613b] dark:bg-black dark:border-[#22613b] dark:placeholder-white dark:text-white dark:focus:ring-[#22613b] dark:focus:border-[#22613b]" placeholder="Busca Usuario (@username)" required />
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+      <div class="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4 mt-[-250px]">
 
 
 
-
-
-      <div class="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
 
         @if (usersFind.length <= 0) {
-          <p class="h-[fit-content] p-1 self-center col-start-1 col-end-3">No hay usuarios para descubir :/</p>
+          <p class="h-[fit-content] p-1 self-center col-start-1 col-end-3 mt-[-250px]">No hay usuarios para descubir :/</p>
         }@else{
-          <div class="md:w-[400px] md:h-[350px] max-w-sm border-[1px] border-green-800 rounded-lg shadow bg-black m-5" *ngFor="let user of usersFind">
+          <div class="md:w-[400px] md:h-[350px] h-[400px] max-w-sm border-[1px] border-green-800 rounded-lg shadow bg-black m-5" *ngFor="let user of usersFind">
 
             <div class="flex flex-col items-center p-16">
                 <img class="max-w-24 h-24 mb-3 cursor-pointer  rounded-full shadow-lg" [src]="devolverLogo(user.logo)" alt="Bonnie image" (click)="viewUserProfile(user._id)"/>

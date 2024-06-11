@@ -69,7 +69,7 @@ export class HomeComponent implements OnInit  {
     this.posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
     const nuevosPostsSeguidores = await this.restSvc.obtenerPostsSeguidores(this.id,this.page, this.limit)
-    this.posts_seguidores.push(...nuevosPostsSeguidores)
+    this.posts_seguidores.push(...nuevosPostsSeguidores.posts)
     this.posts_seguidores.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
     this.loading = false;
@@ -130,11 +130,13 @@ export class HomeComponent implements OnInit  {
    }
 
    async darLike(messageID: number){
+    console.log(messageID)
     let mensajeRespuesta = await this.restSvc.darLike(this.id,messageID)
 
     if(mensajeRespuesta.codigo === 200 || mensajeRespuesta.codigo === 201){
       this.page = 1;
       this.posts = [];
+      this.posts_seguidores = []
       await this.cargarPosts()
     }
    }
@@ -174,7 +176,6 @@ export class HomeComponent implements OnInit  {
   async cargarUsuarios(){
     this.usersFind = await this.restSvc.getUsersForFollow(this.id)
     this.usuariosRandom = this.getUsuariosRandom(this.usersFind)
-    console.log(this.usuariosRandom)
   }
 
   // USUARIOS RANDOM

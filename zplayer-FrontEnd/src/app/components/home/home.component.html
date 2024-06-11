@@ -8,7 +8,7 @@
           CONTENEDOR CENTRAL
       -->
 
-    <div class="xl:w-[65%] w-[100%] h-[100vh] border-r-[1px] border-x-green-800">
+    <div class="2xl:w-[65%] w-[100%] h-[100vh] border-r-[1px] border-x-green-800">
 
 
       <!--
@@ -25,27 +25,22 @@
                       <textarea (input)="ajustarAltura()" [(ngModel)]="contenido" id="mensaje" name="contenido" rows="1" class="resize-none w-full text-sm text-white border-0 dark:bg-black focus:ring-0 focus:outline-none dark:text-white dark:placeholder-white" placeholder="¡¿Jugamos?!" required ></textarea>
                   </div>
 
-                  <mat-form-field class="font-gaming-bold mt-3 custom-mat-form-field w-[10rem] self-end">
-                    <mat-label>Categoría Post</mat-label>
-                    <mat-select class="custom-mat-select" name="juego"  [(ngModel)]="categoria">
-                      @for (juego of juegosList; track juego) {
-                        <mat-option [value]="juego.toLowerCase()">{{juego}}</mat-option>
-                      }
-                    </mat-select>
-                  </mat-form-field>
 
-                  <div class="flex items-center justify-between">
+
+                  <div class="flex items-center justify-between sm:flex-row flex-col">
+                    <div class="flex ps-0 space-x-1 rtl:space-x-reverse sm:ps-2">
+                      <mat-form-field class="font-gaming-bold mt-3 custom-mat-form-field w-[10rem] self-end">
+                        <mat-label>Categoría Post</mat-label>
+                        <mat-select class="custom-mat-select" name="juego"  [(ngModel)]="categoria">
+                          @for (juego of juegosList; track juego) {
+                            <mat-option [value]="juego.toLowerCase()">{{juego}}</mat-option>
+                          }
+                        </mat-select>
+                      </mat-form-field>
+                  </div>
                       <button (click)="nuevoMensaje()" type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-[#028E39] rounded-lg focus:ring-[#028E39] dark:focus:ring-[#028e3a86] hover:bg-[#028e3a86]">
                           Comentar
                       </button>
-                      <div class="flex ps-0 space-x-1 rtl:space-x-reverse sm:ps-2">
-                          <button type="button" class="inline-flex justify-center items-center p-2 text-gray-500 rounded cursor-pointer hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-[#028e3a86]" >
-                              <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                                  <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"/>
-                              </svg>
-                              <span class="sr-only">Upload image</span>
-                          </button>
-                      </div>
                   </div>
               </div>
             </form>
@@ -117,9 +112,9 @@
 
       </div>
 
-      <div *ngIf="tipoChat === 'paraTi'">
+      <div *ngIf="tipoChat === 'paraTi'" class="flex flex-col">
 
-        @if (posts_seguidores.length <= 0) {
+        @if (posts_seguidores.length <= 0 && !loading) {
           <p class="mt-5 w-[100%] text-center">No se han encontrado posts de tus seguidores :/</p>
           <p class="mb-5 w-[100%] text-center">(Sigue a jugadores para ver sus posts)</p>
         }@else {
@@ -163,8 +158,6 @@
           </div>
 
         }
-
-
     </div>
         <!--
           FIN POST FORMATO
@@ -183,7 +176,7 @@
     <!--
     BARRA LATERAL DERECHA
     -->
-    <div class="w-[35%] h-[100%] xl:flex hidden flex-col items-center justify-around">
+    <div class="w-[35%] h-[100%] 2xl:flex hidden flex-col items-center justify-around">
 
         <div class="md:w-[400px] md:h-[350px] max-w-sm border-[1px] border-green-800 rounded-lg shadow bg-black m-5" *ngFor="let user of usuariosRandom">
 

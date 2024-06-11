@@ -23,5 +23,6 @@ router.get("/descubirUsers/:user_id", usercontroller.descubirUsers);
 router.get("/obtenerDatosUser/:user_id", usercontroller.obtenerDatosUser)
 router.post("/follow", usercontroller.seguirUsers)
 router.post("/actualizarUsuario", upload.fields([{name:'icono'},{name:'banner'}]), usercontroller.actualizarUsuario)
+router.get('/search', usercontroller.buscarUsuario);
 
 module.exports=router;

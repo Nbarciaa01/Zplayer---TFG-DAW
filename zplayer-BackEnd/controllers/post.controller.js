@@ -145,6 +145,11 @@ module.exports = {
 
     obtenerPostsSeguidores: async (req,res) => {
       try {
+
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 20;
+        const skip = (page - 1) * limit;
+
         // Asumimos que el ID del usuario que está haciendo la solicitud se encuentra en `req.user.id`
         const user_id = req.params.user_id
     
@@ -159,9 +164,23 @@ module.exports = {
         const followingIds = user.siguiendo.map(followingUser => followingUser._id);
     
         // Encuentra los posts de los usuarios seguidos
-        const posts = await Post.find({ user_id: { $in: followingIds } });
+        const posts = await Post.find({ user_id: { $in: followingIds } })          
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit)
+        .populate('user_id', 'username logo username');;
     
-        res.status(200).json( posts );
+        const totalPosts = await Post.countDocuments({ user_id: { $in: followingIds } });
+        const totalPages = Math.ceil(totalPosts / limit);
+
+        res.status(200).json({
+          page,
+          limit,
+          totalPosts,
+          totalPages,
+          posts,
+        });
+        
       } catch (error) {
         res.status(500).json({ codigo: 1, mensaje: 'Error al recuperar los posts', error: error.message });
       }

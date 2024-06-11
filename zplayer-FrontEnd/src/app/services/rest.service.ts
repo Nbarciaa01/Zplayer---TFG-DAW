@@ -140,4 +140,10 @@ export class RestService {
       `${this.urlApi}/post/deletePost/${postId}`
     ))
   }
+
+  buscarUsuarios(query: string, id: number|string): Promise<any[]> {
+    return lastValueFrom(this.peticion.get<any[]>(
+      `${this.urlApi}/user/search?query=${query}&userId=${id}`
+    ))
+  }
 }

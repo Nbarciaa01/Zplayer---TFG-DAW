@@ -134,5 +134,29 @@ module.exports = {
       } catch (error) {
         res.status(500).json({ codigo: 1, mensaje: 'Error al actualizar el perfil', error: error.message });
       }
+    },
+
+    buscarUsuario: async (req, res) => {
+      try {
+        const query = req.query.query;
+        const userId = req.query.userId; // Obtener el ID del usuario actual de los parámetros de consulta
+        const regex = new RegExp(query, 'i'); // i para case-insensitive
+    
+        // Buscar el usuario actual para obtener la lista de usuarios que sigue
+        const currentUser = await User.findById(userId);
+        const followedUsers = currentUser.siguiendo.map(followedUser => followedUser.toString());
+    
+        // Buscar usuarios que coincidan con el query y que no estén en la lista de usuarios seguidos
+        const users = await User.find({
+          username: regex,
+          _id: { $ne: userId, $nin: followedUsers }
+        }).select('username realname logo');
+    
+        res.status(200).json(users);
+      } catch (error) {
+        res.status(500).json({ codigo: 1, mensaje: 'Error al buscar usuarios', error: error.message });
+      }
     }
+
+
 }

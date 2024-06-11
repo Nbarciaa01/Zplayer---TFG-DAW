@@ -21,6 +21,8 @@ export class PerfilComponent {
   posts_ordenados: any = []
   editarPerfil:boolean = false;
   selectedFiles: { [key: string]: File } = {};
+  usersFind: any[] = []
+  usuariosRandom:any[] = []
 
   mostrarBoton = false;
   page: number = 1;
@@ -38,6 +40,7 @@ export class PerfilComponent {
 
 
     this.recuperarDatosUsuarios()
+    this.cargarUsuarios()
 
     this.profileForm = this.fb.group({
       realname: [''],
@@ -72,7 +75,7 @@ export class PerfilComponent {
   }
 
   //DATOS DE USUARIO
-  private id:  number = 0;
+  public id:  number = 0;
   public username: string = '';
   public realname: string = '';
   public logo: string = '';
@@ -105,20 +108,6 @@ export class PerfilComponent {
     this.siguiendo = usuario.siguiendo
 
   }
-
-   async nuevoMensaje(){
-
-    if(this.contenido !== ""){
-      let mensajeRespuesta = await this.restSvc.newPost(this.id,this.contenido,"")
-
-      if(mensajeRespuesta.codigo === 0){
-        await this.cargarPosts()
-      }
-
-
-    }
-
-   }
 
    formatearFecha(fechaPost: Date){
     return fechaPost.toString().split("T")[0]
@@ -199,4 +188,52 @@ export class PerfilComponent {
     }
   }
 
+
+  async followUser(followed_user:string){
+    await this.restSvc.followUser(this.id, followed_user)
+  }
+
+  privateChat(sender_id:number|string, receiver_id: number|string){
+
+    this.route.navigate(['../chat'], { state: { sender_id: sender_id, receiver_id: receiver_id} });
+
+  }
+
+  async cargarUsuarios(){
+    this.usersFind = await this.restSvc.getUsersForFollow(this.id)
+    this.usuariosRandom = this.getUsuariosRandom(this.usersFind)
+    console.log(this.usuariosRandom)
+  }
+
+  // USUARIOS RANDOM
+  getUsuariosRandom(arr: any[]): any[] {
+    if (arr.length <= 2) {
+      return arr;
+    }
+
+    let randomIndices:any = [];
+    while (randomIndices.length < 2) {
+      let randomIndex = Math.floor(Math.random() * arr.length);
+      if (!randomIndices.includes(randomIndex)) {
+        randomIndices.push(randomIndex);
+      }
+    }
+
+    return arr.filter((_, index) => randomIndices.includes(index));
+}
+
+devolverLogo(logo: string){
+  return this.restSvc.getProfilePictureUrl(logo);
+}
+
+
+  viewUserProfile(userId: string|number): void {
+    if(userId == this.id){
+      this.route.navigate(['../perfil']);
+    }
+    else{
+      this.route.navigate(['../perfil/user', userId]);
+    }
+
+  }
 }

@@ -17,6 +17,7 @@ export class RegisterComponent {
   public formRegister:FormGroup;
   public correcto:boolean;
   public bloqueado:boolean;
+  public errorPasswords: boolean = false;
 
   juegosList: string[] = [
     'RPG',
@@ -43,8 +44,8 @@ export class RegisterComponent {
         realname:new FormControl('',[ Validators.required]),
         username: new FormControl('',[Validators.required]),
         correo: new FormControl('',[ Validators.required, Validators.email]),
-        contraseña: new FormControl('',[ Validators.required]),
-        contraseñaConfirm: new FormControl('',[ Validators.required]),
+        contraseña: new FormControl('',[ Validators.required,Validators.minLength(7)]),
+        contraseñaConfirm: new FormControl('',[ Validators.required, Validators.minLength(7)]),
         comunidades: new FormControl([])
       },
 
@@ -54,17 +55,31 @@ export class RegisterComponent {
   }
 
   async comprobarValores(){
-    if(this.formRegister.controls['contraseñaConfirm'].value === this.formRegister.controls['contraseña'].value ){
+    if(this.formRegister.valid){
+      if(this.formRegister.controls['contraseñaConfirm'].value === this.formRegister.controls['contraseña'].value ){
 
-      let respuesta = await this.restSvc.registerUsuario(this.formRegister.controls['realname'].value,
-                                  this.formRegister.controls['correo'].value,
-                                  this.formRegister.controls['contraseña'].value,
-                                  this.formRegister.controls['username'].value,
-                                  this.formRegister.controls['comunidades'].value)
+        try{
+          let respuesta = await this.restSvc.registerUsuario(this.formRegister.controls['realname'].value,
+            this.formRegister.controls['correo'].value,
+            this.formRegister.controls['contraseña'].value,
+            this.formRegister.controls['username'].value,
+            this.formRegister.controls['comunidades'].value)
 
-      if(respuesta){
-        this.route.navigate(["/login"])
+          if(respuesta){
+            this.route.navigate(["/login"])
+          }
+        }
+        catch(error: any){
+          window.alert(error.error.message)
+        }
+
       }
+      else{
+        this.errorPasswords=true;
+      }
+    }
+    else{
+      window.alert("Rellena todos los campos adecuadamente")
     }
   }
 

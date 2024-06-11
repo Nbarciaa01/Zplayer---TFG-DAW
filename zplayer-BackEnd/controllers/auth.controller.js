@@ -15,14 +15,14 @@ module.exports = {
   
       if (emailFound)
         return res.status(400).send({
-          message: ["The email is already in use"],
+          message: ["El email ya está registrado"],
         });
 
       const usenameFound = await User.findOne({ username });
 
       if (usenameFound)
         return res.status(400).send({
-          message: ["The username is already in use"],
+          message: ["El usuario ya está registrado"],
         });
   
       // hashing the password

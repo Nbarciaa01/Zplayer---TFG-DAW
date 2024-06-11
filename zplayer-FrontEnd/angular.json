@@ -35,7 +35,6 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@mobiscroll/angular/dist/css/mobiscroll.min.css",
               "src/styles.css",
               "src/assets/scss/tema-angular-material.scss"
             ],

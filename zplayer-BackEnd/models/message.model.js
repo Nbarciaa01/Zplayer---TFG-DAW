@@ -1,5 +1,8 @@
 const mongoose =  require("mongoose");
 
+
+// ESQUEMA MENSAJES BASE DE DATOS
+
 const messageSchema = new mongoose.Schema(
   {
     sender: {

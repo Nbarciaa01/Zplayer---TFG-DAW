@@ -5,10 +5,8 @@ var cors = require('cors');
 var routing = require('../routes/main.routes');
 
 
-// const expressSession = require('express-session');
-// const pgSession = require('connect-pg-simple')(expressSession);
-// const bodyParser = require('body-parser');
-// const pgPool = getConnectionEmpresa(process.env.POSTGRE_DATABASE);
+
+// CONTROLAR LOS ERRORES CORS DE LA APLICACION
 
 module.exports = function (app) {
     //configuracion del cors
@@ -21,12 +19,6 @@ module.exports = function (app) {
     app.use(express.json());
     app.use(cookiParser());
     app.use(morgan("dev"));
-
-
-
-// Resto de la configuración...
-
-
 
 
     routing(app);

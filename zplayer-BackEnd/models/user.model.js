@@ -1,5 +1,7 @@
 const mongoose =  require("mongoose");
 
+// ESQUEMA USUSARIOS BASE DE DATOS
+
 const userSchema = new mongoose.Schema(
   {
     realname: {

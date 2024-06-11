@@ -8,6 +8,8 @@ const { post } = require("../routes/post.routes.js");
 
 
 module.exports = {
+
+    //FUNCION PARA AÑADIR UN NUEVO POST
     newPost : async (req, res) => {
       try{
         const { user_id, message, comunity } = req.body;
@@ -33,6 +35,7 @@ module.exports = {
       }
     },
 
+    //FUNCION PARA DAR LIKES A UN POST
     addLike: async (req, res) => {
       try {
         const { user_id, post_id } = req.body;
@@ -71,6 +74,7 @@ module.exports = {
       }
     },
 
+    //FUNCION PARA OBTENER POSTS
     obtenerPosts: async (req, res) => {
       try {
         const page = parseInt(req.query.page) || 1;
@@ -99,6 +103,7 @@ module.exports = {
       }
     },
 
+    //FUNCION PARA OBTENER POSTS DE UN USUARIO
     obtenerUserPosts: async (req, res) => {
       try{
         const user_id = req.params.user_id
@@ -130,6 +135,7 @@ module.exports = {
       }
     },
 
+    //FUNCION PARA OBTENER POSTS DE UNA COMUNIDAD
     obtenerComunityPosts:async (req,res) => {
       try{
 
@@ -162,6 +168,7 @@ module.exports = {
       }
     },
 
+    //FUNCION PARA OBTENER POSTS DE SEGUIDORES
     obtenerPostsSeguidores: async (req,res) => {
       try {
 
@@ -205,10 +212,11 @@ module.exports = {
       }
     },
 
+    
+    //FUNCION PARA BORRAR POSTS
     deletePost: async (req,res) => {
       try {
         const postId = req.params.postId;
-        console.log(postId)
         const deletedPost = await Post.findByIdAndDelete(postId);
     
         if (!deletedPost) {

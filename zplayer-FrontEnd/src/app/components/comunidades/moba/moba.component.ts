@@ -153,7 +153,6 @@ export class MobaComponent {
   async cargarUsuarios(){
     this.usersFind = await this.restSvc.getUsersForFollow(this.id)
     this.usuariosRandom = this.getUsuariosRandom(this.usersFind)
-    console.log(this.usuariosRandom)
   }
 
   // USUARIOS RANDOM

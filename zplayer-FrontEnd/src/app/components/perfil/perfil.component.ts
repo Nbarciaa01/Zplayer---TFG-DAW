@@ -117,11 +117,11 @@ export class PerfilComponent {
    async darLike(messageID: number){
     let mensajeRespuesta = await this.restSvc.darLike(this.id,messageID)
 
-    // if(mensajeRespuesta.codigo === 200 || mensajeRespuesta.codigo === 201){
-    //   this.page = 1;
-    //   this.posts = [];
-    //   await this.cargarPosts()
-    // }
+    if(mensajeRespuesta.codigo === 200 || mensajeRespuesta.codigo === 201){
+      this.page = 1;
+      this.posts = [];
+      await this.cargarPosts()
+    }
    }
 
 
@@ -209,7 +209,6 @@ export class PerfilComponent {
   async cargarUsuarios(){
     this.usersFind = await this.restSvc.getUsersForFollow(this.id)
     this.usuariosRandom = this.getUsuariosRandom(this.usersFind)
-    console.log(this.usuariosRandom)
   }
 
   // USUARIOS RANDOM

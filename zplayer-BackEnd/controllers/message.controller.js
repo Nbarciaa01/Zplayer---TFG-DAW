@@ -9,6 +9,7 @@ const libsjwt = require("../libs/jwt.js");
 
 module.exports = {
 
+  //FUNCION RECUPERAR LOS MENSAJES ENTRE 2 USUARIOS
     recuperarMensajes : async (req, res) => {
         try {
             const { senderId, receiverId } = req.params;
@@ -29,6 +30,7 @@ module.exports = {
         }
     },
 
+    //FUNCION MANDAR MENSAJE ENTRE 2 USUARIOS
     enviarMensaje: async (req, res) => {
         try {
             const { senderId, receiverId, content } = req.body;
@@ -55,6 +57,7 @@ module.exports = {
           }
     },
 
+    //FUNCION RECUPERAR USUARIOS QUE HAN CHATEADO CONTIGO
     getChattedUsers: async (req, res) => {
       try {
         const userId = req.params.userId; // ID del usuario actual

@@ -45,6 +45,7 @@ export class BattleroyaleComponent {
 
   }
 
+  // CARGAR POSTS
   async cargarPosts(){
     this.loading = true;
     let comunityPost = await this.restSvc.getComunityPost("battle royale",this.page, this.limit);
@@ -69,6 +70,7 @@ export class BattleroyaleComponent {
   }
 
 
+  // CARGAR POSTS FUNCIONALIDAD SCROLL INFINITO
   async cargarMasPosts() {
     if (this.loading) return;
     this.page++;
@@ -88,6 +90,7 @@ export class BattleroyaleComponent {
     textarea!.style.height = textarea!.scrollHeight + 'px'; // Ajustar la altura según el contenido
   }
 
+  // RECUPERAR DATOS USUARIOS
   recuperarDatosUsuarios(){
     let usuario: User = this.localSvc.recuperarDatosUsuario();
 
@@ -99,6 +102,7 @@ export class BattleroyaleComponent {
 
   }
 
+  // ENVIAR NUEVO MENSAJE
   async nuevoMensaje(){
 
     if(this.contenido !== ""){
@@ -139,6 +143,7 @@ export class BattleroyaleComponent {
     return this.restSvc.getProfilePictureUrl(logo);
   }
 
+  //SEGUIR USUARIO
   async followUser(followed_user:string){
     await this.restSvc.followUser(this.id, followed_user)
   }
@@ -149,10 +154,10 @@ export class BattleroyaleComponent {
 
   }
 
+  //CARGAR USUARIOS
   async cargarUsuarios(){
     this.usersFind = await this.restSvc.getUsersForFollow(this.id)
     this.usuariosRandom = this.getUsuariosRandom(this.usersFind)
-    console.log(this.usuariosRandom)
   }
 
   // USUARIOS RANDOM
@@ -172,6 +177,7 @@ export class BattleroyaleComponent {
     return arr.filter((_, index) => randomIndices.includes(index));
 }
 
+  //VER PERFIL USUARIOS
   viewUserProfile(userId: string|number): void {
     if(userId == this.id){
       this.route.navigate(['../perfil']);

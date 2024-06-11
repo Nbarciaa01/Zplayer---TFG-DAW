@@ -14,6 +14,9 @@ export class RestService {
 
   constructor(private peticion: HttpClient) { }
 
+
+  //FUNCION QUE PERMITE EL LOGIN
+
   loginUsuario(username:string, password: string):Observable<Restmessage>{
 
     return this.peticion.post<Restmessage>(
@@ -36,6 +39,7 @@ export class RestService {
     }))
   }
 
+  //FUNCION REGISTRAR USUARIOS
   registerUsuario(nombre:string, email:string, password:string, username:string, comunidades:string[]): Promise<Restmessage>{
     return lastValueFrom(this.peticion.post<Restmessage>(
       `${this.urlApi}/auth/register`,
@@ -43,6 +47,7 @@ export class RestService {
     ))
     }
 
+  //FUNCION NUEVO POST
   newPost(user_id:number, message:string, comunity?:string): Promise<Restmessage>{
     return lastValueFrom(this.peticion.post<Restmessage>(
     `${this.urlApi}/post/newpost`,
@@ -50,18 +55,21 @@ export class RestService {
   ))
   }
 
+  //FUNCION REVUPERAR TODOS LOS POSTS
   getAllPosts(page: number, limit: number){
     return lastValueFrom(this.peticion.get<any>(
       `${this.urlApi}/post/getPosts/?page=${page}&limit=${limit}`,
     ))
   }
 
+  //FUNCION RECUPERAR POSTS DE LA COMUNIDAD
   getComunityPost(comunity: string,page: number, limit: number){
     return lastValueFrom(this.peticion.get<any>(
       `${this.urlApi}/post/getComunityPosts/${comunity}/?page=${page}&limit=${limit}`,
     ))
   }
 
+  //FUNCION PARA DAR LIKES
   darLike(user_id:number|string, post_id:number){
     return lastValueFrom(this.peticion.post<Restmessage>(
       `${this.urlApi}/post/like`,
@@ -69,12 +77,14 @@ export class RestService {
     ))
   }
 
+   //FUNCION  RECUPERAR POSTS DE UN USUARIO
   getUserPosts(user_id: number | string,page: number, limit: number){
     return lastValueFrom(this.peticion.get<any>(
       `${this.urlApi}/post/getUserPosts/${user_id}/?page=${page}&limit=${limit}`,
     ))
   }
 
+  //FUNCION RECUPERAR USUARIOS PARA SEGUIR
   getUsersForFollow(user_id:string|number){
     return lastValueFrom(this.peticion.get<any[]>(
       `${this.urlApi}/user/descubirUsers/${user_id}`,
@@ -82,12 +92,14 @@ export class RestService {
     ))
   }
 
+  //FUNCION RECUPERAR DATOS DEL USUARIO
   getDatosUser(user_id:string | number){
     return lastValueFrom(this.peticion.get<any>(
       `${this.urlApi}/user/obtenerDatosUser/${user_id}`
     ))
   }
 
+  //FUNCION SEGUIR USUARIOS
   followUser(user_id:string|number, followed_user:string){
     return lastValueFrom(this.peticion.post<Restmessage>(
       `${this.urlApi}/user/follow`,
@@ -95,12 +107,14 @@ export class RestService {
     ))
   }
 
+  //FUNCION RECUPERAR MDS
   getMds(senderId:number|string,receiverId:number|string ){
     return lastValueFrom(this.peticion.get<Restmessage>(
       `${this.urlApi}/message/getMds/${senderId}/${receiverId}`
     ))
   }
 
+  //MANDAR MD
   postMd(senderId:number|string,receiverId:number|string, content: string){
     return lastValueFrom(this.peticion.post<Restmessage>(
       `${this.urlApi}/message/md`,
@@ -108,12 +122,14 @@ export class RestService {
     ))
   }
 
+  //FUNCION RECUPERAR MDS ENTRE USUARIOS
   getMdsUsers(userId:number|string){
     return lastValueFrom(this.peticion.get<User[]>(
       `${this.urlApi}/message/getMdsUsers/${userId}`
     ))
   }
 
+  //FUNCION RECUPERAR DATOS USUARIOS
   actualizarDatosUsuario(formData: FormData){
     return lastValueFrom(this.peticion.post<any>(
       `${this.urlApi}/user/actualizarUsuario`,
@@ -121,26 +137,31 @@ export class RestService {
     ))
   }
 
+  //FUNCION PARA RECUPERAR LAS IMAGENES DEL BACK
   getProfilePictureUrl(iconoPath: string): string {
     return `${this.urlApi}${iconoPath}`;
   }
 
+  //FUNCION PARA RECUPERAR LAS IMAGENES DEL BACK
   getBannerUrl(bannerPath: string): string {
     return `${this.urlApi}${bannerPath}`;
   }
 
+  //OBTENER POST DE SEGUIDORES
   obtenerPostsSeguidores(userId:number|string,page: number, limit: number){
     return lastValueFrom(this.peticion.get<any>(
       `${this.urlApi}/post/getFollowesPosts/${userId}/?page=${page}&limit=${limit}`
     ))
   }
 
+  //OBTENER BORRAR POST
   borrarPost(postId: number|string){
     return lastValueFrom(this.peticion.delete<Restmessage>(
       `${this.urlApi}/post/deletePost/${postId}`
     ))
   }
 
+  //OBTENER BUSCAR USUARIOS
   buscarUsuarios(query: string, id: number|string): Promise<any[]> {
     return lastValueFrom(this.peticion.get<any[]>(
       `${this.urlApi}/user/search?query=${query}&userId=${id}`

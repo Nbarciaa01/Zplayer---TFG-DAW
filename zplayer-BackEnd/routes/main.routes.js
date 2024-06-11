@@ -6,7 +6,7 @@ const express = require("express");
 const path = require("path")
 
 var cabecera= (req,res,next) => {
-    res.setHeader('Access-Control-Allow-Origin','https://zplayer-api.vercel.app/');
+    res.setHeader('Access-Control-Allow-Origin','http://localhost:4200'); //https://zplayer-api.vercel.app/
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();

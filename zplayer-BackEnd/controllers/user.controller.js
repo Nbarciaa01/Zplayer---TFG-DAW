@@ -10,10 +10,11 @@ const fs = require('fs-extra');
 
 module.exports = {
     
+    //FUNCION DESCUBRIR USUARIOS
     descubirUsers : async (req, res) => {
         try {
             const { user_id } = req.params;
-            console.log(user_id)
+
             // Encuentra usuarios que no tienen `user_id` en su lista de seguidores y que no sean el mismo `user_id`
             const usuarios = await User.find({
               _id: { $ne: user_id },
@@ -26,12 +27,11 @@ module.exports = {
           }
     },
 
+    //FUNCION PARA SEGUIR A USUARIOS
     seguirUsers: async (req, res) => {
         try {
             const { user_id, followUser_id } = req.body;
     
-            console.log(user_id);
-            console.log(followUser_id);
     
             const user = await User.findById(user_id);
             const userToFollow = await User.findById(followUser_id);
@@ -68,6 +68,7 @@ module.exports = {
         }
     },
 
+    //FUNCION PARA CONSEGUIR LOS DATOS DE UN USUARIO
     obtenerDatosUser: async (req, res) => {
 
         const { user_id } = req.params;
@@ -84,6 +85,7 @@ module.exports = {
         }
     },
 
+    //FUNCION PARA ACTUALIZAR LOS DATOS DE UN USUARIO
     actualizarUsuario: async (req, res) => {
       try {
         const { id, realname, password } = req.body;
@@ -136,6 +138,7 @@ module.exports = {
       }
     },
 
+    //FUNCION PARA BUSCAR USUARIOS
     buscarUsuario: async (req, res) => {
       try {
         const query = req.query.query;

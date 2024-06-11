@@ -114,9 +114,6 @@ import { LocalService } from '../../services/local.service';
   }
 
   async comprobarFollow(){
-    console.log(this.seguidores)
-    console.log(this.miUserId)
-    console.log(this.seguidores.some(userID => userID === this.miUserId))
   }
 
 
@@ -129,7 +126,6 @@ import { LocalService } from '../../services/local.service';
   async cargarUsuarios(){
     this.usersFind = await this.restSvc.getUsersForFollow(this.miUserId)
     this.usuariosRandom = this.getUsuariosRandom(this.usersFind)
-    console.log(this.usuariosRandom)
   }
 
   // USUARIOS RANDOM

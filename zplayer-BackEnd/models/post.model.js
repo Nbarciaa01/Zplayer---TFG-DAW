@@ -1,5 +1,7 @@
 const mongoose =  require("mongoose");
 
+// ESQUEMA POSTS BASE DE DATOS
+
 const postSchema = new mongoose.Schema(
   {
     message: {

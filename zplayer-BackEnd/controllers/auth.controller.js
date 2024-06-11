@@ -7,6 +7,9 @@ const { use } = require("bcrypt/promises.js");
 
 
 module.exports = {
+
+  //FUNCION PARA REGISTRAR USUARIOS
+
   register : async (req, res) => {
     try {
       const { realname, email, password, username, comunities } = req.body;
@@ -62,10 +65,10 @@ module.exports = {
   },
 
 
+  //FUNCION PARA LOGUEAR USUARIOS
   login : async (req, res) => {
     try {
       const { username, password } = req.body;
-      console.log(username, password)
       const userFound = await User.findOne({ username });
   
       if (!userFound)
@@ -103,6 +106,7 @@ module.exports = {
     }
   },
 
+  //FUNCION PARA VERIFICAR EL TOKEN
   verifyToken : async (req, res) => {
     const { token } = req.cookies;
     if (!token) return res.send(false);
@@ -122,14 +126,5 @@ module.exports = {
 
     
   },
-
-  logout: async (req, res) => {
-    res.cookie("token", "", {
-      httpOnly: true,
-      secure: true,
-      expires: new Date(0),
-    });
-    return res.sendStatus(200);
-  },
-
+  
 }

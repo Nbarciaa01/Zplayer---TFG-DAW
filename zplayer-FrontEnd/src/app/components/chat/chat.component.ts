@@ -52,7 +52,6 @@ export class ChatComponent {
 
   async recuperarUsuariosSeguidos(){
     this.siguiendo.forEach(async userID => {
-      console.log(userID)
       let usuarioSiguiendo: User = await this.restSvc.getDatosUser(userID)
       this.conjuntoSiguiendo.push(usuarioSiguiendo)
     })
@@ -85,7 +84,6 @@ export class ChatComponent {
   async cargarUsuarios(){
     this.usersFind = await this.restSvc.getUsersForFollow(this.id)
     this.usuariosRandom = this.getUsuariosRandom(this.usersFind)
-    console.log(this.usuariosRandom)
   }
 
   // USUARIOS RANDOM

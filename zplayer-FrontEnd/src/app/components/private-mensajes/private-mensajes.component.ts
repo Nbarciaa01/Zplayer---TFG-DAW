@@ -62,8 +62,15 @@ export class PrivateMensajesComponent implements AfterViewInit, OnInit {
       // Manejo de error o redirección si los datos no están disponibles
       console.error('No se pasaron los IDs de usuario');
     }
+
     this.recuperarDatosUsuarios()
-    this.recuperarMds()
+
+    this.recuperarMds();
+
+    setInterval(() => {
+      this.recuperarMds();
+      }, 1000);
+
 
   }
 

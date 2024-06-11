@@ -13,6 +13,7 @@ export class LocalService {
   constructor() { }
 
 
+  //ALMACENAR DATOS USUARIOS EN EL SESSION STORAGE
   public almacenarDatosUsuario(datosUsuario: User):boolean{
     try{
       const usuarioEncriptado = CryptoJs.AES.encrypt(JSON.stringify(datosUsuario), environment.secret_key).toString();
@@ -28,6 +29,7 @@ export class LocalService {
 
   }
 
+  //ALMACENAR RECUPERAR DATOS USUARIOS EN EL SESSION STORAGE
   public recuperarDatosUsuario():User{
     const usuarioEncriptado = sessionStorage.getItem('usuario');
     let usuarioDesencriptado!:User;

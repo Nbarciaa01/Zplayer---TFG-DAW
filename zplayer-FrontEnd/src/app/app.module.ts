@@ -11,7 +11,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { FormsModule} from '@angular/forms';
-import { MbscModule } from '@mobiscroll/angular';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -59,12 +58,10 @@ import { PrivateMensajesComponent } from './components/private-mensajes/private-
   ],
   imports: [
     BrowserModule,
-    MbscModule,
     FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
     NgxChartsModule,
-    MbscModule,
     HttpClientModule,
     HttpClientJsonpModule,MatFormFieldModule,
     MatSelectModule,

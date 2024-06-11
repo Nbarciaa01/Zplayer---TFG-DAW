@@ -11,7 +11,7 @@ var routing = require('../routes/main.routes');
 module.exports = function (app) {
     //configuracion del cors
     app.use(cors({ 
-        origin: ['http://localhost:4200'],
+        origin: ['zplayer-d1d4.vercel.app'],
         credentials: true,
         optionsSuccessStatus: 204
     }));

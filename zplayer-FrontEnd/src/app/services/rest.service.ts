@@ -56,9 +56,9 @@ export class RestService {
     ))
   }
 
-  getComunityPost(comunity: string){
-    return lastValueFrom(this.peticion.get<Post[]>(
-      `${this.urlApi}/post/getComunityPosts/${comunity}`,
+  getComunityPost(comunity: string,page: number, limit: number){
+    return lastValueFrom(this.peticion.get<any>(
+      `${this.urlApi}/post/getComunityPosts/${comunity}/?page=${page}&limit=${limit}`,
     ))
   }
 

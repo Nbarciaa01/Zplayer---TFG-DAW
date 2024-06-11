@@ -132,10 +132,29 @@ module.exports = {
 
     obtenerComunityPosts:async (req,res) => {
       try{
-        const comunity = req.params.comunity
-        const posts = await Post.find({comunities: comunity}).populate('user_id', 'username logo username');
 
-        res.status(200).send( posts );
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 20;
+        const skip = (page - 1) * limit;
+        
+        const comunity = req.params.comunity
+        const posts = await Post.find({comunities: comunity})      
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit)
+        .populate('user_id', 'username logo username');;
+
+        const totalPosts = await Post.countDocuments({comunities: comunity});
+        const totalPages = Math.ceil(totalPosts / limit);
+
+        res.status(200).json({
+          page,
+          limit,
+          totalPosts,
+          totalPages,
+          posts,
+        });
+
       }
       catch(error){
         console.error('Error al obtener los posts de la comunidad:', error);
@@ -168,7 +187,7 @@ module.exports = {
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit)
-        .populate('user_id', 'username logo username');;
+        .populate('user_id', 'username logo username');
     
         const totalPosts = await Post.countDocuments({ user_id: { $in: followingIds } });
         const totalPages = Math.ceil(totalPosts / limit);

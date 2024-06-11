@@ -117,9 +117,12 @@ export class PerfilComponent {
     let mensajeRespuesta = await this.restSvc.darLike(this.id,messageID)
 
     if(mensajeRespuesta.codigo === 200 || mensajeRespuesta.codigo === 201){
+      this.page = 1;
+      this.posts = [];
       await this.cargarPosts()
     }
    }
+
 
    mensajeGustado(message: Post): boolean{
     return message.likes.includes(this.id);

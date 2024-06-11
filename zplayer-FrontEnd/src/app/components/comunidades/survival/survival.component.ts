@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalService } from '../../../services/local.service';
 import { User } from '../../../infraestructure/models/user';
 import { Post, Posts } from '../../../infraestructure/models/message'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { RestService } from '../../../services/rest.service';
 
 
@@ -13,13 +13,25 @@ import { RestService } from '../../../services/rest.service';
     styleUrl: './survival.component.css',
 })
 export class SurvivalComponent implements OnInit {
+  @ViewChild('scrollContainer') scrollContainer!: ElementRef;
 
   contenido: string = '';
   posts: Post[] = []
   posts_ordenados: any = []
 
+  page: number = 1;
+  limit: number = 20;
+  loading: boolean = false;
+  usersFind: any[] = []
+  usuariosRandom:any[] = []
+  faArrowUp = faArrowUp
+
+  mostrarBoton = false;
+
   constructor(private route:Router, private localSvc: LocalService, private restSvc: RestService) {
     this.recuperarDatosUsuarios()
+
+    this.cargarUsuarios()
 
   }
 
@@ -30,14 +42,37 @@ export class SurvivalComponent implements OnInit {
   }
 
   async cargarPosts(){
-    this.posts = await this.restSvc.getComunityPost("survival");
+    this.loading = true;
+    let comunityPost = await this.restSvc.getComunityPost("survival",this.page, this.limit);
+    this.posts.push(...comunityPost.posts);
     this.posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    this.loading = false;
 
-    console.log(this.posts)
   }
 
+  async cargarMasPosts() {
+    if (this.loading) return;
+    this.page++;
+    await this.cargarPosts();
+  }
+
+  irArriba(): void{
+    this.scrollContainer.nativeElement.scrollTop = 0;
+  }
+
+  onDivScroll(): void {
+    const container = this.scrollContainer.nativeElement;
+    const yOffSet = this.scrollContainer.nativeElement.scrollTop;
+    this.mostrarBoton = yOffSet > 500;
+
+    if (container.scrollTop + container.clientHeight >= container.scrollHeight && !this.loading) {
+      this.cargarMasPosts();
+    }
+  }
+
+
   //DATOS DE USUARIO
-  private id:  number = 0;
+  public id:  number = 0;
   public username: string = '';
   public realname: string = '';
   public logo: string = '';
@@ -60,12 +95,15 @@ export class SurvivalComponent implements OnInit {
 
   }
 
-   async nuevoMensaje(){
+  async nuevoMensaje(){
 
     if(this.contenido !== ""){
       let mensajeRespuesta = await this.restSvc.newPost(this.id,this.contenido,"survival")
 
       if(mensajeRespuesta.codigo === 0){
+        this.page = 1;
+        this.posts = [];
+        this.contenido = "";
         await this.cargarPosts()
       }
 
@@ -82,10 +120,11 @@ export class SurvivalComponent implements OnInit {
     let mensajeRespuesta = await this.restSvc.darLike(this.id,messageID)
 
     if(mensajeRespuesta.codigo === 200 || mensajeRespuesta.codigo === 201){
+      this.page = 1;
+      this.posts = [];
       await this.cargarPosts()
     }
    }
-
    mensajeGustado(message: Post): boolean{
     return message.likes.includes(this.id);
    }
@@ -94,4 +133,46 @@ export class SurvivalComponent implements OnInit {
     return this.restSvc.getProfilePictureUrl(logo);
   }
 
+  async followUser(followed_user:string){
+    await this.restSvc.followUser(this.id, followed_user)
+  }
+
+  privateChat(sender_id:number|string, receiver_id: number|string){
+
+    this.route.navigate(['../chat'], { state: { sender_id: sender_id, receiver_id: receiver_id} });
+
+  }
+
+  async cargarUsuarios(){
+    this.usersFind = await this.restSvc.getUsersForFollow(this.id)
+    this.usuariosRandom = this.getUsuariosRandom(this.usersFind)
+    console.log(this.usuariosRandom)
+  }
+
+  // USUARIOS RANDOM
+  getUsuariosRandom(arr: any[]): any[] {
+    if (arr.length <= 2) {
+      return arr;
+    }
+
+    let randomIndices:any = [];
+    while (randomIndices.length < 2) {
+      let randomIndex = Math.floor(Math.random() * arr.length);
+      if (!randomIndices.includes(randomIndex)) {
+        randomIndices.push(randomIndex);
+      }
+    }
+
+    return arr.filter((_, index) => randomIndices.includes(index));
+}
+
+  viewUserProfile(userId: string|number): void {
+    if(userId == this.id){
+      this.route.navigate(['../perfil']);
+    }
+    else{
+      this.route.navigate(['../perfil/user', userId]);
+    }
+
+  }
 }

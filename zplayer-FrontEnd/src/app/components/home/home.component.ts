@@ -130,7 +130,6 @@ export class HomeComponent implements OnInit  {
    }
 
    async darLike(messageID: number){
-    console.log(messageID)
     let mensajeRespuesta = await this.restSvc.darLike(this.id,messageID)
 
     if(mensajeRespuesta.codigo === 200 || mensajeRespuesta.codigo === 201){

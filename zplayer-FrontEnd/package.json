@@ -23,7 +23,6 @@
     "@fortawesome/angular-fontawesome": "^0.14.1",
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
-    "@mobiscroll/angular": "npm:@mobiscroll/angular-ivy-trial@^5.29.1",
     "@swimlane/ngx-charts": "^20.5.0",
     "@types/crypto-js": "^4.2.2",
     "crypto-js": "^4.2.0",

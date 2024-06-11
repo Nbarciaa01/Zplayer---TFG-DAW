@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { LocalService } from '../../services/local.service';
 import { User } from '../../infraestructure/models/user';
 import { Post } from '../../infraestructure/models/message'
-import { faMagnifyingGlass, faUser, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faUser, faTrash, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { RestService } from '../../services/rest.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -23,6 +23,7 @@ export class PerfilComponent {
   selectedFiles: { [key: string]: File } = {};
   usersFind: any[] = []
   usuariosRandom:any[] = []
+  faArrowUp=faArrowUp
 
   mostrarBoton = false;
   page: number = 1;
@@ -116,11 +117,11 @@ export class PerfilComponent {
    async darLike(messageID: number){
     let mensajeRespuesta = await this.restSvc.darLike(this.id,messageID)
 
-    if(mensajeRespuesta.codigo === 200 || mensajeRespuesta.codigo === 201){
-      this.page = 1;
-      this.posts = [];
-      await this.cargarPosts()
-    }
+    // if(mensajeRespuesta.codigo === 200 || mensajeRespuesta.codigo === 201){
+    //   this.page = 1;
+    //   this.posts = [];
+    //   await this.cargarPosts()
+    // }
    }
 
 
@@ -178,6 +179,9 @@ export class PerfilComponent {
     if (container.scrollTop + container.clientHeight >= container.scrollHeight && !this.loading) {
       this.cargarMasPosts();
     }
+  }
+  irArriba(): void{
+    this.scrollContainer.nativeElement.scrollTop = 0;
   }
 
   async borrarPost(postId: string|number){

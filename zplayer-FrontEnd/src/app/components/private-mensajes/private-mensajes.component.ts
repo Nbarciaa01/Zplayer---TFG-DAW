@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { RestService } from '../../services/rest.service';
 import { Location } from '@angular/common';
 import { User } from '../../infraestructure/models/user';
+import { LocalService } from '../../services/local.service';
 
 @Component({
     selector: 'app-private-mensajes',
@@ -23,7 +24,11 @@ export class PrivateMensajesComponent implements AfterViewInit, OnInit {
   logoSender:string = ""
   usernameReceiver:string = ""
 
-  constructor(private route: Router, private restSvc: RestService,private location:Location) {}
+  constructor(private route: Router, private restSvc: RestService,private location:Location, private localSvc: LocalService) {
+    if(!this.localSvc.recuperarDatosUsuario()){
+      this.route.navigate(['../login']);
+    }
+  }
 
   ngAfterViewInit() {
     this.scrollToBottom(); // Desplaza al fondo al principio

@@ -30,6 +30,11 @@ export class EstrategiaComponent {
   mostrarBoton = false;
 
   constructor(private route:Router, private localSvc: LocalService, private restSvc: RestService) {
+
+    if(!this.localSvc.recuperarDatosUsuario()){
+      this.route.navigate(['../login']);
+    }
+
     this.recuperarDatosUsuarios()
     this.cargarUsuarios()
 

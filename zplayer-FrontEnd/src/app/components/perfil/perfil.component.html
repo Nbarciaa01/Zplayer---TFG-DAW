@@ -11,10 +11,13 @@
 
         <div class="w-[100%] h-[7vh] pl-2 border-b-[1px] border-y-green-800">
           <p class="text-2xl">{{realname}}</p>
-          <p>posts: {{posts.length}}</p>
+          <p>&#64;{{username}}</p>
         </div>
 
         <div class="w-[100%] h-[93vh] overflow-y-auto scrollable-messages  flex flex-col" #scrollContainer (scroll)="onDivScroll()">
+
+          <button *ngIf="mostrarBoton" class="sticky top-6 mt-3 border border-green-800 rounded-full w-[30px] h-[30px] bg-green-800 self-center" (click)="irArriba()"><fa-icon [icon]="faArrowUp"></fa-icon></button>
+
           <div class="w-[100%] border-b-[1px] border-y-green-800 pb-5 ">
 
             <div class="flex justify-center">
@@ -23,8 +26,8 @@
 
             <div class="w-[100%] flex justify-between">
 
-              <div class="h-[fit-content] rounded-full -mt-24 ml-5  border-[3px] border-green-800 z-10 w-[200px] bg-black">
-                <img class="rounded-full w-[100%]" [src]="logo" alt="imagen-user" srcset="">
+              <div class="w-[180px] h-[180px] rounded-full -mt-24 ml-5  border-[3px] border-green-800 z-10 bg-black">
+                <img class="rounded-full w-[100%] h-[100%]" [src]="logo" alt="imagen-user" srcset="">
               </div>
 
               <button (click)="editarPerfilButton(true)" class=" p-2 mx-10 border-[1px] border-green-800 h-[fit-content] text-lg rounded-lg"><fa-icon [icon]="faGamepad"></fa-icon> <span class="md:inline-block hidden">Editar Perfil</span></button>
@@ -56,6 +59,8 @@
 
         <!-- Main modal -->
         <div id="select-modal" *ngIf="editarPerfil" tabindex="-1" aria-hidden="true" class=" overflow-y-auto overflow-x-hidden absolute self-center z-50 md:w-[500px] w-[250px] mt-10 flex flex-col justify-center items-center">
+
+
           <div class="relative p-4 w-full max-w-md max-h-full">
               <!-- Modal content -->
               <div class="relative rounded-lg shadow bg-green-950">

@@ -14,8 +14,8 @@
 .scrollable-messages {
   scrollbar-width: thin; /* Ancho de la scrollbar para Firefox */
   scrollbar-color: green black; /* Color de la barra y el fondo para Firefox */
+  scroll-behavior: smooth;
 }
-
 /* Scrollbar personalizada para navegadores WebKit */
 .scrollable-messages::-webkit-scrollbar {
   width: 12px; /* Ancho de la scrollbar */

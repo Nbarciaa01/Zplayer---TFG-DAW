@@ -21,6 +21,11 @@ import { LocalService } from '../../services/local.service';
 
   constructor(private route: ActivatedRoute, private restSvc: RestService,private localSvc: LocalService, private router: Router) {
 
+    if(!this.localSvc.recuperarDatosUsuario()){
+      this.router.navigate(['../login']);
+    }
+
+
     this.userId = this.route.snapshot.paramMap.get('userId')!;
 
 

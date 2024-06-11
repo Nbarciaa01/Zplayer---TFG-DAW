@@ -10,10 +10,11 @@
   font-weight: 400;
   font-style: normal;
 }
-/* Archivo styles.css */
+
 .scrollable-messages {
   scrollbar-width: thin; /* Ancho de la scrollbar para Firefox */
   scrollbar-color: green black; /* Color de la barra y el fondo para Firefox */
+  scroll-behavior: smooth;
 }
 
 /* Scrollbar personalizada para navegadores WebKit */

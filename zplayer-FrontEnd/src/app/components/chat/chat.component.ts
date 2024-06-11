@@ -28,6 +28,11 @@ export class ChatComponent {
   usuariosRandom:any[] = []
 
   constructor(private route:Router, private localSvc: LocalService, private restSvc: RestService) {
+
+    if(!this.localSvc.recuperarDatosUsuario()){
+      this.route.navigate(['../login']);
+    }
+
     this.recuperarDatosUsuarios()
     this.recuperarUsuariosChateados()
     this.cargarUsuarios()

@@ -11,7 +11,7 @@
 
         <div class="w-[100%] h-[7vh] pl-2 border-b-[1px] border-y-green-800">
           <p class="text-2xl">{{realname}}</p>
-          <p>posts: {{posts.length}}</p>
+          <p>&#64;{{username}}</p>
         </div>
 
         <div class="w-[100%] h-[93vh] overflow-y-auto scrollable-messages">
@@ -23,8 +23,8 @@
 
             <div class="w-[100%] flex justify-between">
 
-              <div class="h-[fit-content] rounded-full -mt-24 ml-5  border-[3px] border-green-800 z-10 w-[200px] bg-black">
-                <img class="rounded-full w-[100%]" [src]="logo" alt="imagen-user" srcset="">
+              <div class="rounded-full -mt-24 ml-5 border-[3px] border-green-800 z-10 w-[180px] h-[180px] bg-black">
+                <img class="rounded-full" [src]="logo" alt="imagen-user" srcset="">
               </div>
 
               <!-- @if(comprobarFollow()){ -->

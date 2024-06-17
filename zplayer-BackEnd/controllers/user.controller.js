@@ -51,7 +51,7 @@ module.exports = {
                 user.siguiendo = user.siguiendo.filter(followingId => !followingId.equals(followUser_id));
                 await user.save();
     
-                return res.status(200).json({ codigo: 0, mensaje: 'Has dejado de seguir al usuario', usuario: userToFollow });
+                return res.status(200).json({ codigo: 0, mensaje: 'Has dejado de seguir al usuario', username: userToFollow.username, seguidores: userToFollow.seguidores });
             } else {
                 // Si no lo sigue, agregar el user_id al array de seguidores del userToFollow
                 userToFollow.seguidores.push(user_id);
@@ -61,7 +61,7 @@ module.exports = {
                 user.siguiendo.push(followUser_id);
                 await user.save();
     
-                return res.status(200).json({ codigo: 0, mensaje: 'Has comenzado a seguir al usuario', usuario: userToFollow });
+                return res.status(200).json({ codigo: 0, mensaje: 'Has comenzado a seguir al usuario', username: userToFollow.username, seguidores: userToFollow.seguidores});
             }
         } catch (error) {
             res.status(500).json({ codigo: 1, mensaje: 'Error al seguir/dejar de seguir al usuario', error: error.message });

@@ -7,6 +7,7 @@ import { Post } from '../../infraestructure/models/message'
 import { faMagnifyingGlass, faUser, faTrash, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { RestService } from '../../services/rest.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-perfil',
@@ -33,7 +34,7 @@ export class PerfilComponent {
 
   @ViewChild('scrollContainer') scrollContainer!: ElementRef;
 
-  constructor(private route:Router, private localSvc: LocalService, private restSvc: RestService, private fb: FormBuilder) {
+  constructor(private route:Router, private localSvc: LocalService, private restSvc: RestService, private fb: FormBuilder, private notis:ToastrService) {
 
     if(!this.localSvc.recuperarDatosUsuario()){
       this.route.navigate(['../login']);
@@ -159,6 +160,7 @@ export class PerfilComponent {
 
     const response = await this.restSvc.actualizarDatosUsuario(formData)
     if (response.codigo === 0) {
+      this.notis.success('Datos cambiados con éxito', 'Cambiar Datos',{positionClass:"toast-bottom-right",toastClass:"ngx-toastr bg-[#166534]"});
 
       this.recuperarDatosUsuarios();
 
@@ -168,6 +170,9 @@ export class PerfilComponent {
       if (response.banner) {
         this.banner = this.restSvc.getBannerUrl(response.banner);
       }
+    }
+    else{
+      this.notis.error('Ha ocurrido algún error cambiando los datos del usuario', 'Cambiar Datos',{positionClass:"toast-bottom-right",toastClass:"ngx-toastr"});
     }
   }
 
@@ -188,10 +193,15 @@ export class PerfilComponent {
     let borrarPost = await this.restSvc.borrarPost(postId)
 
     if(borrarPost.codigo === 200 ){
+
+      this.notis.success('Post eliminado con éxito', 'Borrar Post',{positionClass:"toast-bottom-right",toastClass:"ngx-toastr bg-[#166534]"});
+
       this.page = 1;
       this.posts = [];
       await this.cargarPosts()
-
+    }
+    else{
+      this.notis.error('Ha ocurrido algún problema borrando el post', 'Borrar Post',{positionClass:"toast-bottom-right",toastClass:"ngx-toastr"});
     }
   }
 

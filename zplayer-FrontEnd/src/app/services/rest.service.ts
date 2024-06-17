@@ -101,7 +101,7 @@ export class RestService {
 
   //FUNCION SEGUIR USUARIOS
   followUser(user_id:string|number, followed_user:string){
-    return lastValueFrom(this.peticion.post<Restmessage>(
+    return lastValueFrom(this.peticion.post<any>(
       `${this.urlApi}/user/follow`,
       {user_id:user_id, followUser_id:followed_user}
     ))

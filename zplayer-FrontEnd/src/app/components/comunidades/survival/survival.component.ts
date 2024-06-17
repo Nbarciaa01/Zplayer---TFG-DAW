@@ -5,6 +5,8 @@ import { User } from '../../../infraestructure/models/user';
 import { Post, Posts } from '../../../infraestructure/models/message'
 import { faMagnifyingGlass, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { RestService } from '../../../services/rest.service';
+import { ToastrService } from 'ngx-toastr';
+
 
 
 @Component({
@@ -28,7 +30,7 @@ export class SurvivalComponent implements OnInit {
 
   mostrarBoton = false;
 
-  constructor(private route:Router, private localSvc: LocalService, private restSvc: RestService) {
+  constructor(private route:Router, private localSvc: LocalService, private restSvc: RestService, private notis: ToastrService) {
 
     if(!this.localSvc.recuperarDatosUsuario()){
       this.route.navigate(['../login']);
@@ -106,10 +108,16 @@ export class SurvivalComponent implements OnInit {
       let mensajeRespuesta = await this.restSvc.newPost(this.id,this.contenido,"survival")
 
       if(mensajeRespuesta.codigo === 0){
+
+        this.notis.success('Post enviado con éxito', 'Enviar Post',{positionClass:"toast-bottom-right",toastClass:"ngx-toastr bg-[#166534]"});
+
         this.page = 1;
         this.posts = [];
         this.contenido = "";
         await this.cargarPosts()
+      }
+      else{
+        this.notis.error('Ha ocurrido algún problema enviando el post', 'Enviar Post',{positionClass:"toast-bottom-right",toastClass:"ngx-toastr"});
       }
 
 

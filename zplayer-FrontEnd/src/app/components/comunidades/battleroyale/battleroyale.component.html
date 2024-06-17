@@ -56,11 +56,11 @@
         <article class="w-[100%] m-auto my-3 border-[1px] border-green-800 py-4 " *ngFor="let post of posts">
           <div class="flex px-2 w-[100%] posts">
 
-            <div class="w-10 h-10">
+            <div class="w-10 h-10 cursor-pointer" (click)="viewUserProfile(post.user_id._id)">
               <img [src]="devolverLogo(post.user_id.logo)" class="w-10 h-10 rounded-full select-none" alt="icono-usuario"  srcset="">
             </div>
 
-            <div class="self-center margen-username">
+            <div class="self-center margen-username cursor-pointer" (click)="viewUserProfile(post.user_id._id)">
               &#64;{{post.user_id.username}}
             </div>
 

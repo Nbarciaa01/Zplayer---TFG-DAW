@@ -18,19 +18,24 @@
           <div class="w-[100%] border-b-[1px] border-y-green-800 pb-5 ">
 
             <div class="flex justify-center">
-              <img [src]="banner" alt="fondo-user" srcset="" class="self-center">
+              <img [src]="banner" alt="fondo-user" srcset="" class="self-center select-none">
             </div>
 
             <div class="w-[100%] flex justify-between">
 
-              <div class="rounded-full -mt-24 ml-5 border-[3px] border-green-800 z-10 w-[180px] h-[180px] bg-black">
-                <img class="rounded-full" [src]="logo" alt="imagen-user" srcset="">
+              <div class="sm:w-[200px] sm:h-[200px] w-[125px] h-[125px]  rounded-full sm:-mt-24 -mt-20 ml-5  border-[3px] border-green-800 z-10 bg-black">
+                <img class="rounded-full w-[100%] h-[100%]" [src]="logo" alt="imagen-user" srcset="">
               </div>
 
-              <!-- @if(comprobarFollow()){ -->
-                <a (click)="followUser(userId)" class="h-[fit-content] mr-5 cursor-pointer inline-flex mt-2 sm:mt-0  items-center px-4 py-2 text-sm font-medium text-center text-white bg-green-800 rounded-lg hover:bg-green-900 focus:ring-4 focus:outline-none">Seguir</a>
-              <!-- } -->
+               @if(!comprobarFollow()){
 
+                <a (click)="followUser(userId)" class="select-none w-[130px] self-center h-[fit-content] mr-5 cursor-pointer mt-2 sm:mt-0  items-center px-4 py-2 text-sm font-medium text-center text-white bg-green-800 rounded-lg hover:bg-green-900 focus:ring-4 focus:outline-none">Seguir</a>
+
+               }@else {
+
+                <a (click)="followUser(userId)" class="select-none w-[130px] self-center h-[fit-content] mr-5 cursor-pointer mt-2 sm:mt-0  items-center px-4 py-2 text-sm font-medium text-center text-white bg-black hover:bg-gray-9 rounded-lg border border-green-800 focus:ring-4 focus:outline-none">Dejar de seguir</a>
+
+               }
             </div>
 
             <div class="mx-5 mt-5 flex justify-between">
@@ -113,25 +118,6 @@
       -->
       <div class="w-[35%] h-[100%] 2xl:flex hidden flex-col items-center justify-between">
 
-        <!--
-        BOTON DE BUSQUEDA
-        -->
-        <div class="md:w-[400px] md:h-[350px] max-w-sm border-[1px] border-green-800 rounded-lg shadow bg-black m-5" *ngFor="let user of usuariosRandom">
-
-          <div class="flex flex-col items-center p-16">
-              <img class="max-w-24 h-24 mb-3 cursor-pointer  rounded-full shadow-lg" [src]="devolverLogo(user.logo)" alt="Bonnie image" (click)="viewUserProfile(user._id)"/>
-              <h5 class="mb-1 text-xl cursor-pointer  font-medium text-gray-900 dark:text-white text-center" (click)="viewUserProfile(user._id)">{{user.realname}}</h5>
-              <span class="text-sm cursor-pointer  text-gray-500 dark:text-gray-400" (click)="viewUserProfile(user._id)">&#64;{{user.username}}</span>
-              <div class="flex mt-4 md:mt-6 flex-wrap items-center justify-center">
-                <a (click)="followUser(user._id)" class="cursor-pointer inline-flex mt-2 sm:mt-0  items-center px-4 py-2 text-sm font-medium text-center text-white bg-green-800 rounded-lg hover:bg-green-900 focus:ring-4 focus:outline-none">Seguir</a>
-                <a (click)="privateChat(miUserId, user._id)" class="py-2 px-4 mt-2 sm:mt-0 sm:ms-2 text-sm font-medium text-black focus:outline-none bg-green-300 rounded-lg hover:bg-green-500 focus:z-10 focus:ring-4 cursor-pointer">Mensaje</a>
-              </div>
-          </div>
-
-        </div>
-        <!--
-        FIN BOTON DE BUSQUEDA
-        -->
 
 
       </div>

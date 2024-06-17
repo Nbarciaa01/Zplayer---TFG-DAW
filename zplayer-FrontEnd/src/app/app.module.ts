@@ -30,6 +30,8 @@ import { DescubrirComponent } from './components/descubrir/descubrir.component';
 import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { PrivateMensajesComponent } from './components/private-mensajes/private-mensajes.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -69,6 +71,8 @@ import { PrivateMensajesComponent } from './components/private-mensajes/private-
     ReactiveFormsModule,
     MatInputModule,
     FontAwesomeModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added
   ],
   bootstrap: [AppComponent],
   providers: [

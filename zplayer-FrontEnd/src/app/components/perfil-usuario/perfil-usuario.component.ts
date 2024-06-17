@@ -31,7 +31,6 @@ import { LocalService } from '../../services/local.service';
 
     this.loadUserData();
     this.recuperarMiUsuario()
-    this.cargarUsuarios()
   }
 
   ngOnInit(): void {
@@ -63,8 +62,8 @@ import { LocalService } from '../../services/local.service';
   public realname: string = '';
   public logo: string = '';
   public banner: string = '';
-  public seguidores: number[] = [];
-  public seguidos: number[] = [];
+  public seguidores: any[] = [];
+  public seguidos: any[] = [];
 
   page: number = 1;
   limit: number = 20;
@@ -110,10 +109,20 @@ import { LocalService } from '../../services/local.service';
   }
 
   async followUser(followed_user:string){
-    await this.restSvc.followUser(this.miUserId, followed_user)
+    let resp = await this.restSvc.followUser(this.miUserId, followed_user)
+
+    this.seguidores = resp.seguidores
+
   }
 
-  async comprobarFollow(){
+  comprobarFollow():boolean{
+    let respuesta = false
+
+    if(this.seguidores.includes(this.miUserId)){
+      respuesta = true;
+    }
+
+    return respuesta;
   }
 
 
@@ -123,33 +132,4 @@ import { LocalService } from '../../services/local.service';
 
   }
 
-  async cargarUsuarios(){
-    this.usersFind = await this.restSvc.getUsersForFollow(this.miUserId)
-    this.usuariosRandom = this.getUsuariosRandom(this.usersFind)
-  }
-
-  // USUARIOS RANDOM
-  getUsuariosRandom(arr: any[]): any[] {
-    if (arr.length <= 2) {
-      return arr;
-    }
-
-    let randomIndices:any = [];
-    while (randomIndices.length < 2) {
-      let randomIndex = Math.floor(Math.random() * arr.length);
-      if (!randomIndices.includes(randomIndex)) {
-        randomIndices.push(randomIndex);
-      }
-    }
-
-    return arr.filter((_, index) => randomIndices.includes(index));
-}
-
-
-  viewUserProfile(userId: string|number): void {
-
-      this.router.navigate(['../perfil/user', userId]);
-      window.location.reload()
-
-  }
 }

@@ -36,7 +36,8 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/assets/scss/tema-angular-material.scss"
+              "src/assets/scss/tema-angular-material.scss",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },

@@ -37,6 +37,7 @@ export class ChatComponent {
     this.recuperarUsuariosChateados()
     this.cargarUsuarios()
 
+
   }
 
   async recuperarDatosUsuarios(){

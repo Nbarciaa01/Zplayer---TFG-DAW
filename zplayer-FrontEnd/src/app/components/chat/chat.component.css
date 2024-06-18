@@ -12,3 +12,24 @@
   font-style: normal;
 }
 
+/* Archivo styles.css */
+.scrollable-messages {
+  scrollbar-width: thin; /* Ancho de la scrollbar para Firefox */
+  scrollbar-color: green black; /* Color de la barra y el fondo para Firefox */
+  scroll-behavior: smooth;
+}
+
+/* Scrollbar personalizada para navegadores WebKit */
+.scrollable-messages::-webkit-scrollbar {
+  width: 12px; /* Ancho de la scrollbar */
+}
+
+.scrollable-messages::-webkit-scrollbar-track {
+  background: black; /* Color del fondo de la scrollbar */
+  border-radius: 10px; /* Bordes redondeados del track */
+}
+
+.scrollable-messages::-webkit-scrollbar-thumb {
+  background-color: green; /* Color de la barra de desplazamiento */
+  border-radius: 10px; /* Bordes redonde */
+}

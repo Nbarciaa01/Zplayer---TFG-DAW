@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const MONGODB_URI = "mongodb://localhost:27017/Z-player";
+const MONGODB_URI = "mongodb://localhost:27017/Zplayer";
 
 
 const connectDB = async () => {

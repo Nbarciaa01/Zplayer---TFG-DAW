@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router} from '@angular/router';
 import { RestService } from '../../services/rest.service';
 import { Post } from '../../infraestructure/models/message'
 import { User } from '../../infraestructure/models/user';
 import { LocalService } from '../../services/local.service';
+import { faMagnifyingGlass, faUser, faTrash, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'perfil-usuario',
@@ -12,12 +13,16 @@ import { LocalService } from '../../services/local.service';
 })
  export class PerfilUsuarioComponent implements OnInit {
 
+  @ViewChild('scrollContainer') scrollContainer!: ElementRef;
+
   userId: string = "";
   miUserId: string|number = "";
   posts: Post[] = []
   posts_ordenados: any = []
   usersFind: any[] = []
   usuariosRandom:any[] = []
+  mostrarBoton = false;
+  faArrowUp=faArrowUp
 
   constructor(private route: ActivatedRoute, private restSvc: RestService,private localSvc: LocalService, private router: Router) {
 
@@ -113,6 +118,18 @@ import { LocalService } from '../../services/local.service';
 
     this.seguidores = resp.seguidores
 
+  }
+  onDivScroll(): void {
+    const container = this.scrollContainer.nativeElement;
+    const yOffSet = this.scrollContainer.nativeElement.scrollTop;
+    this.mostrarBoton = yOffSet > 500;
+
+    if (container.scrollTop + container.clientHeight >= container.scrollHeight && !this.loading) {
+      this.cargarMasPosts();
+    }
+  }
+  irArriba(): void{
+    this.scrollContainer.nativeElement.scrollTop = 0;
   }
 
   comprobarFollow():boolean{

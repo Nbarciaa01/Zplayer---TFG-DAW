@@ -7,14 +7,17 @@
           CONTENEDOR CENTRAL
       -->
 
-      <div class="2xl:w-[65%] w-[100%] h-[100vh] border-r-[1px] border-x-green-800">
+      <div class="2xl:w-[65%] w-[100%] h-[100vh] border-r-[1px] border-x-green-800 flex flex-col">
 
-        <div class="w-[100%] h-[7vh] pl-2 border-b-[1px] border-y-green-800">
+        <div class="w-[100%] h-[10vh] pl-2 border-b-[1px] border-y-green-800">
           <p class="text-2xl">{{realname}}</p>
           <p>&#64;{{username}}</p>
         </div>
 
-        <div class="w-[100%] h-[93vh] overflow-y-auto scrollable-messages">
+        <div class="w-[100%] h-[93vh] overflow-y-auto scrollable-messages flex flex-col" #scrollContainer (scroll)="onDivScroll()">
+
+          <button *ngIf="mostrarBoton" class="sticky top-6 mt-3 border border-green-800 rounded-full w-[30px] h-[30px] bg-green-800 self-center" (click)="irArriba()"><fa-icon [icon]="faArrowUp"></fa-icon></button>
+          
           <div class="w-[100%] border-b-[1px] border-y-green-800 pb-5 ">
 
             <div class="flex justify-center">

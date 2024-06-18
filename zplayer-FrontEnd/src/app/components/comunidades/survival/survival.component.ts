@@ -50,7 +50,7 @@ export class SurvivalComponent implements OnInit {
 
   async cargarPosts(){
     this.loading = true;
-    let comunityPost = await this.restSvc.getComunityPost("survival",this.page, this.limit);
+    let comunityPost = await this.restSvc.getComunityPost("survivals",this.page, this.limit);
     this.posts.push(...comunityPost.posts);
     this.posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     this.loading = false;

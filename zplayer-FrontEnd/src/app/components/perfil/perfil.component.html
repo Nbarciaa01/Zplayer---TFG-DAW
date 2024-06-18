@@ -58,14 +58,14 @@
           </div>
 
         <!-- Main modal -->
-        <div id="select-modal" *ngIf="editarPerfil" tabindex="-1" aria-hidden="true" class=" overflow-y-auto overflow-x-hidden absolute self-center z-50 md:w-[500px] w-[250px] mt-10 flex flex-col justify-center items-center">
+        <div id="select-modal" *ngIf="editarPerfil" tabindex="-1" aria-hidden="true" class=" overflow-y-auto overflow-x-hidden absolute self-center z-50 md:w-[450px] w-[230px] -mt-16 flex flex-col justify-center items-center">
 
 
-          <div class="relative p-4 w-full max-w-md max-h-full">
+          <div class="relative p-2 w-full max-w-md max-h-full">
               <!-- Modal content -->
               <div class="relative rounded-lg shadow bg-green-950">
                 <!-- Modal header -->
-                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-green-700">
+                <div class="flex items-center justify-between p-2 md:p-5 border-b rounded-t dark:border-green-700">
                       <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                         <fa-icon [icon]="faGamepad" ></fa-icon> Editar Perfil
                       </h3>
@@ -77,50 +77,51 @@
                       </button>
                   </div>
                   <!-- Modal body -->
-                  <div class="p-4 md:p-5">
-                      <p class="text-white mb-4">Actualiza tu usuario: </p>
+                  <div class="p-1 md:p-5">
                       <form [formGroup]="profileForm" (ngSubmit)="cambiarDatos()">
-                        <ul class="space-y-4 mb-4">
+                        <ul class="space-y-4 mb-1">
 
                             <li>
                               <div class="flex flex-col">
                                 <label for="realname">Nombre Real:</label>
-                                <input formControlName="realname" type="text" id="realname" name="realname" class="rounded-md text-green-800 p-0.5 my-2"/>
+                                <input formControlName="realname" type="text" id="realname" name="realname" class="rounded-md text-green-800 p-0.5 my-1"/>
                               </div>
                             </li>
 
                             <li>
                               <div class="flex flex-col">
                                 <label for="password">Nueva Contraseña:</label>
-                                <input formControlName="password" type="password" id="password" name="password" class="rounded-md text-green-800 p-0.5 my-2"/>
+                                <input formControlName="password" type="password" id="password" name="password" class="rounded-md text-green-800 p-0.5 my-1"/>
                               </div>
                             </li>
 
                             <li>
                               <div class="flex flex-col">
                                 <label for="passwordConfirm">Confirmar Nueva Contraseña:</label>
-                                <input formControlName="passwordConfirm" type="password" id="passwordConfirm" name="passwordConfirm" class="rounded-md text-green-800 p-0.5 my-2"/>
+                                <input formControlName="passwordConfirm" type="password" id="passwordConfirm" name="passwordConfirm" class="rounded-md text-green-800 p-0.5 my-1"/>
                               </div>
                             </li>
 
                             <li>
                               <div class="flex flex-col">
                                 <label for="icono">Icono:</label>
-                                <img [src]="logo" alt="" srcset="" width="50px" class="mt-2">
-                                <input type="file" id="icono" name="icono" (change)="ficheroSeleccionado($event, 'icono')" class="rounded-md text-green-800 p-0.5 my-2 cursor-pointer"/>
+                                <div class="flex items-center">
+                                  <img [src]="logo" alt="" srcset="" width="50px" class="mt-1">
+                                  <input type="file" id="icono" name="icono" (change)="ficheroSeleccionado($event, 'icono')" class="rounded-md text-green-800 p-0.5 my-1 cursor-pointer"/>  
+                                </div>
                               </div>
                             </li>
 
                             <li>
                               <div class="flex flex-col">
                                 <label for="banner">Banner:</label>
-                                <input type="file" id="banner" name="banner" (change)="ficheroSeleccionado($event, 'banner')" class="rounded-md text-green-800 p-0.5 my-2 cursor-pointer"/>
+                                <input type="file" id="banner" name="banner" (change)="ficheroSeleccionado($event, 'banner')" class="rounded-md text-green-800 p-0.5 my-1 cursor-pointer"/>
                               </div>
                             </li>
 
                             <li>
                               <div class="flex flex-col">
-                                <input type="submit" class="rounded-md text-green-800 border bg-white p-0.5 my-2 cursor-pointer"/>
+                                <input type="submit" class="rounded-md text-green-800 border bg-white p-0.5 my-1 cursor-pointer"/>
                               </div>
                             </li>
 
@@ -139,41 +140,46 @@
           <!--
             POST FORMATO
           -->
-          <article class="w-[100%] my-3 border-[1px] border-green-800 py-4 " *ngFor="let post of posts">
-            <div class="flex px-2 justify-between">
-
-              <div class="flex">
-                <div class="w-10 h-10">
-                  <img [src]="logo" class="w-10 h-10 rounded-full select-none" alt="icono-usuario"  srcset="">
+            @if(posts.length <= 0){
+              <p class='self-center'>Aún no has posteado ningún post</p>
+            }
+            @else{
+              <article class="w-[100%] my-3 border-[1px] border-green-800 py-4 " *ngFor="let post of posts">
+                <div class="flex px-2 justify-between">
+    
+                  <div class="flex">
+                    <div class="w-10 h-10">
+                      <img [src]="logo" class="w-10 h-10 rounded-full select-none" alt="icono-usuario"  srcset="">
+                    </div>
+    
+                    <div class="self-center ml-4">
+                      &#64;{{post.user_id.username}}
+                    </div>
+                  </div>
+    
+                  <div class="cursor-pointer text-green-800" (click)="borrarPost(post._id)">
+                    <fa-icon [icon]="faTrash" class="self-end"></fa-icon>
+                  </div>
+    
                 </div>
-
-                <div class="self-center ml-4">
-                  &#64;{{post.user_id.username}}
+    
+                <div class=" px-8 my-6">
+                  {{post.message}}
                 </div>
-              </div>
-
-              <div class="cursor-pointer text-green-800" (click)="borrarPost(post._id)">
-                <fa-icon [icon]="faTrash" class="self-end"></fa-icon>
-              </div>
-
-            </div>
-
-            <div class=" px-8 my-6">
-              {{post.message}}
-            </div>
-
-            <div class="flex justify-between mx-2">
-              <p>{{formatearFecha(post.createdAt)}}</p>
-
-              <div class="flex">
-                <svg [ngStyle]="{'fill': mensajeGustado(post) ? 'currentColor' : 'none'}" (click)="darLike(post._id)" class="w-6 h-6 text-gray-800 dark:text-green-800 cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"/>
-                </svg>
-                <span class="mx-1 select-none">{{post.likes.length}}</span>
-              </div>
-
-            </div>
-          </article>
+    
+                <div class="flex justify-between mx-2">
+                  <p>{{formatearFecha(post.createdAt)}}</p>
+    
+                  <div class="flex">
+                    <svg [ngStyle]="{'fill': mensajeGustado(post) ? 'currentColor' : 'none'}" (click)="darLike(post._id)" class="w-6 h-6 text-gray-800 dark:text-green-800 cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"/>
+                    </svg>
+                    <span class="mx-1 select-none">{{post.likes.length}}</span>
+                  </div>
+    
+                </div>
+              </article>
+            }
           <!--
             FIN POST FORMATO
           -->

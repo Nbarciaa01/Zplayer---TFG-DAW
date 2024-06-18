@@ -11,7 +11,7 @@
 
         <h1 class="font-gaming-bold text-4xl text-[#028E39] pl-2 py-2 border-b-[1px] border-green-800">Mensajes</h1>
 
-        <div class="border-[1px] border-green-800 w-[80%] self-center my-2 h-[100px] flex cursor-pointer rounded-lg" *ngFor="let usuario of usuariosChatting">
+        <div class="border-[1px] border-green-800 w-[80%] self-center my-2 py-5 h-[100px] flex cursor-pointer rounded-lg" *ngFor="let usuario of usuariosChatting">
           <div class="w-[25%] justify-center flex items-center" (click)="privateChat(id, usuario._id!)">
             <img [src]="devolverLogo(usuario.logo)" class="rounded-full" alt="" srcset="" width="50px">
           </div>
@@ -31,7 +31,7 @@
 
 
           <!-- Main modal -->
-          <div id="select-modal" *ngIf="mostrarAmigos" tabindex="-1" aria-hidden="true" class=" overflow-y-auto overflow-x-hidden absolute self-center mt-32 z-50 w-[500px] flex flex-col justify-center items-center">
+          <div id="select-modal" *ngIf="mostrarAmigos" tabindex="-1" aria-hidden="true" class=" overflow-y-auto overflow-x-hidden absolute self-center mt-32 z-50 max-w-[500px] flex flex-col justify-center items-center">
             <div class="relative p-4 w-full max-w-md max-h-full">
                 <!-- Modal content -->
                 <div class="relative rounded-lg shadow bg-green-950">

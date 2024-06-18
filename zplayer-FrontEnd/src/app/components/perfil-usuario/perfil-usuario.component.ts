@@ -48,9 +48,10 @@ import { faMagnifyingGlass, faUser, faTrash, faArrowUp } from '@fortawesome/free
     this.loading = true;
     const userPosts = await this.restSvc.getUserPosts(this.userId,this.page, this.limit)
     if(userPosts.posts.length > 0){
-      this.posts.push(userPosts.posts)
+      this.posts.push(...userPosts.posts)
     }
     this.posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    console.log(this.posts)
     this.loading = false
 
   }
@@ -110,6 +111,7 @@ import { faMagnifyingGlass, faUser, faTrash, faArrowUp } from '@fortawesome/free
     return message.likes.includes(parseInt(this.userId));
    }
    devolverLogo(logo: string){
+    console.log(logo)
     return this.restSvc.getProfilePictureUrl(logo);
   }
 

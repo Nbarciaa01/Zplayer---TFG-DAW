@@ -48,7 +48,7 @@ export class ShooterComponent {
 
   async cargarPosts(){
     this.loading = true;
-    let comunityPost = await this.restSvc.getComunityPost("rpg",this.page, this.limit);
+    let comunityPost = await this.restSvc.getComunityPost("shooter",this.page, this.limit);
     this.posts.push(...comunityPost.posts);
     this.posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     this.loading = false;

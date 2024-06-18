@@ -7,3 +7,9 @@
 .button-menu:hover{
   background-color: #202020;
 }
+
+@media screen and (height > 600px) {
+.espacio{
+  margin-top: 100px
+}
+}

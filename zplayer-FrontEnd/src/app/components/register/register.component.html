@@ -17,7 +17,7 @@
 
 
   <div *ngIf="formRegister.get('contraseña')?.invalid && formRegister.get('contraseña')?.errors?.['required'] && formRegister.get('contraseña')?.touched" class="w-[70%]  mb-[-20px] text-start text-red-800 font-gaming-bold">Contraseña es requerido</div>
-  <div *ngIf="formRegister.get('contraseña')?.invalid && formRegister.get('contraseña')?.touched && errorPasswords" class="w-[70%]  mb-[-20px] text-start text-red-800 font-gaming-bold">Las contraseñas no coinciden</div>
+  <div *ngIf="errorPasswords" class="w-[70%]  mb-[-20px] text-start text-red-800 font-gaming-bold">Las contraseñas no coinciden</div>
   <div *ngIf="formRegister.get('contraseña')?.invalid && formRegister.get('contraseña')?.errors?.['minlength'] && formRegister.get('contraseña')?.touched" class="w-[70%]  mb-[-20px] text-start text-red-800 font-gaming-bold">Contraseña debe tener al menos 7 caracteres</div>
   <input type="password" formControlName="contraseña" class="border-black border-[1px] p-2 rounded w-[70%] my-4 font-gaming-bold" placeholder="Contraseña *">
 

@@ -4,6 +4,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { RestService } from '../../services/rest.service';
 import { LocalService } from '../../services/local.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -38,7 +39,7 @@ export class RegisterComponent {
   public contraseñaConfirm = "";
   public comunidades = [];
 
-  constructor(private route:Router, private restSvc: RestService, private localSvc: LocalService) {
+  constructor(private route:Router, private restSvc: RestService, private localSvc: LocalService,private notis:ToastrService ) {
     this.formRegister=new FormGroup(
       {
         realname:new FormControl('',[ Validators.required]),
@@ -66,6 +67,7 @@ export class RegisterComponent {
             this.formRegister.controls['comunidades'].value)
 
           if(respuesta){
+            this.notis.success('Usuario creado con éxito', 'Crear Usuario',{positionClass:"toast-bottom-right",toastClass:"ngx-toastr bg-[#166534]"});
             this.route.navigate(["/login"])
           }
         }

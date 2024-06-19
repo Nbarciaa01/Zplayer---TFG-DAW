@@ -105,7 +105,7 @@ export class SurvivalComponent implements OnInit {
   async nuevoMensaje(){
 
     if(this.contenido !== ""){
-      let mensajeRespuesta = await this.restSvc.newPost(this.id,this.contenido,"survival")
+      let mensajeRespuesta = await this.restSvc.newPost(this.id,this.contenido,"survivals")
 
       if(mensajeRespuesta.codigo === 0){
 

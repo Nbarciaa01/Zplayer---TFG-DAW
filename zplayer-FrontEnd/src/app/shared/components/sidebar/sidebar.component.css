@@ -8,7 +8,7 @@
   background-color: #202020;
 }
 
-@media screen and (height > 600px) {
+@media screen and (height > 650px) {
 .espacio{
   margin-top: 100px
 }

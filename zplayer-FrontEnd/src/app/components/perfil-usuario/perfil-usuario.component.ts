@@ -102,14 +102,18 @@ import { faMagnifyingGlass, faUser, faTrash, faArrowUp } from '@fortawesome/free
     let mensajeRespuesta = await this.restSvc.darLike(this.userId,messageID)
 
     if(mensajeRespuesta.codigo === 200 || mensajeRespuesta.codigo === 201){
+      this.page = 1;
+      this.posts = [];
       await this.cargarPosts()
     }
    }
 
 
    mensajeGustado(message: Post): boolean{
+    console.log(message.likes)
     return message.likes.includes(parseInt(this.userId));
    }
+
    devolverLogo(logo: string){
     console.log(logo)
     return this.restSvc.getProfilePictureUrl(logo);
